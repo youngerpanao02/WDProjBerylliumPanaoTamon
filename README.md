@@ -1,104 +1,151 @@
 # WDProjA1SmithJohnson
 
 ## Website Title
-### **Shakespeare's Quill**
-This title is short, catchy, and encapsulates the website's focus on William Shakespeare, evoking his writing legacy and creativity.  
-It will appear on the browser tab for easy identification.
+### **Shakespeare’s Quill**
+A concise, memorable title that reflects the site’s devotion to **William Shakespeare’s creative legacy**.  
+It will appear on the browser tab and serve as the consistent header title across all pages.
 
 ---
 
 ## Secondary Title
-### *Unlock the Bard's World: Explore Timeless Tales and Wisdom*
-This secondary title emphasizes the website's importance by highlighting Shakespeare's enduring influence on literature, culture, and human understanding — positioning it as an essential resource for education and inspiration.
+### *Unlock the Bard’s World: Explore Timeless Tales and Wisdom*
+A captivating tagline inviting visitors to rediscover Shakespeare’s timeless genius and his lasting influence on literature, art, and culture.
 
 ---
 
 ## Logo Design
-The logo features a **stylized quill pen crossed with a theatrical mask**, with the initials **“WS”** engraved in elegant script below.  
+The logo features a **stylized quill pen** resting diagonally across a soft circular background, symbolizing Shakespeare’s dual nature as poet and playwright.  
+Beneath the quill are the elegant initials **“WS”**, written in **Playfair Display** for a classic yet readable touch.
 
-**Color Scheme:**
-- Deep burgundy `#800020` for the quill and mask  
-- Gold accents for the initials  
+**Color Palette:**
+- **Beige (#F5F5DC):** Background and parchment-inspired textures  
+- **Navy Blue (#003366):** Header, navigation text, and logo outlines  
+- **Forest Green (#228B22):** Section dividers, hover states, and highlights  
+- **Muted Orange (#FF8C00):** Button accents, icons, and call-to-action highlights  
 
-These colors symbolize **drama, poetry, and heritage**, representing Shakespeare’s dual roles as playwright and poet.
+This palette combines the warmth of vintage parchment with vibrant contrast for readability and visual charm.
 
-**Usage:**
-- Favicon: 32x32 pixel PNG version (browser tab)
-- Header element: Displayed on every page for brand consistency
+**Logo Usage:**
+- **Favicon (32×32 PNG)** displayed on the browser tab  
+- **Header logo** featured consistently on all website pages for brand unity  
 
 ---
 
 ## Website Description
-Welcome to **Shakespeare’s Quill**, your comprehensive online portal dedicated to the **life, works, and legacy of William Shakespeare**.
+**Shakespeare’s Quill** is a modern educational website dedicated to exploring the **life, works, and legacy** of William Shakespeare.  
+It combines **interactive design**, **academic insight**, and **literary appreciation** to engage students, scholars, and enthusiasts alike.
 
-Whether you're a **student, scholar, or enthusiast**, our site delves into:
-- The Bard’s timeless plays, sonnets, and historical context  
-- Insights into **Elizabethan England** and the **human condition**
+Visitors can:
+- Learn about Shakespeare’s biography and cultural background  
+- Explore his plays and sonnets organized by theme or genre  
+- Read and share famous quotes  
+- Browse visual galleries and curated educational resources  
 
-Discover curated content that brings Shakespeare’s genius to life through **interactive elements and rich media**.
-
-**Purpose:**  
-To serve as an educational hub inspiring curiosity and deepening appreciation for one of history’s greatest writers.  
-
-**Themes explored:**  
-Love, Power, Tragedy — and how they continue to resonate today.
+The website’s design evokes **classical beauty blended with modern accessibility**, inspired by Elizabethan art and theater aesthetics.
 
 ---
 
 ## Website Outline
 
-The website will consist of the following **six pages**, each with a clear subtitle and purpose.  
-The structure mirrors a **multi-page biography-style site** with a navigation bar, content sections, and footer.
+The site follows a **multi-section layout** similar to the reference project (https://takuhaya123.github.io/Project_MgMananghaya/index.html), featuring a horizontal navbar, card-based sections, and a responsive footer.
 
 ### 1. Home
-- Landing page with a **hero banner** featuring a Shakespeare quote  
-- Overview of the site and quick links to other sections  
-- Includes a **welcome message**, featured images, and a **call-to-action** to explore works  
+**Purpose:** Introduce visitors to the site and its purpose.  
+- Full-width **hero banner** with a Shakespeare quote (*“All the world’s a stage…”*)  
+- Brief overview and mission statement  
+- Interactive cards linking to other pages (Biography, Works, Quotes)  
+- “Explore Now” button in orange accent  
+
+---
 
 ### 2. Biography
-- Detailed page on Shakespeare’s **life and legacy**  
-- Includes a **timeline of key events**, family background, and historical context  
-- Features **images of Stratford-upon-Avon** and interactive elements  
+**Purpose:** Present Shakespeare’s life, career, and legacy in an engaging timeline.  
+- **Interactive timeline** (powered by JavaScript)  
+- **Sections:** Early Life, London Years, Later Works, and Legacy  
+- Image cards featuring Stratford-upon-Avon and the Globe Theatre  
+
+---
 
 ### 3. Works
-- Catalog of Shakespeare’s **plays and sonnets**  
-- Includes **summaries, themes**, and **links to full texts or analyses**  
-- Filter options for genres: *Tragedies, Comedies, Histories*  
+**Purpose:** Explore Shakespeare’s plays and sonnets by genre.  
+- Categorized tabs: *Tragedies*, *Comedies*, *Histories*, *Poems*  
+- Hover-over summaries and links to full text or short analyses  
+- Filter and search functionality for easier navigation  
+
+---
 
 ### 4. Quotes
-- Collection of **famous quotes**, organized by **play or theme**  
-- Search and share options  
-- Includes **audio pronunciations** for selected quotes  
+**Purpose:** Showcase Shakespeare’s timeless words.  
+- Search bar and **random quote generator** (JavaScript)  
+- Option to filter by play or theme  
+- Quotes appear in animated cards with subtle fade-in effects  
+
+---
 
 ### 5. Gallery
-- Image gallery showcasing **portraits, play posters, and historical artifacts**  
-- Features **captions and lightbox viewer** for enlarged images  
+**Purpose:** Provide visual engagement through images and artworks.  
+- Grid of **portraits, theater posters, and Elizabethan artifacts**  
+- Lightbox view for enlarged images  
+- Descriptive captions for educational context  
+
+---
 
 ### 6. Resources
-- Additional tools such as **study guides, quizzes, and external links**  
-- Includes a **contact form** for user inquiries  
+**Purpose:** Offer study materials and user interaction.  
+- **Study guides, trivia quizzes, and educational links**  
+- Contact form for user inquiries and feedback  
+- Downloadable PDF resources (e.g., “Understanding Shakespearean English”)  
+
+---
+
+## Loading Page Design
+
+To ensure a polished user experience, a **loading page** appears before the site fully loads, especially for slow internet connections.
+
+### Visual Style
+Inspired by **Elizabethan manuscript borders**, the loading screen uses a parchment background framed by **blue, green, and orange floral designs** (based on the reference border image).  
+
+Centered on the screen:
+🖋️ Shakespeare’s Quill
+“Loading timeless tales…”
+
+yaml
+Copy code
+
+Typography: *Playfair Display*, navy blue (#003366)  
+Animation:  
+- The border fades in gently.  
+- A small **quill icon** performs a subtle writing or rotation animation.  
+- Once loading is complete, the border fades out to reveal the Home page.
+
+---
+
+### Hidden “Ophelia” Reference
+A subtle nod to **Taylor Swift’s album _The Life of a Showgirl_**, referencing her song *“The Fate of Ophelia.”*  
+During the loading screen, faint text briefly appears in cursive at the bottom corner:
+
+> *“The fate of Ophelia whispers in the wings.”*
+
+This Easter egg fits naturally within the Shakespearean theme — honoring *Hamlet’s* tragic Ophelia while bridging classical and contemporary artistry.
+
+---
+
+### Implementation
+- File: `loading.html`
+- Styles: `loading.css`
+- Script: Included in `scripts.js`  
+  - Uses `window.onload` event to fade out the loader once resources finish loading.  
+- Border PNG and quill icon stored in `images/`.
 
 ---
 
 ## JavaScript Incorporation
+JavaScript enhances the site’s **functionality** and **interactivity**.
 
-JavaScript will enhance **interactivity** and **user engagement** on key pages.
+**Key Features:**
+- **Biography Page:** Interactive timeline pop-ups with event descriptions and links to related works  
+- **Quotes Page:** Dynamic search and random quote generator with fade-in animation  
+- **Loading Page:** Smooth fade transition between splash screen and Home page  
 
-### On the Biography Page:
-- Custom script for an **interactive timeline widget**
-- Users can **click dates/events** to reveal **pop-ups** with details, images, and links  
-
-### On the Quotes Page:
-- **Dynamic search function** and **random quote generator**
-- Real-time updates with **fade-in animations**
-
-All scripts will be stored in a **local `scripts.js` file** and linked within `<script>` tags for maintainability.
-
----
-
-## Initial Wireframe / Mock-up
-
-Below is a **text-based wireframe representation** for each page.  
-It mirrors a clean, biography-focused layout with a **top navigation bar**, **main content area**, and **footer**.
-
-### General Layout
+All JavaScript functions are stored in a single local file:  
+📄 `js/scripts.js`
