@@ -109,8 +109,6 @@ Centered on the screen:
 🖋️ Shakespeare’s Quill
 “Loading timeless tales…”
 
-yaml
-Copy code
 
 Typography: *Playfair Display*, navy blue (#003366)  
 Animation:  
