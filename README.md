@@ -86,7 +86,7 @@ The site follows a **multi-section layout** similar to the reference project (ht
 **Purpose:** Provide visual engagement through images and artworks.  
 - Grid of **portraits, theater posters, and Elizabethan artifacts**  
 - Lightbox view for enlarged images  
-- Descriptive captions for educational context  
+- Descriptive captions for educational context and information  
 
 ---
 
