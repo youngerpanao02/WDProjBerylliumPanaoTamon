@@ -1,6 +1,69 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <h1> Shakespeare's Quill</h1>
-    </head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Loading timeless tales...</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Georgia", serif;
+        background: #ebe8e1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .container {
+        animation: fadeIn 1.5s ease forwards;
+        opacity: 0;
+    }
+
+    .logo img {
+        width: 250px;   /* adjust size here if needed */
+        margin-bottom: 1px;
+        opacity: 0;
+        animation: fadeIn 1.5s ease forwards 0.3s;
+    }
+
+    .loading-text {
+        font-size: 2rem;
+        color: #0d2f5b;
+        font-weight: bold;
+        opacity: 0;
+        animation: fadeIn 1.5s ease forwards 0.6s;
+    }
+
+    .dots::after {
+        content: "";
+        animation: dots 1.2s infinite;
+    }
+
+    @keyframes dots {
+        0% { content: ""; }
+        33% { content: "."; }
+        66% { content: ".."; }
+        100% { content: "..."; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+<div class="logo">
+    <img src="images/logo.png" alt="Shakespeare’s Quill Logo">
+</div>
+
+        <p class="loading-text">Loading timeless tales<span class="dots"></span></p>
+    </div>
+</body>
 </html>
