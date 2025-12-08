@@ -116,3 +116,190 @@ footer {
   padding: 22px;
   font-size: 14px;
 }
+/* ===============================
+   HOME PAGE STYLES
+================================ */
+
+/* CINEMATIC HERO */
+.home-hero {
+  height: 90vh;
+  background: 
+    linear-gradient(rgba(10, 15, 25, 0.7), rgba(10, 15, 25, 0.7)),
+    url("images/background.png") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+.hero-overlay h1 {
+  font-size: 72px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.hero-overlay p {
+  font-size: 22px;
+  margin-bottom: 35px;
+  color: #e0e0e0;
+}
+
+.hero-btn {
+  background-color: #a89a5a;
+  color: #152238;
+  padding: 14px 34px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.hero-btn:hover {
+  background-color: #c7b86c;
+}
+
+/* INTRO SECTION */
+.home-intro {
+  background-color: #ebe8e2;
+  padding: 90px 12%;
+  text-align: center;
+}
+
+.home-intro h2 {
+  font-size: 38px;
+  margin-bottom: 24px;
+}
+
+.home-intro p {
+  font-size: 19px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* TIMELINE */
+.home-timeline {
+  background-color: #152238;
+  padding: 100px 10%;
+  text-align: center;
+  color: white;
+}
+
+.home-timeline h2 {
+  font-size: 36px;
+  margin-bottom: 60px;
+}
+
+.timeline-line {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 40px;
+}
+
+.timeline-line::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #a89a5a;
+  z-index: 1;
+}
+
+.timeline-point {
+  position: relative;
+  background-color: #1d2f4a;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 30%;
+  z-index: 2;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.3s;
+}
+
+.timeline-point:hover {
+  transform: translateY(-10px);
+  background-color: #243c66;
+}
+
+.timeline-point span {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.video-hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* VIDEO */
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+}
+
+/* DARK OVERLAY PARA BASA TEXT */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* TEXT */
+.hero-content {
+  color: white;
+  max-width: 750px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+/* BUTTON */
+.hero-btn {
+  background: #bfa760;
+  color: #152238;
+  padding: 14px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #d8c37f;
+}

@@ -1,61 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- <style>
-    .logo img {
-        width: 250px;  
-        margin-bottom: 1px; 
-        opacity: 0;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Georgia", serif;
-        background: #ebe8e1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-    }
-</style>
--->
-        <div class="logo">
-            <img src="images/logo.png" alt="Shakespeare’s Quill logo">
-        </div>
 <head>
-    <h2> All the world's a stage </h2>
+  <meta charset="UTF-8">
+  <title>Shakespeare’s Quill | Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 <body>
-        <h3> Overview </h3>
-<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-<div>
-<h3> Mission </h3>
-<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-</div>
-<section>
-    <h2> Biography </h2>
-    <div></div>
-    <p> Short explanation blah blah blah </p>
-</section>
-<section>
-    <h2> Works </h2>
-    <p> Short explanation blah blah blah </p>
-</section>
-<section>
-    <h2> Quotes </h2>
-    <div></div>
-    <p> Short explanation blah blah blah </p>
-</section>
-<section>
-    <h2> Gallery </h2>
-    <div></div>
-    <p> Short explanation blah blah blah </p>
-</section>
-<section>
-    <h2> Resources </h2>
-    <div></div>
-    <p> Short explanation blah blah blah </p>
-</section>
-</body>
 
+  <!-- HEADER (SAME AS BIOGRAPHY) -->
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="Shakespeare’s Quill Logo">
+    </div>
+
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="biography.html">Biography</a>
+      <a href="works.html">Works</a>
+      <a href="quotes.html">Quotes</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="resources.html">Resources</a>
+    </nav>
+  </header>
+
+<section class="video-hero">
+
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="images/background.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>William Shakespeare</h1>
+    <p>The timeless voice of love, tragedy, power, and humanity.</p>
+    <a href="works.html" class="hero-btn">Enter His World</a>
+  </div>
+
+</section>
+
+  <!-- INTRO SECTION -->
+  <section class="home-intro">
+    <h2>The Greatest Playwright in History</h2>
+    <p>
+      William Shakespeare shaped literature with stories of love and loss, ambition and betrayal, kings and fools. 
+      His words have survived centuries, echoing through theatres, classrooms, films, and culture worldwide.
+    </p>
+  </section>
+
+  <!-- WORKS TIMELINE -->
+  <section class="home-timeline">
+    <h2>The Evolution of His Masterpieces</h2>
+
+    <div class="timeline-line">
+
+      <a href="works.html#early" class="timeline-point">
+        <span>1590s</span>
+        <p>Early Comedies & Histories</p>
+      </a>
+
+      <a href="works.html#tragedy" class="timeline-point">
+        <span>1600–1606</span>
+        <p>Great Tragedies</p>
+      </a>
+
+      <a href="works.html#romance" class="timeline-point">
+        <span>1608–1613</span>
+        <p>Late Romances</p>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+  </footer>
+
+</body>
 </html>

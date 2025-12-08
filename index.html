@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Loading timeless tales...</title>
+<title>Loading timeless tales...</title>
 
 <style>
     body {
@@ -16,6 +16,14 @@
         align-items: center;
         height: 100vh;
         text-align: center;
+        overflow: hidden;
+
+        opacity: 1;
+        transition: opacity 1.5s ease-in-out;
+    }
+
+    body.fade-out {
+        opacity: 0;
     }
 
     .container {
@@ -24,8 +32,8 @@
     }
 
     .logo img {
-        width: 250px;   /* adjust size here if needed */
-        margin-bottom: 1px; /* do not change this */
+        width: 250px;
+        margin-bottom: 5px;
         opacity: 0;
         animation: fadeIn 1.5s ease forwards 0.3s;
     }
@@ -58,12 +66,26 @@
 </head>
 
 <body>
-    <div class="container">
-<div class="logo">
-    <img src="images/logo.png" alt="Shakespeare’s Quill Logo">
-</div>
 
-        <p class="loading-text">Loading timeless tales<span class="dots"></span></p>
+    <div class="container">
+        <div class="logo">
+            <img src="images/mainlogo.png" alt="Shakespeare’s Quill Logo">
+        </div>
+
+        <p class="loading-text">
+            Loading timeless tales<span class="dots"></span>
+        </p>
     </div>
+
+    <script>
+        setTimeout(() => {
+            document.body.classList.add("fade-out");
+        }, 4000);
+
+        setTimeout(() => {
+            window.location.href = "home.html";
+        }, 5600); 
+    </script>
+
 </body>
 </html>
