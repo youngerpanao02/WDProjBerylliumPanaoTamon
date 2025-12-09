@@ -116,6 +116,7 @@ footer {
   padding: 22px;
   font-size: 14px;
 }
+
 /* ===============================
    HOME PAGE STYLES
 ================================ */
@@ -362,5 +363,7 @@ footer {
     transform: scaleY(1);
     opacity: 1;
   }
+
+
 }
 
