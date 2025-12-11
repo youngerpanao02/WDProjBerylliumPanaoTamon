@@ -96,25 +96,87 @@ Here is a collection and summarization of some of his most famous works. From tr
         <h2>Henry V</h2>
        <img src="https://media.shakespeare.org.uk/images/Henry_V_SBT_Davies_HE5_2000_C15A-16.original.width-770.jpg" alt="Henry V">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="henryV">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>Richard III</h2>
        <img src="https://www.thoughtco.com/thmb/PJPv2qIRRTwkUuH_SncJMNae-Sg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/richard-iii-3300571-5af9ecb5ba617700363c575a.jpg" alt="Richard III">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="richardIII">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>Richard II</h2>
        <img src="https://media.shakespeare.org.uk/images/Richard-II-1903-Tree.width-770.png" alt="Richard II">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="richardII">Read More</button>
       </div>
 
 
     </div>
   </section>
 
+  <footer>
+    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+  </footer>
+
+  <div class="scroll-modal" id="scrollModal">
+    <div class="scroll-content">
+      <span class="close-btn" id="closeScroll">&times;</span>
+      <div id="scrollText"></div>
+    </div>
+  </div>
+
+<script>
+    const modal = document.getElementById("scrollModal");
+    const closeBtn = document.getElementById("closeScroll");
+    const scrollText = document.getElementById("scrollText");
+
+    const contentData = {
+      henryV: `
+      <h2>Henry V</h2>
+      </br>
+      "The ghost of the King of Denmark tells his son Hamlet to avenge his murder by killing the new king, Hamlet's uncle. Hamlet feigns madness, contemplates life and death, and seeks revenge. His uncle, fearing for his life, also devises plots to kill Hamlet. The play ends with a duel, during which the King, Queen, Hamlet's opponent and Hamlet himself are all killed. " ("Shakespeare Birthplace Trust", n.d.)
+      </br>
+      Study materials:
+      https://www.sparknotes.com/shakespeare/hamlet/summary/
+      `,
+
+
+      richardIII: `
+      <h2>Richard III</h2>
+      </br>
+      `,
+
+      richardII: `
+      <h2>Richard II</h2>
+      </br>
+      `
+    };
+
+
+
+    document.querySelectorAll(".more-info").forEach(button => {
+      button.addEventListener("click", () => {
+        const key = button.getAttribute("data-info");
+        scrollText.innerHTML = contentData[key];
+        modal.style.display = "flex";
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+<footer>
+  <p>"All the World's a stage..."</p>
+</footer>
+</body>
 </html>

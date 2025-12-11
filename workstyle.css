@@ -73,7 +73,7 @@ nav a:hover {
 }
 
 video {
-  position: fixed;
+  position: scroll;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -82,26 +82,26 @@ video {
 
 .tragedies {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 30% 30% 30%;
+  gap: 50px;
 }
 
 .comedies {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 30% 30% 30%;
+  gap: 50px;
 }
 
 .histories {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 30% 30% 30%;
+  gap: 50px;
 }
 
 .sonnets {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 30% 30% 30%;
+  gap: 50px;
 }
 
 .plays{
@@ -162,7 +162,7 @@ video {
 .play-card > img {
   border-radius: 8px;
   aspect-ratio: 4 / 3;
-  max-width: 50%; 
+  max-width: 85%; 
   height: auto;
   object-fit: cover;
   align-content: right;
@@ -403,7 +403,7 @@ section > p {
 .scroll-content {
   background: #f5f1e8;
   width: 60%;
-  max-width: 600px;
+  max-width: 675px;
   padding: 40px;
   border-radius: 20px;
   position: relative;

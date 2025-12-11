@@ -96,45 +96,124 @@ Here is a collection and summarization of some of his most famous works. From tr
         <h2>A Midsummer Night's Dream</h2>
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGZQAaOlbuWj4k_RGoBdib5xsaXqxI9BmvyA&s" alt="A Midsummer Night's Dream">
       </br>
-        <button class="more-info" data-info="early">Read More</button>
+        <button class="more-info" data-info="amnd">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>The Merchant of Venice</h2>
         <img src="https://th-thumbnailer.cdn-si-edu.com/PGHM9NEiHzP8EKxHlO4MeBrseq8=/1026x684/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/78/46/78468e8e-a7f2-4823-9608-97546dcf2168/sf37426.jpg" alt="The Merchant of Venice">
       </br>
-        <button class="more-info" data-info="london">Read More</button>
+        <button class="more-info" data-info="tmov">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>Twelfth Night</h2>
        <img src="https://media.shakespeare.org.uk/images/Twelfth_Night_sbt-cocks-twe-1974-a13a.original.width-770.jpg" alt="Twelfth Night">
       </br>
-        <button class="more-info" data-info="later">Read More</button>
+        <button class="more-info" data-info="twelfthNight">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>Much Ado About Nothing</h2>
         <img src="https://media.shakespeare.org.uk/images/Much_Ado_About_Nothing_SBT_Davies_MUC_2002_A27.width-770.jpg" alt="Much Ado About Nothing">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="maan">Read More</button>
       </div>
 
         <div class="play-card">
         <h2>As You Like It</h2>
         <img src="https://cdn.britannica.com/90/5990-050-B57C54EF/Touchstone-Audrey-characters-engraving-Shakespeare-painting-As.jpg?w=300" alt="As You Like It">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="ayli">Read More</button>
       </div>
 
       <div class="play-card">
         <h2>The Winter's Tale</h2>
         <img src="https://media.shakespeare.org.uk/images/DSC02890julius_caesar1881.width-770.jpg" alt="Julius Caesar">
       </br>
-        <button class="more-info" data-info="legacy">Read More</button>
+        <button class="more-info" data-info="twt">Read More</button>
       </div>
       
     </div>
   </section>
 
+  <footer>
+    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+  </footer>
+<footer>
+    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+  </footer>
+
+  <div class="scroll-modal" id="scrollModal">
+    <div class="scroll-content">
+      <span class="close-btn" id="closeScroll">&times;</span>
+      <div id="scrollText"></div>
+    </div>
+  </div>
+<script>
+    const modal = document.getElementById("scrollModal");
+    const closeBtn = document.getElementById("closeScroll");
+    const scrollText = document.getElementById("scrollText");
+
+    const contentData = {
+      amnd: `
+      <h2>A Midsummer's Night Dream</h2>
+      </br>
+      "The ghost of the King of Denmark tells his son Hamlet to avenge his murder by killing the new king, Hamlet's uncle. Hamlet feigns madness, contemplates life and death, and seeks revenge. His uncle, fearing for his life, also devises plots to kill Hamlet. The play ends with a duel, during which the King, Queen, Hamlet's opponent and Hamlet himself are all killed. " ("Shakespeare Birthplace Trust", n.d.)
+      </br>
+      Study materials:
+      https://www.sparknotes.com/shakespeare/hamlet/summary/
+      `,
+
+
+      tmov: `
+      <h2>The Merchant of Venice</h2>
+      </br>
+      `,
+
+      twelfthNight: `
+      <h2>Twelfth Night</h2>
+      </br>
+      `,
+
+      maan: `
+      <h2>Much Ado About Nothing</h2>
+      </br>
+      `,
+
+      ayli: `
+      <h2>As You Like It</h2>
+      </br>
+      `,
+
+      twt: `
+      <h2>The Winter's Tale</h2>
+      </br>
+      `
+    };
+
+
+
+    document.querySelectorAll(".more-info").forEach(button => {
+      button.addEventListener("click", () => {
+        const key = button.getAttribute("data-info");
+        scrollText.innerHTML = contentData[key];
+        modal.style.display = "flex";
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+<footer>
+  <p>"All the World's a stage..."</p>
+</footer>
+</body>
 </html>
