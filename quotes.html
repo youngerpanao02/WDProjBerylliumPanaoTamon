@@ -1,75 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Shakespeare’s Quill | Biography</title>
-    <link rel="stylesheet" href="workstyle.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-    
-    <style>
-    button {
-        background-color: #a89a5a;
-        color: white; /* White text */
-        border: none; /* Remove default border */
-        padding: 10px 10px; /* Space inside button */
-        text-align: right;
-        font-size: 13px;
-        border-radius: 8px; /* Rounded corners */
-        cursor: pointer; /* Pointer on hover */
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    h1{
-        text-align: center;
-        font: Perpetua;
-        color: white;
-        font-size: 36px;
-        margin-top: 36px;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shakespeare’s Quill | Quotes</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    :root {
+      --parchment:#fbf6ec;
+      --parchment-edge:#e2d2b7;
+      --accent:#bfa760;
+      --text-dark:#152238;
+      --overlay: rgba(21,34,56,0.55);
+      --nav-bg:#152238;
     }
 
-    p{
-      font-size: 17px;
+    body {
+      font-family: 'Playfair Display', serif;
+      margin:0;
     }
-    
-    
 
-    
-</style>
-    
-    </style>
-    </head>
+    header {
+      background: var(--nav-bg);
+      padding: 20px 6%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: 0.2s ease;
+    }
+
+    nav a.active, nav a:hover {
+      background-color: #a89a5a;
+      color: var(--text-dark);
+    }
+
+    .quotes-hero {
+      position: relative;
+      min-height: 56vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 80px 6% 60px;
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .quotes-hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--overlay);
+      z-index: -1;
+    }
+
+    .big-quote {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.6);
+      transition: opacity .3s ease;
+    }
+
+    .quote-source {
+      font-size: 0.95rem;
+      color: #e6e6e6;
+      font-style: italic;
+      margin-bottom: 22px;
+    }
+
+    .controls {
+      display:flex;
+      gap:12px;
+      justify-content:center;
+    }
+
+    .btn-quote {
+      background: var(--accent);
+      color: var(--text-dark);
+      padding: 12px 26px;
+      border-radius: 26px;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .18s ease;
+    }
+
+    .btn-quote:hover { transform: translateY(-3px); }
+
+    .btn-light {
+      background:white;
+      color: var(--text-dark);
+    }
+
+    .typing {
+      display:inline-block;
+      border-right: 3px solid rgba(255,255,255,0.95);
+      padding-right: 4px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { border-color: transparent } }
+
+    .quote-grid-section {
+      background: var(--nav-bg);
+      padding: 60px 6% 100px;
+    }
+
+    .quotes-layout {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .intro-box {
+      color: white;
+    }
+
+    .intro-title {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .intro-box p {
+      line-height: 1.55;
+      margin-bottom: 18px;
+      color: #eaeaea;
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display:grid;
+      gap:30px;
+      grid-template-columns: repeat(3,1fr);
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--parchment) 0%, #fcf9f0 100%);
+      border:1px solid var(--parchment-edge);
+      border-radius:14px;
+      padding:26px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.18);
+      transition: .28s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow:0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .card .q {
+      font-size:1.05rem;
+      line-height:1.4;
+      color: var(--text-dark);
+      margin-bottom:16px;
+    }
+
+    .card .meta {
+      display:flex;
+      justify-content:space-between;
+      color:#5a5546;
+      font-size:0.9rem;
+    }
+
+    @media (max-width:1080px) {
+      .quotes-layout {
+        grid-template-columns: 1fr;
+      }
+      .grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+    }
+
+    @media (max-width:600px){
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      background: var(--nav-bg);
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+  </style>
+</head>
 
 <body>
-    <header>
-        <div class="logo">
-          <img src="images/logo.png" alt="Shakespeare’s Quill Logo">
-        </div>
-    
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="biography.html">Biography</a>
-          <a href="works.html" class="active">Works</a>
-          <a href="quotes.html">Quotes</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="resources.html">Resources</a>
-        </nav>
-      </header>
-    
-      <section class="hero">
-        <h2>William Shakespeare: The Bard of Avon</h2>
-        <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
-        <video autoplay muted loop playsinline class="bg-video">
-          <source src="images/background.mp4" type="video/mp4">
-        </video>
-      </section>
-    
-      
-    <h1>
-        Shakespeare's Works 
-    </h1>
-  </br>
-  <section class="overview">
-    <p style="margin: 5 px">Shakespeare has a vast collection of works, with up to 190 published writings in his lifetime. He has about 38 plays and 154 sonnets. Fun fact: Universities offer specialized programs for Shakespeare alone, studying his life, works, and analyzing each text! Almost, if not all, of his plays are translated into every major language here on Earth, showcasing his true global impact and legacy. 
- </p> </br>
- <p style="margin:5 px">
-Here is a collection and summarization of some of his most famous works. From tragedies to comedies to histories to sonnets, we provide a short summary/analysis of his texts as well as some additional resources you can use for more learning. 
-</p>
+
+<header>
+  <div class="logo">
+    <img src="images/logo.png" alt="Logo" style="height:50px;">
+  </div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="biography.html">Biography</a>
+    <a href="works.html">Works</a>
+    <a href="quotes.html" class="active">Quotes</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="resources.html">Resources</a>
+  </nav>
+</header>
+
+<section class="quotes-hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="images/background.mp4" type="video/mp4">
+  </video>
+
+  <div class="wrap">
+    <div id="bigQuote" class="big-quote">
+      <span id="typewriter" class="typing"></span>
+    </div>
+    <div id="quoteSource" class="quote-source"></div>
+    <div class="controls">
+      <button id="genBtn" class="btn-quote">Generate Quote</button>
+      <button id="copyBtn" class="btn-quote btn-light">Copy</button>
+    </div>
+  </div>
+</section>
+
+<section class="quote-grid-section">
+
+  <div class="quotes-layout">
+
+    <div class="intro-box">
+      <h2 class="intro-title">Shakespeare’s Timeless Words</h2>
+      <p>
+        Shakespeare’s writings endure because they reveal the complexity of human emotion. His characters question life, love, ambition, betrayal, identity, and destiny in ways that audiences still connect with today. Across his plays and sonnets, Shakespeare uses language so vivid and thoughtful that even short lines can feel like entire worlds.
+      </p>
+      <p>
+        These quotes highlight the essence of his voice—philosophical, romantic, sometimes humorous, sometimes tragic, but always profoundly human. By studying these lines, we explore how people from every era have felt, struggled, hoped, and dreamed. Every quote is a reminder that art can outlive its creator and continue shaping minds centuries later.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="q">“To be, or not to be — that is the question.”</div>
+        <div class="meta"><span>Hamlet</span><span>1603</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“All the world’s a stage, and all the men and women merely players.”</div>
+        <div class="meta"><span>As You Like It</span><span>1599</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“Love looks not with the eyes, but with the mind.”</div>
+        <div class="meta"><span>A Midsummer Night’s Dream</span><span>c.1595</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“The course of true love never did run smooth.”</div>
+        <div class="meta"><span>A Midsummer Night’s Dream</span><span>c.1595</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“Some are born great, some achieve greatness, and some have greatness thrust upon them.”</div>
+        <div class="meta"><span>Twelfth Night</span><span>1601</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“This above all: to thine own self be true.”</div>
+        <div class="meta"><span>Hamlet</span><span>1603</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“We are such stuff as dreams are made on.”</div>
+        <div class="meta"><span>The Tempest</span><span>1611</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“Now is the winter of our discontent.”</div>
+        <div class="meta"><span>Richard III</span><span>1593</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“There is nothing either good or bad, but thinking makes it so.”</div>
+        <div class="meta"><span>Hamlet</span><span>1603</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“Better three hours too soon than a minute too late.”</div>
+        <div class="meta"><span>The Merry Wives of Windsor</span><span>1602</span></div>
+      </div>
+
+      <div class="card">
+        <div class="q">“Be not afraid of greatness.”</div>
+        <div class="meta"><span>Twelfth Night</span><span>1601</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Shakespeare’s Quill — All rights reserved.
+</footer>
+
+<script>
+(function(){
+  const QUOTES = [
+    { text: "To be, or not to be—that is the question.", source: "Hamlet, 1603" },
+    { text: "All the world's a stage, and all the men and women merely players.", source: "As You Like It, 1599" },
+    { text: "The course of true love never did run smooth.", source: "A Midsummer Night's Dream, c.1595" },
+    { text: "If music be the food of love, play on.", source: "Twelfth Night, 1601" },
+    { text: "Love looks not with the eyes, but with the mind.", source: "A Midsummer Night's Dream, c.1595" },
+    { text: "We are such stuff as dreams are made on.", source: "The Tempest, 1611" },
+    { text: "Some are born great, some achieve greatness, and some have greatness thrust upon them.", source: "Twelfth Night, 1601" },
+    { text: "This above all: to thine own self be true.", source: "Hamlet, 1603" },
+    { text: "Now is the winter of our discontent.", source: "Richard III, 1593" },
+    { text: "Men at some time are masters of their fates.", source: "Julius Caesar, 1599" }
+  ];
+
+  const typeEl = document.getElementById("typewriter");
+  const srcEl = document.getElementById("quoteSource");
+  const copyBtn = document.getElementById("copyBtn");
+  const genBtn = document.getElementById("genBtn");
+  let lastIndex = -1;
+
+  function typeText(text, cb) {
+    const chars = [...text];
+    typeEl.textContent = "";
+    let i = 0;
+
+    const interval = setInterval(() => {
+      typeEl.textContent += chars[i] || "";
+      i++;
+      if (i === chars.length) {
+        clearInterval(interval);
+        if (cb) setTimeout(cb, 250);
+      }
+    }, 28);
+  }
+
+  function randomQuote() {
+    let idx;
+    do { idx = Math.floor(Math.random()*QUOTES.length); }
+    while (idx === lastIndex && QUOTES.length > 1);
+    lastIndex = idx;
+    return QUOTES[idx];
+  }
+
+  async function showRandom() {
+    const wrap = document.getElementById("bigQuote");
+    wrap.style.opacity = 0;
+    await new Promise(r=>setTimeout(r,220));
+
+    const q = randomQuote();
+    srcEl.textContent = "";
+    typeText(q.text);
+    srcEl.textContent = q.source;
+
+    wrap.style.opacity = 1;
+  }
+
+  genBtn.onclick = showRandom;
+
+  copyBtn.onclick = () => {
+    const full = typeEl.textContent + " — " + srcEl.textContent;
+    navigator.clipboard.writeText(full).then(()=>{
+      copyBtn.textContent="Copied!";
+      setTimeout(()=>copyBtn.textContent="Copy",1200);
+    });
+  };
+
+  window.addEventListener("DOMContentLoaded", showRandom);
+})();
+</script>
+
+</body>
+</html>

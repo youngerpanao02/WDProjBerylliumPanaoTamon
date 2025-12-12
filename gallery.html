@@ -1,75 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Shakespeare’s Quill | Biography</title>
-    <link rel="stylesheet" href="workstyle.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-    
-    <style>
-    button {
-        background-color: #a89a5a;
-        color: white; /* White text */
-        border: none; /* Remove default border */
-        padding: 10px 10px; /* Space inside button */
-        text-align: right;
-        font-size: 13px;
-        border-radius: 8px; /* Rounded corners */
-        cursor: pointer; /* Pointer on hover */
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    h1{
-        text-align: center;
-        font: Perpetua;
-        color: white;
-        font-size: 36px;
-        margin-top: 36px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery – Shakespeare</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      color: #ffffff;
+      background-color: #0f1625;
     }
 
-    p{
-      font-size: 17px;
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
     }
-    
-    
 
-    
-</style>
-    
-    </style>
-    </head>
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 25, 0.7);
+      z-index: -1;
+      backdrop-filter: blur(2px);
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      background-color: rgba(21, 34, 56, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: flex-end;
+      z-index: 100;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #a89a5a;
+      color: #152238;
+    }
+
+    .gallery-header {
+      text-align: center;
+      padding: 120px 20px 40px;
+    }
+
+    .gallery-header h1 {
+      font-size: 60px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .gallery-header p {
+      max-width: 650px;
+      margin: 18px auto;
+      font-size: 18px;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      width: 90%;
+      max-width: 1200px;
+      margin: 40px auto 120px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-7px) scale(1.05);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+      filter: brightness(1.15);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      padding: 40px 20px;
+    }
+
+    .modal-content {
+      background: #1b2336;
+      max-width: 700px;
+      width: 90%;
+      max-height: 90vh;
+      padding: 20px;
+      border-radius: 14px;
+      overflow-y: auto;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modal p {
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 35px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .close-btn:hover {
+      opacity: 0.6;
+    }
+  </style>
+</head>
 
 <body>
-    <header>
-        <div class="logo">
-          <img src="images/logo.png" alt="Shakespeare’s Quill Logo">
-        </div>
-    
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="biography.html">Biography</a>
-          <a href="works.html" class="active">Works</a>
-          <a href="quotes.html">Quotes</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="resources.html">Resources</a>
-        </nav>
-      </header>
-    
-      <section class="hero">
-        <h2>William Shakespeare: The Bard of Avon</h2>
-        <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
-        <video autoplay muted loop playsinline class="bg-video">
-          <source src="images/background.mp4" type="video/mp4">
-        </video>
-      </section>
-    
-      
-    <h1>
-        Shakespeare's Works 
-    </h1>
-  </br>
-  <section class="overview">
-    <p style="margin: 5 px">Shakespeare has a vast collection of works, with up to 190 published writings in his lifetime. He has about 38 plays and 154 sonnets. Fun fact: Universities offer specialized programs for Shakespeare alone, studying his life, works, and analyzing each text! Almost, if not all, of his plays are translated into every major language here on Earth, showcasing his true global impact and legacy. 
- </p> </br>
- <p style="margin:5 px">
-Here is a collection and summarization of some of his most famous works. From tragedies to comedies to histories to sonnets, we provide a short summary/analysis of his texts as well as some additional resources you can use for more learning. 
-</p>
+
+  <video class="video-background" autoplay muted loop>
+    <source src="yimages/background.mp4" type="video/mp4" />
+  </video>
+  <div class="overlay"></div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="works.html">Works</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="gallery.html" class="active">Gallery</a>
+  </nav>
+
+  <div class="gallery-header">
+    <h1>Gallery</h1>
+    <p>Step into the visual world inspired by Shakespeare — from theatrical imagery to modern reimaginings.</p>
+    <p>Each picture captures the soul of his plays: tragedy, romance, conflict, and beauty.</p>
+  </div>
+
+  <div class="gallery">
+
+    <div class="gallery-item" onclick="openModal('img1.jpg', 'A classic portrait inspired by Hamlet, symbolizing doubt and inner conflict.')">
+      <img src="images/img1.jpg" alt="">
+    </div>
+
+    <div class="gallery-item" onclick="openModal('img2.jpg', 'A reinterpretation of Romeo and Juliet’s balcony scene — intimacy and fate intertwined.')">
+      <img src="images/img2.jpg" alt="">
+    </div>
+
+    <div class="gallery-item" onclick="openModal('img3.jpg', 'A modern take on Macbeth, emphasizing ambition and moral corruption.')">
+      <img src="images/img3.jpg" alt="">
+    </div>
+
+    <div class="gallery-item" onclick="openModal('img4.jpg', 'Symbolism of the enchanted forest in A Midsummer Night’s Dream.')">
+      <img src="images/img4.jpg" alt="">
+    </div>
+
+    <div class="gallery-item" onclick="openModal('img5.jpg', 'An abstract representation of tragedy and destiny in King Lear.')">
+      <img src="images/img5.jpg" alt="">
+    </div>
+
+    <div class="gallery-item" onclick="openModal('img6.jpg', 'Themes of justice and mercy beautifully captured from The Merchant of Venice.')">
+      <img src="images/img6.jpg" alt="">
+    </div>
+
+  </div>
+
+  <div id="imageModal" class="modal">
+    <span class="close-bt
