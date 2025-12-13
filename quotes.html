@@ -5,46 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shakespeare’s Quill | Quotes</title>
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="workstyle.css" />
 
   <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Playfair Display', serif;
+  background-color: #ebe8e2;
+  color: #152238;
+  line-height: 1.6;
+}
+
+header {
+  background: linear-gradient(to right, #152238, #1d2f4a);
+  padding: 18px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 45px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+nav a.active,
+nav a:hover {
+  background-color: #a89a5a;
+  color: #152238;
+}
     :root {
       --parchment:#fbf6ec;
       --parchment-edge:#e2d2b7;
       --accent:#bfa760;
       --text-dark:#152238;
       --overlay: rgba(21,34,56,0.55);
-      --nav-bg:#152238;
+      --nav-bg:#1d2f4a;
+      
     }
-
-    body {
-      font-family: 'Playfair Display', serif;
-      margin:0;
-    }
-
-    header {
-      background: var(--nav-bg);
-      padding: 20px 6%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      margin-left: 25px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 8px;
-      transition: 0.2s ease;
-    }
-
-    nav a.active, nav a:hover {
-      background-color: #a89a5a;
-      color: var(--text-dark);
-    }
-
     .quotes-hero {
       position: relative;
       min-height: 56vh;

@@ -117,11 +117,6 @@ footer {
   font-size: 14px;
 }
 
-/* ===============================
-   HOME PAGE STYLES
-================================ */
-
-/* CINEMATIC HERO */
 .home-hero {
   height: 90vh;
   background: 
@@ -168,7 +163,7 @@ footer {
   background-color: #c7b86c;
 }
 
-/* INTRO SECTION */
+
 .home-intro {
   background-color: #ebe8e2;
   padding: 90px 12%;
@@ -186,7 +181,7 @@ footer {
   margin: auto;
 }
 
-/* TIMELINE */
+
 .home-timeline {
   background-color: #152238;
   padding: 100px 10%;
@@ -253,7 +248,7 @@ footer {
   text-align: center;
 }
 
-/* VIDEO */
+
 .bg-video {
   position: absolute;
   top: 50%;
@@ -265,7 +260,7 @@ footer {
   z-index: -2;
 }
 
-/* DARK OVERLAY PARA BASA TEXT */
+
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -273,7 +268,7 @@ footer {
   z-index: -1;
 }
 
-/* TEXT */
+
 .hero-content {
   color: white;
   max-width: 750px;
@@ -290,7 +285,7 @@ footer {
   margin-bottom: 25px;
 }
 
-/* BUTTON */
+
 .hero-btn {
   background: #bfa760;
   color: #152238;
@@ -305,7 +300,7 @@ footer {
   background: #d8c37f;
 }
 
-/* === SCROLL POPUP === */
+
 
 .scroll-modal {
   position: fixed;
