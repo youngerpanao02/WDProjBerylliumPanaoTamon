@@ -110,7 +110,7 @@ nav a:hover {
 }
 
 footer {
-  background-color: #152238;
+  background-color: #0e1625;
   color: white;
   text-align: center;
   padding: 22px;
@@ -166,6 +166,40 @@ footer {
   background-color: #ebe8e2;
   padding: 90px 12%;
   text-align: center;
+}
+
+.links {
+  background-color: #ebe8e2;
+  padding: 90px 12%;
+  text-align: center;
+}
+
+.links h2 {
+  margin-top: 20px;
+  font-size: 50px;
+}
+
+.links button {
+  gap: 40px;
+  background-color:#152238;
+  border-radius: 8px;
+  padding: 20px;
+  gap: 10px;
+  font-size: 20px;
+}
+
+.links a{
+  color: beige;
+  font-family: 'Playfair Display', Serif
+}
+
+.links a:hover{
+  color: rgb(70, 118, 184);
+  transform: translateY(-10px);
+}
+
+.links a:visited{
+  color: rgb(125, 110, 241);
 }
 
 .home-intro h2 {
@@ -233,6 +267,18 @@ footer {
   font-weight: bold;
   display: block;
   margin-bottom: 8px;
+}
+
+.sources {
+  background-color: #152238;
+  padding: 100px 10%;
+  text-align: left;
+  color: white;
+}
+
+.sources h2 {
+  font-size: 36px;
+  margin-bottom: 60px;
 }
 
 .video-hero {

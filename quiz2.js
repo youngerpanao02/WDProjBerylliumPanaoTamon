@@ -1,28 +1,28 @@
 const quizData = [
     {
-      question: "In the Merchant of Venice, what are the three caskets Portia has for her suitors?",
-      options: ["Gold, Silver, Bronze", "Wood, Stone, Gold", "Gold, Silver, Lead", "Silver, Bronze, Clay"],
-      answer: "Gold, Silver, Lead"
+      question: "Where was Shakespeare born?",
+      options: ["Paris", "Stratford-upon-Avon", "Venice", "New York"],
+      answer: "Stratford-upon-Avon"
     },
     {
-      question: "Where is the quote 'To be or not to be' from?",
-      options: ["Romeo and Juliet", "Hamlet", "King Lear", "Ophelia"],
-      answer: "Hamlet"
+      question: "What year was Shakespeare born?",
+      options: ["May 1564", "May 1563", "April 1564", "April 1563"],
+      answer: "April 1564"
     },
     {
-      question: "Which of the following is NOT a comedy?",
-      options: ["A Midsummer Night's Dream", "Othello", "As You Like It", "Much Ado About Nothing"],
-      answer: "Othello"
+      question: "When did Shakespeare die?",
+      options: ["1620", "1619", "1616", "1613"],
+      answer: "1616"
     },
     {
-      question: "What is Shakespeare's longest play?",
-      options: ["Hamlet", "Antony and Cleopatra", "Julius Caesar", "The Merchant of Venice"],
-      answer: "Paris"
+      question: "How many words did Shakespeare invent?",
+      options: ["83", "709", "420", "154"],
+      answer: "420"
     },
     {
-      question: "Which of the following is not wriiten by Shakespeare?",
-      options: ["Cymbeline", "King John", "Love's Labours Lost", "The White Devil"],
-      answer: "Paris"
+      question: "How many plays did Shakespeare write?",
+      options: ["39", "51", "67", "27"],
+      answer: "39"
     },
 
     document.getElementById("question").style.fontSize = "x-large"

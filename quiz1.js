@@ -17,15 +17,14 @@ const quizData = [
     {
       question: "What is Shakespeare's longest play?",
       options: ["Hamlet", "Antony and Cleopatra", "Julius Caesar", "The Merchant of Venice"],
-      answer: "Paris"
+      answer: "Hamlet"
     },
     {
       question: "Which of the following is not wriiten by Shakespeare?",
       options: ["Cymbeline", "King John", "Love's Labours Lost", "The White Devil"],
-      answer: "Paris"
+      answer: "The White Devil"
     },
 
-    document.getElementById("question").style.fontSize = "x-large"
     // Add more questions here...
   ];
   
