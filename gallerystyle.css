@@ -151,15 +151,6 @@ nav a:hover {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/*.gallery-item {
-  height: 260px;
-  overflow: hidden;
-  cursor: pointer;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  transition: transform 0.3s, box-shadow 0.3s;
-}*/
-
 .gallery-item:hover {
   transform: translateY(-6px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -243,6 +234,14 @@ nav a:hover {
   font-size: 32px;
   cursor: pointer;
   color: white;
+}
+
+footer {
+  background-color: #0e1625;
+  color: white;
+  text-align: center;
+  padding: 22px;
+  font-size: 14px;
 }
 
 

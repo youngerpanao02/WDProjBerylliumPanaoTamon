@@ -5,7 +5,7 @@ const quizData = [
       answer: "Stratford-upon-Avon"
     },
     {
-      question: "What year was Shakespeare born?",
+      question: "When was Shakespeare born?",
       options: ["May 1564", "May 1563", "April 1564", "April 1563"],
       answer: "April 1564"
     },
@@ -24,9 +24,6 @@ const quizData = [
       options: ["39", "51", "67", "27"],
       answer: "39"
     },
-
-    document.getElementById("question").style.fontSize = "x-large"
-    // Add more questions here...
   ];
   
   const questionElement = document.getElementById("question");

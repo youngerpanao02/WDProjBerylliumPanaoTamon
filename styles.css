@@ -349,6 +349,14 @@ footer {
   color: #333;
 }
 
+footer {
+  background-color: #0e1625;
+  color: white;
+  text-align: center;
+  padding: 22px;
+  font-size: 14px;
+}
+
 @keyframes scrollOpen {
   from {
     transform: scaleY(0);

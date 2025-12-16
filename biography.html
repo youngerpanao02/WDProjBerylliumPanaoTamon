@@ -17,6 +17,25 @@
       z-index: 999;
     }
 
+    body, html{
+      height: 100%;
+    }
+
+    body{
+    background-image: url('images/img4.jpg');
+    background-repeat: no-repeat;
+    height: 100%;
+    background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+  
+    }
+
+    body img{
+      aspect-ratio: 16 / 9;
+    position: scroll;
+    }
+
     .scroll-content {
       background: #f5f1e6;
       width: 80%;
@@ -64,8 +83,7 @@
   <section class="hero">
     <h2>William Shakespeare: The Bard of Avon</h2>
     <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
-    <video autoplay muted loop playsinline class="bg-video">
-      <source style ="background-attachment: scroll" src="images/background.mp4" type="video/mp4">
+      <!--<source style ="background-attachment: scroll" src="images/img4.jpg" type="image/jpg">-->
       
     </video>
   </section>
@@ -104,6 +122,8 @@
 
   <footer>
     <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+    <p>b2029byatamon@pshs.edu.ph</p>
+    <p>b2029ydpanao@pshs.edu.ph</p>
   </footer>
 
   <div class="scroll-modal" id="scrollModal">
@@ -164,8 +184,6 @@
       }
     });
   </script>
-<footer>
-  <p>"All the World's a stage..."</p>
-</footer>
+
 </body>
 </html>
