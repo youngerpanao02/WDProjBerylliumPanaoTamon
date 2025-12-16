@@ -20,12 +20,11 @@ const quizData = [
       answer: "Hamlet"
     },
     {
-      question: "Which of the following is not wriiten by Shakespeare?",
+      question: "Which of the following is not written by Shakespeare?",
       options: ["Cymbeline", "King John", "Love's Labours Lost", "The White Devil"],
       answer: "The White Devil"
     },
 
-    // Add more questions here...
   ];
   
   const questionElement = document.getElementById("question");

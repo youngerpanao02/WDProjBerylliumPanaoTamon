@@ -117,3 +117,11 @@ button:hover {
   background-color: #8f8d8d;
   transform: translateY(-10px);
 }
+
+footer {
+  background-color: #0e1625;
+  color: white;
+  text-align: center;
+  padding: 22px;
+  font-size: 14px;
+}
