@@ -147,3 +147,83 @@ JavaScript enhances the site’s **functionality** and **interactivity**.
 
 All JavaScript functions are stored in a single local file:  
 📄 `js/scripts.js`
+
+# Part 2 - Updated Project Proposal
+# User Data System: The Shakespeare’s Quill Society
+
+## Overview
+
+To meet the Web Development project requirements, the **Shakespeare’s Quill** website will incorporate an interactive **user data system** known as the **Shakespeare’s Quill Society**. This feature allows visitors to create a personalized Shakespeare profile and maintain a digital reading journal directly on the site. By leveraging **JavaScript LocalStorage**, the system stores data locally on the user's device, ensuring persistence across browser sessions. This transforms the website from a static information hub into a **student-centered literary platform**, fostering active engagement with Shakespeare’s works.
+
+## Purpose of the HTML Form
+
+The HTML form acts as the entry point for users to join the **Shakespeare’s Quill Society**. Upon submission, it creates a **Shakespeare Reader Profile**, personalizing the user's experience across the website.
+
+The form collects the following information:
+- User's name
+- Email address
+- Favorite Shakespeare play
+- Preferred genre (Tragedy, Comedy, History, Poetry)
+- A short personal reflection on why they enjoy Shakespeare
+
+This data is stored locally and used to generate tailored content on other site pages.
+
+## Proposed Data-Driven Web Pages
+
+Three new webpages will be integrated to support the user data system. These pages will seamlessly share and utilize the saved user data.
+
+### `signup.html` — Join the Shakespeare’s Quill Society
+
+This page hosts the primary **HTML form** for user registration, serving as the gateway to the website's interactive features.
+
+#### Design & Functionality
+- Styled as a **classical parchment** for thematic immersion.
+- Includes input fields for all required user details.
+- Features a prominent "Join" button in muted orange.
+
+Upon form submission, JavaScript saves the data to LocalStorage for retrieval by other pages.
+
+### `profile.html` — User Shakespeare Profile
+
+This page retrieves and displays the user's personalized **Shakespeare Reader Profile** based on data from `signup.html`.
+
+#### Purpose
+- Showcases a customized welcome message incorporating the user's name.
+- Highlights the user's favorite play, preferred genre, and personal reflection.
+- Demonstrates effective data retrieval and meaningful application, aligning with project requirements.
+
+### `journal.html` — Shakespeare Reader’s Journal
+
+This page enables users to create, save, and review entries in their personal digital journal.
+
+#### Purpose
+- Allows writing and saving reflections, reactions, or interpretations of Shakespeare’s works.
+- Supports multiple entries, stored locally for easy access.
+- Provides a persistent digital notebook, representing the second instance of data utilization across pages.
+
+## Data Storage System
+
+All user data is managed via **JavaScript LocalStorage**, ensuring secure, device-based storage without external dependencies.
+
+### Stored Data Elements
+- User profile details (name, email, favorite play, genre, reflection).
+- Journal entries (as an array of objects for multiple entries).
+
+Data is structured as JSON objects for efficient retrieval and display.
+
+
+Example Data Structure
+
+{
+  "name": "Younger",
+  "email": "youngerpanao@email.com",
+  "favoritePlay": "Hamlet",
+  "genre": "Tragedy",
+  "reason": "I enjoy Shakespeare’s emotional storytelling.",
+  "journalEntries": [
+    {
+      "date": "2023-10-01",
+      "entry": "Hamlet’s soliloquy resonates deeply with themes of existential doubt."
+    }
+  ]
+}
