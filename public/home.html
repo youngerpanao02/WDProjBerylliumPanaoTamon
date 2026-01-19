@@ -4,80 +4,108 @@
   <meta charset="UTF-8">
   <title>Shakespeare’s Quill | Home</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-<link rel="icon" type="image/x-icon" href="../assets/tab.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 </head>
 <body>
 
-  <header>
-    <div class="logo">
-      <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-    </div>
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
+  </div>
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="#biography">Biography</a>
+    <a href="works.html">Works</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="resources.html">Resources</a>
+  </nav>
+</header>
 
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="biography.html">Biography</a>
-      <a href="works.html">Works</a>
-      <a href="quotes.html">Quotes</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="resources.html">Resources</a>
-    </nav>
-  </header>
-
+<!-- HERO -->
 <section class="video-hero">
-
   <video autoplay muted loop playsinline class="bg-video">
     <source src="../assets/background.mp4" type="video/mp4">
   </video>
-
   <div class="hero-overlay"></div>
-
-  <div class="hero-content">
+  <div class="hero-content hero-left reveal">
     <h1>William Shakespeare</h1>
     <p>The timeless voice of love, tragedy, power, and humanity.</p>
-    <a href="biography.html" class="hero-btn">Enter His World</a>
+    <a href="#biography" class="hero-btn">Discover His Life</a>
   </div>
-
 </section>
 
-  <section class="home-intro">
-    <h2>The Greatest Playwright in History</h2>
-    <p>
-      William Shakespeare shaped literature with stories of love and loss, ambition and betrayal, kings and fools. 
-      His words have survived centuries, echoing through theatres, classrooms, films, and culture worldwide.
-    </p>
-  </section>
+<!-- INTRO -->
+<section class="home-intro reveal">
+  <h2>The Greatest Playwright in History</h2>
+  <p>
+    William Shakespeare shaped literature with stories of love and loss, ambition and betrayal,
+    kings and fools. His words have survived centuries, echoing through theatres, classrooms,
+    films, and culture worldwide.
+  </p>
+</section>
 
-  <section class="home-timeline">
-    <h2>The Evolution of His Masterpieces</h2>
-
-    <div class="timeline-line">
-
-      <a href="comedies.html" class="timeline-point">
-        <span>1590s</span>
-        <p>Early Comedies & Histories</p>
-      </a>
-
-      <a href="works.html" class="timeline-point">
-        <span>1600–1606</span>
-        <p>Great Tragedies</p>
-      </a>
-
-      <a href="works.html#romance" class="timeline-point">
-        <span>1608–1613</span>
-        <p>Late Romances</p>
-      </a>
-
+<!-- BIOGRAPHY -->
+<section id="biography" class="biography">
+  <h3 class="reveal">Shakespeare’s Life & Legacy</h3>
+  <div class="bio-grid">
+    <div class="bio-card reveal">
+      <div class="bio-content">
+        <h4>Early Life</h4>
+        <p>Born in Stratford-upon-Avon in 1564, Shakespeare grew up in a modest but influential family.</p>
+      </div>
+      <img src="../assets/earlylife.jpg" alt="Early Life" class="frame-img reveal">
     </div>
+    <div class="bio-card reveal reverse">
+      <div class="bio-content">
+        <h4>London Years</h4>
+        <p>In London, Shakespeare became a playwright and actor for the Lord Chamberlain’s Men.</p>
+      </div>
+      <img src="../assets/london.jpg" alt="London Years" class="frame-img reveal">
+    </div>
+    <div class="bio-card reveal">
+      <div class="bio-content">
+        <h4>Later Works</h4>
+        <p>His later plays explored ambition, madness, love, and betrayal with unmatched depth.</p>
+      </div>
+      <img src="../assets/laterworks.jpeg" alt="Later Works" class="frame-img reveal">
+    </div>
+    <div class="bio-card reveal reverse">
+      <div class="bio-content">
+        <h4>Legacy</h4>
+        <p>Shakespeare’s influence continues across literature, theater, film, and modern language.</p>
+      </div>
+      <img src="../assets/legacy.jpg" alt="Legacy" class="frame-img reveal">
+    </div>
+  </div>
+</section>
 
-  </section>
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+  <p>b2029byatamon@pshs.edu.ph | b2029ydpanao@pshs.edu.ph</p>
+</footer>
 
-  <footer>
-    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-    <p>b2029byatamon@pshs.edu.ph</p>
-    <p>b2029ydpanao@pshs.edu.ph</p>
-    <p>All refeerences are acknowledged at resources.</p>
-  </footer>
+<!-- SCROLL REVEAL SCRIPT -->
+<script>
+  const reveals = document.querySelectorAll(".reveal");
+
+  function revealOnScroll() {
+    reveals.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      const height = window.innerHeight;
+
+      if(top < height - 120){
+        el.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", revealOnScroll);
+  revealOnScroll();
+</script>
 
 </body>
 </html>
