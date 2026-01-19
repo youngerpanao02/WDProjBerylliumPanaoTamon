@@ -4,107 +4,217 @@
   <meta charset="UTF-8">
   <title>Shakespeare’s Quill | Home</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">
-    <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-  </div>
-  <nav>
-    <a href="#" class="active">Home</a>
-    <a href="#biography">Biography</a>
-    <a href="works.html">Works</a>
-    <a href="quotes.html">Quotes</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="resources.html">Resources</a>
-  </nav>
-</header>
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="../assets/music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="music-toggle">🔊 Music</button>
 
-<!-- HERO -->
+  <header>
+    <div class="logo">
+      <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
+    </div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="biography.html">Biography</a>
+      <a href="works.html">Works</a>
+      <a href="quotes.html">Quotes</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="resources.html">Resources</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
 <section class="video-hero">
   <video autoplay muted loop playsinline class="bg-video">
     <source src="../assets/background.mp4" type="video/mp4">
   </video>
+
   <div class="hero-overlay"></div>
-  <div class="hero-content hero-left reveal">
-    <h1>William Shakespeare</h1>
-    <p>The timeless voice of love, tragedy, power, and humanity.</p>
-    <a href="#biography" class="hero-btn">Discover His Life</a>
+
+  <div class="hero-content hero-split">
+
+    <!-- LEFT TEXT -->
+    <div class="hero-left">
+<h1 id="hero-title">William Shakespeare</h1>
+
+<p class="hero-tagline" id="hero-tagline">
+  The timeless voice of love,<br>
+  tragedy, power, and humanity.
+</p>
+      <a href="#biography" class="hero-btn">Discover His Life</a>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-right">
+      <img src="../assets/laterworks.png" alt="William Shakespeare Portrait" class="hero-img">
+    </div>
+
   </div>
 </section>
 
-<!-- INTRO -->
-<section class="home-intro reveal">
-  <h2>The Greatest Playwright in History</h2>
-  <p>
-    William Shakespeare shaped literature with stories of love and loss, ambition and betrayal,
-    kings and fools. His words have survived centuries, echoing through theatres, classrooms,
-    films, and culture worldwide.
-  </p>
-</section>
 
-<!-- BIOGRAPHY -->
-<section id="biography" class="biography">
-  <h3 class="reveal">Shakespeare’s Life & Legacy</h3>
-  <div class="bio-grid">
-    <div class="bio-card reveal">
-      <div class="bio-content">
-        <h4>Early Life</h4>
-        <p>Born in Stratford-upon-Avon in 1564, Shakespeare grew up in a modest but influential family.</p>
+  <!-- Introduction -->
+<section class="home-intro">
+  <h2 id="intro-title">The Greatest Playwright in History</h2>
+  <p id="intro-text">
+
+      William Shakespeare shaped literature with stories of love and loss, ambition and betrayal, kings and fools. 
+      His words have survived centuries, echoing through theatres, classrooms, films, and culture worldwide.
+    </p>
+  </section>
+
+  <!-- Biography -->
+  <section id="biography" class="biography">
+    <h2>Shakespeare’s Life & Legacy</h2>
+
+    <div class="bio-card left">
+      <img src="../assets/earlylife.png" alt="Early Life">
+      <div class="bio-text">
+        <h3>Early Life</h3>
+        <p>William Shakespeare was born in Stratford-upon-Avon in Warwickshire England, on or about April 23rd 1564. He was the 3rd of 8 children, his father was John Shakespeare, a prosperous Glove Maker, Leatherworker, and local government official, who held the title of Alderman, Law Keeper, and Bailiff. His mother Mary Arden was the daughter of a wealthy landowner. The family was in the middle class socio-economic group and the father held many positions of authority within the community. However, as an adult the father experienced many financial difficulties due to debts and legal issues. William had many siblings. He had two older sisters, Joan and Margaret, who both died at very young ages and several younger brothers (Gilbert, Richard, Edmund, and Anne).</p> <br/>
+        <p>It is likely that Shakespeare went to King's New School, which was established by Edward VI as a free grammar school in Stratford-upon-Avon, England in 1553. This school had an emphasis on studying the Latin classics, learning how to write well in Latin, and learning to read literature written by the Romans and Greeks.  Shakespeare did not go to a university when he got older; in fact, it is thought that around 14-15 years old, he left school to work for his family or pursue other opportunities outside of education. Shakespeare married Anne Hathaway in November 1582, when he was only 18 years old, and she came from a nearby village to Stratford.</p> <br/>
+        <p>They had their first child, Susanna, born in May 1583, followed by twins Hamnet and Judith in February 1585. Sadly, Hamnet passed away at the age of 11 in 1596, and this loss had a profound impact on Shakespeare's writing after that time period; for instance, Hamlet was written around 1600, and there are some indications within the play that reflect upon the tragedy that ultimately was brought upon Hamlet's father. At the time, Shakespeare most likely lived with his family in Stratford and may have worked either as a school teacher, as a clerk for a lawyer, or in the same trade as his father, who was a glove maker..</p> <br/>
+      `
       </div>
-      <img src="../assets/earlylife.png" alt="Early Life" class="frame-img reveal">
     </div>
-    <div class="bio-card reveal reverse">
-      <div class="bio-content">
-        <h4>London Years</h4>
-        <p>In London, Shakespeare became a playwright and actor for the Lord Chamberlain’s Men.</p>
+
+    <div class="bio-card right">
+      <img src="../assets/london.png" alt="London Years">
+      <div class="bio-text">
+        <h3>London Years</h3>
+
+        <p>Shakespeare likely moved to London in the late 1580s or early 1590s, possibly around 1587, though exact dates are uncertain. Theories suggest he fled Stratford to escape persecution for poaching deer on a local estate (a common crime), or he was drawn by London's booming theater scene. By 1592, he was established as an actor and playwright in the city. He joined the Lord Chamberlain's Men, an acting company patronized by Queen Elizabeth I, and became a key member. Early roles included acting in his own plays, and he began writing prolifically, producing works like the Henry VI trilogy (c. 1590-1592) and Richard III (c. 1592-1593), which drew on historical sources and appealed to audiences fascinated by England's past.</p> <br/>
+        <p>Shakespeare's London years coincided with the Elizabethan theater's golden age. He collaborated with actors like Richard Burbage and wrote for the company's success. By 1599, he co-founded the Globe Theatre on the south bank of the Thames, a wooden amphitheater that seated up to 3,000 spectators. It became a hub for his plays, including comedies like A Midsummer Night's Dream (c. 1595-1596) and The Merchant of Venice (c. 1596-1597), histories such as Henry V (c. 1599), and tragedies like Romeo and Juliet (c. 1595) and Julius Caesar (c. 1599). His works often premiered at the Globe or the indoor Blackfriars Theatre. Shakespeare also invested in real estate, buying properties like New Place in Stratford, and became a shareholder in the King's Men after James I ascended in 1603, renaming the company.
+</p>
       </div>
-      <img src="../assets/london.png" alt="London Years" class="frame-img reveal">
     </div>
-    <div class="bio-card reveal">
-      <div class="bio-content">
-        <h4>Later Works</h4>
-        <p>His later plays explored ambition, madness, love, and betrayal with unmatched depth.</p>
+
+    <div class="bio-card left">
+      <img src="../assets/laterworks.png" alt="Later Works">
+      <div class="bio-text">
+        <h3>Later Works</h3>
+        <p>Many of the plays he wrote have relatable character and storylines for people of today. He wrote as many as 39 plays, 154 sonnets, and a number of long poems. His plays have been classified into three major categories: comedies, histories, and tragedies. To illustrate the nature of those plays, we can consider some examples. In his tragedies, he tends to explore very serious themes, such as ambition, jealousy, and fate, via well-known examples such as Hamlet, Othello, Macbeth, and Romeo and Juliet. While his comedies are generally lighthearted and include themes that involve love, mistaken identities, and humor, his comedies include multiple examples, including A Midsummer Night’s Dream, Much Ado About Nothing, Twelfth Night, and As You Like It. </p> <br/>
+        <p>Similarly, Shakespeare also created several historical plays that dramatized the tragic lives of past kings and the political turmoil of the time; for example, Richard III, Henry V, and Henry IV (Parts 1 and 2). However, Shakespeare did not only create drama with his writing. He wrote 154 sonnets, which, even now, after almost 400 years, are still some of the most often-recited works of poetry in the world. His sonnets often discuss themes such as beauty, time, mortality, and love. Overall, Shakespeare's works, both past and present, are distinguished by their intensity of emotion, their memorable characters, and their profoundness of language, and they have shaped much of literature and entertainment in today’s world.. </p> <br/>
       </div>
-      <img src="../assets/laterworks.png" alt="Later Works" class="frame-img reveal">
     </div>
-    <div class="bio-card reveal reverse">
-      <div class="bio-content">
-        <h4>Legacy</h4>
-        <p>Shakespeare’s influence continues across literature, theater, film, and modern language.</p>
+
+    <div class="bio-card right">
+      <img src="../assets/legacy.png" alt="Legacy">
+      <div class="bio-text">
+        <h3>Legacy</h3>
+         <p> Shakespeare left an enormous legacy that continues to influence writing, drama, film, and everyday language 400 years later. He changed English literature by demonstrating how powerful and expressive the English language could be. He created or popularised over 1,000 words and expressions that we still use today, such as “break the ice,” “wild-goose chase,” and “heart of gold.” He demonstrated that characters could be complex and emotionally realistic, impacting the development of many writers, playwrights, and filmmakers. He created plot structures and character types that later became templates for contemporary forms of drama; these types of stories or ideas can be found in many films, television programmes, and novels. He introduced themes such as forbidden love in "Romeo and Juliet," ambition in "Macbeth," jealousy in "Othello," and identity in "Twelfth Night." Finally, many of Shakespeare's characters are portrayed as human beings who are flawed, confused, and capable of being understood and identified with—this has changed the way in which many fiction writers develop their story ideas. </p> <br/>
+        <p> The themes of ambition (in Macbeth), jealousy (in Othello), and identity (in Twelfth Night) can be found all over television, movies, and literature, but they are all expressed through Shakespeare's characters, who are relatable, humanistic, and realistic; they exemplify what is flawed, conflicted, and chaotic about humanity. The character development used by Shakespeare influenced and developed the way in which many writers create fiction. The Globe Theatre, associated with Shakespeare's company, represents world theatre in its entirety. Furthermore, students of literature all over the world have studied Shakespeare's plays not just because of their history, but because they still address many of the same questions, emotions, fears, loyalties, and the quest for meaning that we as humans continue to grapple with today. Shakespeare's legacy is the establishment of the framework for storytelling, the enrichment of the English language, and the provision of timeless inspiration to artists, thinkers, and the global audience for over 400 years since his passing. </p> <br/>
       </div>
-      <img src="../assets/legacy.png" alt="Legacy" class="frame-img reveal">
     </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-  <p>b2029byatamon@pshs.edu.ph | b2029ydpanao@pshs.edu.ph</p>
-</footer>
+  </section>
 
-<!-- SCROLL REVEAL SCRIPT -->
-<script>
-  const reveals = document.querySelectorAll(".reveal");
+  <footer>
+    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
+    <p>b2029byatamon@pshs.edu.ph</p>
+    <p>b2029ydpanao@pshs.edu.ph</p>
+    <p>All references are acknowledged at resources.</p>
+  </footer>
 
-  function revealOnScroll() {
-    reveals.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      const height = window.innerHeight;
-
-      if(top < height - 120){
-        el.classList.add("active");
+  <script>
+    // Scroll animation for biography
+    const bioCards = document.querySelectorAll('.bio-card');
+    window.addEventListener('scroll', () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      bioCards.forEach(card => {
+        const cardTop = card.getBoundingClientRect().top;
+        if(cardTop < triggerBottom) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }
+      });
+    });
+  </script>
+    <script>
+    // Music toggle
+    const music = document.getElementById("bg-music");
+    const toggle = document.getElementById("music-toggle");
+    toggle.addEventListener("click", () => {
+      if(music.paused){
+        music.play();
+        toggle.textContent = "🔊 Music On";
+      } else {
+        music.pause();
+        toggle.textContent = "🔇 Music Off";
       }
     });
+
+    // Scroll animations
+    const animated = document.querySelectorAll(".animate");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.classList.add("in-view");
+        }
+      });
+    }, {threshold: 0.2});
+
+    animated.forEach(el => observer.observe(el));
+  </script>
+
+<script>
+  function typeWriter(element, text, speed = 60, callback) {
+    let i = 0;
+    element.textContent = "";
+    element.classList.add("typewriter");
+
+    function typing() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(typing, speed);
+      } else {
+        element.classList.remove("typewriter");
+        if (callback) callback();
+      }
+    }
+    typing();
   }
 
-  window.addEventListener("scroll", revealOnScroll);
-  revealOnScroll();
+  window.addEventListener("load", () => {
+    const heroTitle = document.getElementById("hero-title");
+    const heroTagline = document.getElementById("hero-tagline");
+    const introTitle = document.getElementById("intro-title");
+    const introText = document.getElementById("intro-text");
+
+    const heroTitleText = "William Shakespeare";
+    const heroTaglineText = "The timeless voice of love, tragedy, power, and humanity.";
+    const introTitleText = "The Greatest Playwright in History";
+    const introTextFull = introText.textContent;
+
+    introText.textContent = "";
+
+    typeWriter(heroTitle, heroTitleText, 80, () => {
+      typeWriter(heroTagline, heroTaglineText, 35);
+    });
+
+    // Trigger second typewriter on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          typeWriter(introTitle, introTitleText, 70, () => {
+            typeWriter(introText, introTextFull, 18);
+          });
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(introTitle);
+  });
 </script>
 
 </body>
