@@ -1,80 +1,55 @@
-/* =========================
-   GLOBAL RESET & VARIABLES
-========================= */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root {
-  --bg-main: #ebe8e2;
-  --bg-dark: #152238;
-  --bg-dark-2: #1d2f4a;
-  --accent-gold: #bfa760;
-  --accent-gold-light: #d8c37f;
-  --text-main: #152238;
-  --text-light: #ffffff;
-}
-
 body {
   font-family: 'Playfair Display', serif;
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  background-color: #ebe8e2;
+  color: #152238;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* =========================
-   HEADER & NAVIGATION
-========================= */
-
+/* Header */
 header {
-  background: linear-gradient(to right, var(--bg-dark), var(--bg-dark-2));
+  background: linear-gradient(to right, #152238, #1d2f4a);
   padding: 18px 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 }
 
-.logo img {
-  height: 45px;
-}
+.logo img { height: 45px; }
 
 nav a {
-  color: var(--text-light);
+  color: #ffffff;
   text-decoration: none;
   margin-left: 25px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 8px 16px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
+  border-radius: 8px;
 }
 
 nav a.active,
 nav a:hover {
-  background-color: var(--accent-gold);
-  color: var(--bg-dark);
+  background-color: #a89a5a;
+  color: #152238;
 }
 
-/* =========================
-   HERO SECTION (LEFT-ALIGNED)
-========================= */
-
+/* Hero */
 .video-hero {
   position: relative;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  text-align: left;
-  padding-left: 10%;
-  overflow: hidden;
 }
 
 .bg-video {
@@ -91,154 +66,149 @@ nav a:hover {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0,0,0,0.65);
   z-index: -1;
 }
 
-.hero-content h1 {
-  font-size: clamp(3rem, 6vw, 5rem);
+.hero-content {
+  margin-left: 8%;
   color: white;
-  margin-bottom: 16px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.hero-img {
+  width: 300px; /* increase if needed */
+  border-radius: 10px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
 }
 
 .hero-content p {
-  font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
-  margin-bottom: 30px;
-  color: #f0f0f0;
 }
 
 .hero-btn {
-  background: var(--accent-gold);
-  color: var(--bg-dark);
-  padding: 14px 36px;
-  border-radius: 999px;
+  background: #bfa760;
+  color: #152238;
+  padding: 14px 28px;
+  border-radius: 30px;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
+  font-weight: bold;
+  width: fit-content;
 }
 
 .hero-btn:hover {
-  background: var(--accent-gold-light);
-  transform: translateY(-2px);
+  background: #d8c37f;
 }
 
-/* =========================
-   INTRO SECTION
-========================= */
-
+/* Introduction */
 .home-intro {
+  background-color: #ebe8e2;
+  padding: 70px 12%;
   text-align: center;
-  padding: 4rem 10%;
-  margin-bottom: 3rem;
 }
 
 .home-intro h2 {
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  margin-bottom: 24px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .home-intro p {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.05rem;
+  font-size: 18px;
   max-width: 900px;
   margin: auto;
-  opacity: 0.9;
-  line-height: 1.8;
 }
 
-/* =========================
-   BIOGRAPHY SECTION (ZIGZAG)
-========================= */
-
+/* Biography */
 .biography {
-  background: var(--bg-main);
-  color: var(--text-main);
-  padding: 6rem 10%;
+  padding: 80px 8%;
+  background: url('../assets/biogbg.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.biography h3 {
+.biography h2 {
   text-align: center;
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  margin-bottom: 60px;
+  font-size: 36px;
+  margin-bottom: 50px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
 
-/* BIO GRID */
-.bio-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 60px;
-}
-
+/* Bio cards */
 .bio-card {
   display: flex;
+  gap: 25px;
   align-items: center;
-  gap: 2rem;
-  background: #fbf6ec;
-  padding: 30px 25px;
-  border-radius: 18px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease, opacity 0.8s ease;
+  background: rgba(255,255,255,0.25);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 1200px;
+  margin: auto;
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(50px);
+  transition: all 1s ease;
 }
 
-.bio-card.reverse {
-  flex-direction: row-reverse;
+.bio-card.left { flex-direction: row; }
+.bio-card.right { flex-direction: row-reverse; }
+
+.bio-card img {
+  width: 250px;
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
-.bio-card .bio-content {
-  flex: 1;
+.bio-text {
+  color: white;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.bio-card h4 {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-}
-
-.bio-card p {
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* FRAMED IMAGES */
-.frame-img {
-  flex: 1;
-  max-width: 100%;
-  border: 8px solid #fbf6ec;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-  transition: all 0.6s ease;
-  opacity: 0;
-  transform: scale(0.95) translateY(50px);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
+/* Footer */
 footer {
   background-color: #0e1625;
   color: white;
   text-align: center;
-  padding: 26px;
+  padding: 22px;
   font-size: 14px;
-  font-family: "Montserrat", sans-serif;
+}
+/* Music button */
+#music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 999;
 }
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+#music-toggle:hover {
+  background: rgba(0,0,0,0.8);
+}
 
-.reveal {
+/* Scroll animations */
+.animate {
   opacity: 0;
-  transform: translateY(60px);
-  transition: all 0.9s ease;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
 }
 
-.reveal.active {
+.animate.in-view {
   opacity: 1;
   transform: translateY(0);
 }
