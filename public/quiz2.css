@@ -38,6 +38,7 @@ nav a:hover {
   width: 130vh;
   aspect-ratio: 16 / 7;
   justify-content: center;
+  transform: translateX(90px);
   align-items: center;
   text-align: center;
   margin: 30px;
@@ -88,12 +89,18 @@ h1 {
 
 #question {
   margin-bottom: 20px;
+  font-size: 20px;
+  color:#1d2f4a;
+  font-weight: bold;
 }
 
 #options {
   display: grid;
-  gap: 10px;
+  row-gap: 40px;
+  column-gap: 5px;
+  font-size: 80px;
   grid-template-columns: repeat(2, 1fr);
+  transform: translateY(30px);
 }
 
 #submit button {
@@ -102,10 +109,12 @@ h1 {
 
 button {
   display: block;
-  height: 75px;
+  height: 85px;
+  font-size: 25px;
+  font-weight: bold;
   width: 400px;
-  margin: 0 auto;
-  padding: 10px 20px;
+  margin: auto;
+  padding: 10px;
   background-color: #263e62;
   color: white;
   border: none;
@@ -114,6 +123,7 @@ button {
 }
 
 button:hover {
-  background-color: #8f8d8d;
+  background-color: #a89a5a;
   transform: translateY(-10px);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
