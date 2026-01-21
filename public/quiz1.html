@@ -1,19 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ShakeSpeare Play Quiz</title>
-  <link rel="stylesheet" type="text/css" href="quiz1.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Shakespeare Plays Quiz</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
+
+<style>
+/* --- RESET --- */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Cormorant Garamond', serif; background:#0d111c; color:#f3ead7; overflow-x:hidden; }
+
+/* --- AURORA & EMBERS --- */
+.aurora { position: fixed; inset:0; background:
+  radial-gradient(ellipse at 20% 30%, rgba(255,140,60,0.18), transparent 40%),
+  radial-gradient(ellipse at 80% 70%, rgba(255,110,40,0.15), transparent 45%);
+  animation: auroraMove 20s infinite alternate ease-in-out; z-index:-2; }
+@keyframes auroraMove { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
+
+.embers { position: fixed; inset:0; pointer-events:none; z-index:-1; }
+.ember { position: absolute; width:6px; height:6px; background:rgba(255,180,100,0.7); border-radius:50%; animation: emberRise linear infinite; }
+@keyframes emberRise { from { transform: translateY(100vh) scale(0.5); opacity:0; } to { transform: translateY(-50vh) scale(1); opacity:1; } }
+
+/* --- NAVBAR --- */
+header { display:flex; justify-content:space-between; align-items:center; padding:20px 60px;
+  position:sticky; top:0; background: rgba(18,24,38,0.9); backdrop-filter: blur(6px); z-index:20; }
+.logo { font-family:'Cinzel'; font-size:28px; letter-spacing:2px; color:#ffdf9e; }
+nav a { color:#f3ead7; margin-left:30px; text-decoration:none; position:relative; font-size:18px; }
+nav a::after { content:""; position:absolute; width:0; height:1px; background:#b89b5e; left:0; bottom:-4px; transition:0.3s; }
+nav a:hover::after, nav a.active::after { width:100%; }
+
+/* --- MUSIC BUTTON --- */
+.music-btn { position: fixed; bottom: 30px; right: 30px; background:#b89b5e; color:#121826; border:none;
+  padding:12px 18px; font-family:'Cinzel'; cursor:pointer; z-index:30; }
+
+/* --- HERO --- */
+.hero { height:60vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding-top:100px;}
+.hero h2 { font-family:'Cinzel'; font-size:60px; color:#ffdf9e; border-left:2px solid #b89b5e; padding-left:20px; opacity:0; animation: typewriter 3s forwards;}
+.hero p { margin-top:20px; font-size:20px; opacity:0; animation: fadeInText 2s forwards 3s; }
+
+/* --- QUIZ --- */
+#quiz { width:90%; max-width:900px; margin:50px auto; text-align:center; opacity:0; }
+#question { font-size:28px; margin-bottom:40px; }
+#options { display:flex; flex-direction:column; gap:20px; }
+#options button { padding:18px; font-size:18px; border-radius:10px; border:none; background:#ffdf9e; color:#121826; cursor:pointer; transition:0.3s; }
+#options button:hover { background:#f7e1a3; transform:translateY(-4px); }
+
+/* --- ANIMATIONS --- */
+@keyframes typewriter { from { opacity:0; transform:translateX(-20px);} to { opacity:1; transform:translateX(0);} }
+@keyframes fadeInText { from{opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+@media screen and (max-width:900px){
+  #question { font-size:24px; }
+  #options button { font-size:16px; padding:14px; }
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-  <div class="logo">
-    <img src="../assets/logo.png" alt="Logo" style="height:50px;">
-  </div>
+<div class="aurora"></div>
+<div class="embers"></div>
+
+<header>
+  <div class="logo">Shakespeare’s Quill</div>
   <nav>
-    <a href="home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="biography.html">Biography</a>
     <a href="works.html">Works</a>
     <a href="quotes.html">Quotes</a>
@@ -22,25 +76,109 @@
   </nav>
 </header>
 
-    <section class="video-hero">
-
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="../assets/background.mp4" type="video/mp4">
-  </video>
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-    <div id="quiz">
-    <h1>William Shakespeare's Plays Quiz</h1>
-    <div id="question"></div>
-    <div id="options"></div>
-  </div>
-  </div>
-
+<section class="hero">
+  <h2 id="heroTitle">Shakespeare Plays Quiz</h2>
+  <p id="heroSubtitle">Test your knowledge of William Shakespeare’s works!</p>
 </section>
 
-  <script src="quiz1.js"></script>
+<section id="quiz">
+  <div id="question"></div>
+  <div id="options"></div>
+</section>
+
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
+
+<script>
+// --- MUSIC BUTTON ---
+const music=document.getElementById("bg-music");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>{ music.paused?(music.play(), btn.textContent="♪ Pause Music"):(music.pause(), btn.textContent="♪ Play Music"); }
+
+// --- CLICK SOUND FOR NAV ---
+const clickSound=document.getElementById("click-sound");
+document.querySelectorAll("nav a").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    clickSound.currentTime=0;
+    clickSound.play();
+    setTimeout(()=>window.location.href=link.href,1000);
+  });
+});
+
+// --- EMBERS ---
+const embersContainer=document.querySelector(".embers");
+for(let i=0;i<40;i++){
+  const ember=document.createElement("div");
+  ember.classList.add("ember");
+  ember.style.left=Math.random()*100+"%";
+  ember.style.animationDuration=(Math.random()*10+5)+"s";
+  ember.style.animationDelay=(Math.random()*5)+"s";
+  ember.style.width=(Math.random()*4+2)+"px";
+  ember.style.height=(Math.random()*4+2)+"px";
+  embersContainer.appendChild(ember);
+}
+
+// --- QUIZ DATA ---
+const quizData = [
+  { question:"In the Merchant of Venice, what are the three caskets Portia has for her suitors?", options:["Gold, Silver, Bronze","Wood, Stone, Gold","Gold, Silver, Lead","Silver, Bronze, Clay"], answer:"Gold, Silver, Lead" },
+  { question:"Where is the quote 'To be or not to be' from?", options:["Romeo and Juliet","Hamlet","King Lear","Ophelia"], answer:"Hamlet" },
+  { question:"Which of the following is NOT a comedy?", options:["A Midsummer Night's Dream","Othello","As You Like It","Much Ado About Nothing"], answer:"Othello" },
+  { question:"What is Shakespeare's longest play?", options:["Hamlet","Antony and Cleopatra","Julius Caesar","The Merchant of Venice"], answer:"Hamlet" },
+  { question:"Which of the following is not written by Shakespeare?", options:["Cymbeline","King John","Love's Labours Lost","The White Devil"], answer:"The White Devil" },
+  { question:"Who wrote 'Macbeth'?", options:["Christopher Marlowe","Ben Jonson","William Shakespeare","John Fletcher"], answer:"William Shakespeare" },
+  { question:"What is the central theme of 'Romeo and Juliet'?", options:["Ambition","Love","Jealousy","War"], answer:"Love" },
+  { question:"In which play does the character Iago appear?", options:["Hamlet","Othello","King Lear","Twelfth Night"], answer:"Othello" },
+  { question:"Which Shakespeare play features Prospero?", options:["The Tempest","Macbeth","Henry V","Much Ado About Nothing"], answer:"The Tempest" },
+  { question:"Which play includes 'Et tu, Brute?'", options:["Julius Caesar","King Lear","Macbeth","Othello"], answer:"Julius Caesar" },
+  { question:"Which of these is a historical play?", options:["Henry IV","Hamlet","Twelfth Night","A Midsummer Night's Dream"], answer:"Henry IV" },
+  { question:"Who is the protagonist in 'Hamlet'?", options:["Hamlet","Laertes","Claudius","Polonius"], answer:"Hamlet" },
+  { question:"Which play involves mistaken identities at a wedding?", options:["Twelfth Night","Macbeth","Romeo and Juliet","Othello"], answer:"Twelfth Night" },
+  { question:"Which character is the Prince of Denmark?", options:["Horatio","Hamlet","Claudius","Polonius"], answer:"Hamlet" },
+  { question:"Which play features Shylock?", options:["The Merchant of Venice","King Lear","Macbeth","Hamlet"], answer:"The Merchant of Venice" }
+];
+
+let currentQuestion=0;
+let score=0;
+const questionElement=document.getElementById("question");
+const optionsElement=document.getElementById("options");
+const quizSection=document.getElementById("quiz");
+const heroTitle=document.getElementById("heroTitle");
+const heroSubtitle=document.getElementById("heroSubtitle");
+
+// --- SHOW QUIZ AFTER HERO ANIMATION ---
+heroSubtitle.addEventListener("animationend",()=>{
+  quizSection.style.opacity="1";
+  showQuestion();
+});
+
+function showQuestion(){
+  const q=quizData[currentQuestion];
+  questionElement.innerText=q.question;
+  optionsElement.innerHTML="";
+  q.options.forEach(option=>{
+    const btn=document.createElement("button");
+    btn.innerText=option;
+    btn.required=true;
+    btn.addEventListener("click",selectAnswer);
+    optionsElement.appendChild(btn);
+  });
+}
+
+function selectAnswer(e){
+  clickSound.currentTime=0;
+  clickSound.play();
+  setTimeout(()=>{ clickSound.pause(); },1000);
+
+  if(e.target.innerText===quizData[currentQuestion].answer) score++;
+  currentQuestion++;
+  if(currentQuestion<quizData.length) showQuestion();
+  else { quizSection.innerHTML=`<h2>Quiz Completed!</h2><p>Your score: ${score}/${quizData.length}</p>`; }
+}
+</script>
 
 </body>
 </html>
