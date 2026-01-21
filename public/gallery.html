@@ -2,35 +2,245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shakespeare’s Quill | Gallery [Work in Progress] </title>
+<title>Shakespeare’s Quill | Gallery</title>
 
-<link rel="stylesheet" href="gallerystyle.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 
 <style>
-/* ===== RESET & BODY ===== */
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:#0d111c;
+  color:#f3ead7;
+  overflow-x:hidden;
+}
 
+/* AURORA + VIGNETTE */
+.aurora{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255,140,60,.18), transparent 40%),
+    radial-gradient(ellipse at 80% 70%, rgba(255,110,40,.15), transparent 45%);
+  animation:auroraMove 20s infinite alternate;
+  z-index:-3;
+}
+@keyframes auroraMove{
+  from{transform:translateX(-30px)}
+  to{transform:translateX(30px)}
+}
+.vignette{
+  position:fixed; inset:0;
+  background:radial-gradient(circle,transparent 60%,rgba(0,0,0,.6));
+  z-index:-2;
+}
+
+/* EMBERS */
+.embers{
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+}
+.embers span{
+  position:absolute;
+  bottom:-20px;
+  width:6px;height:6px;
+  background:rgba(255,210,120,.9);
+  border-radius:50%;
+  box-shadow:0 0 12px rgba(255,200,100,.9);
+  animation:ember 15s linear infinite;
+}
+@keyframes ember{
+  from{transform:translateY(0) scale(.6); opacity:0}
+  to{transform:translateY(-110vh) scale(1); opacity:1}
+}
+
+/* FALLING FLOWERS */
+.flower{
+  position:absolute;
+  top:-40px;
+  width:16px;height:16px;
+  background:orange;
+  border-radius:50% 50% 50% 0;
+  transform:rotate(45deg);
+  opacity:.6;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(120vh) rotate(360deg)}
+}
+
+/* NAVBAR */
+header{
+  display:flex;justify-content:space-between;
+  padding:20px 60px;
+  position:sticky;top:0;
+  background:rgba(18,24,38,.9);
+  backdrop-filter:blur(6px);
+  z-index:20;
+}
+.logo{font-family:'Cinzel';letter-spacing:2px}
+nav a{
+  color:#f3ead7;
+  margin-left:30px;
+  text-decoration:none;
+  position:relative;
+}
+nav a::after{
+  content:"";position:absolute;
+  width:0;height:1px;
+  background:#b89b5e;
+  left:0;bottom:-4px;
+  transition:.3s;
+}
+nav a:hover::after, nav a.active::after{width:100%}
+
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  bottom:30px; right:30px;
+  background:#b89b5e;
+  color:#121826;
+  border:none;
+  padding:12px 18px;
+  font-family:'Cinzel';
+  cursor:pointer;
+  z-index:30;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:140px 20px 60px;
+}
+.hero h1{
+  font-family:'Cinzel';
+  font-size:64px;
+  color:#ffdf9e;
+  margin-bottom:20px;
+}
+.hero p{
+  font-size:22px;
+  opacity:.8;
+}
+.hero{margin-bottom:140px}
+
+/* GALLERY STRIPS */
+.gallery{
+  display:flex;
+  flex-direction:column;
+  gap:50px;
+  padding-bottom:120px;
+}
+.strip{
+  display:flex;
+  gap:20px;
+  width:max-content;
+}
+.strip.left{animation:scrollL 60s linear infinite}
+.strip.right{animation:scrollR 60s linear infinite}
+
+@keyframes scrollL{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+@keyframes scrollR{
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+
+.gallery img{
+  width:340px;
+  height:200px;
+  object-fit:cover;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.4s;
+}
+.gallery img:hover{
+  transform:scale(1.05);
+  box-shadow:
+    0 0 20px rgba(255,223,158,.8),
+    0 0 40px rgba(255,160,60,.4);
+}
+
+/* OVERLAY */
+.gallery-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:60px;
+  z-index:100;
+}
+.gallery-photo{
+  width:40%;
+  opacity:0;
+  transform:translateX(-40px);
+  transition:.8s;
+}
+.gallery-text{
+  max-width:400px;
+  font-size:22px;
+  line-height:1.6;
+  opacity:0;
+  transform:translateX(40px);
+  transition:.8s;
+}
+.gallery-photo.show,
+.gallery-text.show{
+  opacity:1;
+  transform:translateX(0);
+}
+.gallery-close{
+  position:absolute;
+  top:30px; right:40px;
+  font-size:40px;
+  background:none;
+  border:none;
+  color:#ffdf9e;
+  cursor:pointer;
+}
 </style>
 </head>
 
 <body>
 
+<div class="aurora"></div>
+<div class="vignette"></div>
 
-<div id="galleryIntro" class="gallery-intro">
-  <div class="intro-text">
-    <h1>Shakespeare Through Time [Work in Progress] </h1>
-    <p>Moments, places, and inspirations behind the Bard</p>
-  </div>
+<!-- EMBERS -->
+<div class="embers">
+  <script>
+    for(let i=0;i<30;i++){
+      document.write(`<span style="left:${Math.random()*100}%;animation-duration:${10+Math.random()*10}s"></span>`)
+    }
+  </script>
 </div>
 
+<!-- FLOWERS -->
+<script>
+for(let i=0;i<20;i++){
+  const f=document.createElement("div");
+  f.className="flower";
+  f.style.left=Math.random()*100+"%";
+  f.style.animationDuration=8+Math.random()*10+"s";
+  document.body.appendChild(f);
+}
+</script>
+
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<audio id="click-sound" src="../assets/click.mp3"></audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+
 <header>
-  <div class="logo">
-    <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-  </div>
+  <div class="logo">Shakespeare’s Quill</div>
   <nav>
-    <a href="home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="biography.html">Biography</a>
     <a href="works.html">Works</a>
     <a href="quotes.html">Quotes</a>
@@ -39,149 +249,73 @@
   </nav>
 </header>
 
-<section class="gallery-section">
-  <div class="gallery-grid">
-    <div class="portraits">
-      <div class="gallery-item" onclick="openModal(0)">
-      <img src="../assets/por1.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(1)">
-      <img src="../assets/por2.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(2)">
-      <img src="../assets/por3.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(3)">
-      <img src="../assets/por4.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(4)">
-      <img src="../assets/por5.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(5)">
-      <img src="../assets/por6.png">
-    </div>
-    </div>
-  </br>
-    <div class="landscapes">
-      <div class="gallery-item" onclick="openModal(6)">
-      <img src="../assets/img1.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(7)">
-      <img src="../assets/img2.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(8)">
-      <img src="../assets/img3.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(9)">
-      <img src="../assets/img4.jpg">
-    </div>
-    <div class="gallery-item" onclick="openModal(10)">
-      <img src="../assets/img5.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(11)">
-      <img src="../assets/img6.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(12)">
-      <img src="../assets/img7.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(13)">
-      <img src="../assets/img8.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(14)">
-      <img src="../assets/img9.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(15)">
-      <img src="../assets/img10.png">
-    </div>
-    </div>
-    
-  </div>
+<section class="hero">
+  <h1>Gallery of Shakespeare</h1>
+  <p>Scenes, moments, and echoes through time</p>
 </section>
 
-<footer>
-    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-    <p>b2029byatamon@pshs.edu.ph</p>
-    <p>b2029ydpanao@pshs.edu.ph</p>
-    <p>All refeerences are acknowledged at resources.</p>
-  </footer>
+<section class="gallery">
 
-
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">×</span>
-    <img id="modalImg">
-    <h2 id="modalTitle"></h2>
-    <div class="modal-text" id="modalText"></div>
-
-    <div class="modal-controls">
-      <button onclick="prevImg()">‹ Prev</button>
-      <button onclick="nextImg()">Next ›</button>
-    </div>
+  <div class="strip left">
+    <img src="../assets/g1.jpg" data-text="Romeo and Juliet – A love doomed by fate">
+    <img src="../assets/g2.jpg" data-text="Hamlet – Madness and revenge">
+    <img src="../assets/g3.jpg" data-text="Macbeth – Ambition and blood">
+    <img src="../assets/g4.jpg" data-text="King Lear – Power and betrayal">
+    <img src="../assets/g5.jpg" data-text="Othello – Jealousy unleashed">
+    <img src="../assets/g6.jpg" data-text="The Tempest – Magic and forgiveness">
   </div>
-</div>
+
+  <div class="strip right">
+    <img src="../assets/g7.jpg" data-text="A Midsummer Night’s Dream – Enchanted chaos">
+    <img src="../assets/g8.jpg" data-text="Twelfth Night – Masks and desire">
+    <img src="../assets/g9.jpg" data-text="Julius Caesar – Power and betrayal">
+    <img src="../assets/g10.jpg" data-text="Richard III – Villainy on stage">
+    <img src="../assets/g11.jpg" data-text="Much Ado About Nothing – Wit and romance">
+    <img src="../assets/g12.jpg" data-text="Henry V – War and honor">
+  </div>
+
+</section>
 
 <script>
-const galleryData = [
-  { img: "../assets/por1.png", title: "The Chandos Portrait", text: `<p> The Chandos portrait is one of the many oil-painted portraits believed t odepict William Shakespeare’s appearance. It is painted between 1600 and 1610, and is supposedly thought to be the only portrait of Shakespeare made from life during his lifetime. The portrait was given to the National Portrait Gallery in 1856 and is named after the 3rd Duke of Chandos, who was a former owner of the portrait.
-</p><br/> <p>The attribution of the portrait is conjectural, with some people arguing that it may have been painted by John Taylor, who was a member of the Painter-Stainers’ Company. The National Portrait Gallery believes it “certainly fairly likely” depicts Shakespeare, although it has not been definitely proven. The portrait has undergone several attempts to clean it over the centuries, which have left it damaged.<p/>` },
-  { img: "../assets/por2.png", title: "Frank Dicksee's 'Romeo and Juliet'", text: `<p>Frank Dicksee's portrayal of Romeo and Juliet is a poignant reminder of the enduring power of love. His artwork captures the essence of the balcony scene, where Romeo and Juliet profess their love amidst the backdrop of a cold stone wall and fading candlelight. Dicksee's painting is not only a visual representation of the iconic moment but also a reflection of the romantic sentimentality of the late Victorian era. The artwork has been voted as Britain's most romantic artwork in a recent poll, highlighting its significance in the realm of romantic art.
-</p>` },
-  { img: "../assets/por3.png", title: "Millais’ Lesser-Known Representation of a Shakespearean Woman", text: `<p>In contrast to Dicksee’s Romeo and Juliet, this 1851 painting by Sir John Everett Millais depicts a character from a lesser-known Shakespeare play, Measure for Measure. Shakespeare’s Measure for Measure involves a character named Mariana who is abandoned by her lover and lives a life of isolation. This play is often cited as a problem play due to its ambiguous characters and the open question of whether it is a comedy or a tragedy. Millais exhibits incredible skill and attention to detail in this painting, capturing the character of Mariana’s wistfulness and longing. This painting was originally accompanied by Tennyson’s poem Mariana, which describes the character’s unfortunate situation in verse. (Berry, n.d.)</p>` },
-  { img: "../assets/por4.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/por5.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/por6.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img1.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img2.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img3.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img4.jpg", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img5.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img6.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img7.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img8.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img9.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img10.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-]
-let currentIndex = 0;
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
-const modalTitle = document.getElementById("modalTitle");
-const modalText = document.getElementById("modalText");
-
-
-function openModal(index){
-  currentIndex = index;
-  updateModal();
-  modal.classList.add("active");
+/* MUSIC */
+const music=document.getElementById("bg-music");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>{
+  music.paused?(music.play(),btn.textContent="♪ Pause Music"):
+  (music.pause(),btn.textContent="♪ Play Music");
 }
 
-function closeModal(){
-  modal.classList.remove("active");
-}
+/* CLICK SOUND */
+const click=document.getElementById("click-sound");
 
-function updateModal(){
-  modalImg.src = galleryData[currentIndex].img;
-  modalTitle.textContent = galleryData[currentIndex].title;
-  modalText.style.opacity = 0;
-  modalText.innerHTML = galleryData[currentIndex].text;
-  setTimeout(()=> modalText.style.opacity = 1, 200);
-}
+/* IMAGE OVERLAY */
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.onclick=()=>{
+    click.currentTime=0;
+    click.play();
 
-function nextImg(){
-  currentIndex = (currentIndex + 1) % galleryData.length;
-  updateModal();
-}
+    const overlay=document.createElement("div");
+    overlay.className="gallery-overlay";
+    overlay.innerHTML=`
+      <img src="${img.src}" class="gallery-photo">
+      <div class="gallery-text">${img.dataset.text}</div>
+      <button class="gallery-close">×</button>
+    `;
+    document.body.appendChild(overlay);
 
-function prevImg(){
-  currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
-  updateModal();
-}
+    setTimeout(()=>{
+      overlay.querySelector(".gallery-photo").classList.add("show");
+      overlay.querySelector(".gallery-text").classList.add("show");
+    },50);
 
-
-window.addEventListener('DOMContentLoaded', () => {
-  const intro = document.getElementById('galleryIntro');
-  setTimeout(() => {
-    intro.classList.add('hide'); 
-  }, 3700);
+    overlay.onclick=e=>{
+      if(e.target===overlay || e.target.classList.contains("gallery-close")){
+        click.currentTime=0;
+        click.play();
+        overlay.remove();
+      }
+    }
+  }
 });
 </script>
 
