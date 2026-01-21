@@ -1,333 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Shakespeare’s Quill | Works</title>
-    <link rel="stylesheet" href="workstyle.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../assets/tab.png">
-
-    <style>
-    button {
-        background-color: #a89a5a;
-        color: white; /* White text */
-        border: none; /* Remove default border */
-        padding: 10px 10px; /* Space inside button */
-        text-align: right;
-        font-size: 13px;
-        border-radius: 8px; /* Rounded corners */
-        cursor: pointer; /* Pointer on hover */
-        transition: background-color 0.3s, transform 0.2s;
-    }
-    h1{
-        text-align: center;
-        font: Perpetua;
-        color: white;
-        font-size: 36px;
-        margin-top: 36px;
-    }
-
-    p{
-      font-size: 17px;
-    }
-    
-    
-
-    
-</style>
-    
-    </style>
-    </head>
-
+<meta charset="UTF-8">
+<title>Shakespeare’s Quill | Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="workstyle.css">
+<link rel="icon" type="image/x-icon" href="../assets/tab.png">
+</head>
 <body>
-    <header>
-        <div class="logo">
-          <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-        </div>
-    
-        <nav>
-          <a href="home.html">Home</a>
-          <a href="biography.html">Biography</a>
-          <a href="works.html" class="active">Works</a>
-          <a href="quotes.html">Quotes</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="resources.html">Resources</a>
-        </nav>
-      </header>
-    
-      <section class="hero">
-        <h2>William Shakespeare: The Bard of Avon</h2>
-        <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
-        <video autoplay muted loop playsinline class="bg-video">
-          <source src="../assets/background.mp4" type="video/mp4">
-        </video>
-      </section>
-    
-      
-    <h1>
-        Shakespeare's Works 
-    </h1>
-  </br>
-  <section class="overview">
-    <p style="margin: 5 px">Shakespeare has a vast collection of works, with up to 190 published writings in his lifetime. He has about 38 plays and 154 sonnets. Fun fact: Universities offer specialized programs for Shakespeare alone, studying his life, works, and analyzing each text! Almost, if not all, of his plays are translated into every major language here on Earth, showcasing his true global impact and legacy. 
- </p> </br>
- <p style="margin:5 px">
-Here is a collection and summarization of some of his most famous works. From tragedies to comedies to histories to sonnets, we provide a short summary/analysis of his texts as well as some additional resources you can use for more learning. 
-</p>
 
-    </section>
-  
-<section class="plays">
+<!-- AURORA & VIGNETTE -->
+<div class="aurora"></div>
+<div class="vignette"></div>
 
-  <section class="play-nav">
-    <h1>Famous Works</h1> </br>
-    <nav>
-      <a href="works.html" class="active">Tragedies</a>
-      <a href="comedies.html">Comedies</a>
-      <a href="histories.html">Histories</a>
-      <a href="sonnets.html">Sonnets</a>
-    </nav>
+<!-- EMBERS -->
+<div class="embers">
+  <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
+  <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
+  <span style="left:25%;animation-duration:14s;animation-delay:2s"></span>
+  <span style="left:35%;animation-duration:18s;animation-delay:6s"></span>
+  <span style="left:45%;animation-duration:15s;animation-delay:1s"></span>
+  <span style="left:55%;animation-duration:17s;animation-delay:5s"></span>
+  <span style="left:65%;animation-duration:13s;animation-delay:3s"></span>
+  <span style="left:75%;animation-duration:19s;animation-delay:7s"></span>
+  <span style="left:85%;animation-duration:14s;animation-delay:2s"></span>
+</div>
+
+<!-- MUSIC & CLICK SOUND -->
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+
+<header>
+  <div class="logo">Shakespeare’s Quill</div>
+  <nav>
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="biography.html" class="nav-link">Biography</a>
+    <a href="works.html" class="nav-link active">Works</a>
+    <a href="quotes.html" class="nav-link">Quotes</a>
+    <a href="gallery.html" class="nav-link">Gallery</a>
+    <a href="resources.html" class="nav-link">Recources</a>
+  </nav>
+</header>
+
+<section class="works-section">
+  <h1 class="section-title">Shakespeare’s Works</h1>
+  <div class="filter-buttons">
+    <button data-filter="all" class="active">All</button>
+    <button data-filter="histories">Histories</button>
+    <button data-filter="comedies">Comedies</button>
+    <button data-filter="tragedies">Tragedies</button>
+    <button data-filter="sonnets">Sonnets</button>
+  </div>
+
+  <input type="text" id="search" placeholder="Search works..." />
+
+  <div class="works-grid">
+    <!-- HISTORIES -->
+    <div class="work-item histories" data-title="Richard III"><img src="images/placeholder.jpg" alt=""><h3>Richard III</h3></div>
+    <div class="work-item histories" data-title="Henry V"><img src="images/placeholder.jpg" alt=""><h3>Henry V</h3></div>
+    <div class="work-item histories" data-title="King John"><img src="images/placeholder.jpg" alt=""><h3>King John</h3></div>
+    <div class="work-item histories" data-title="Henry IV"><img src="images/placeholder.jpg" alt=""><h3>Henry IV</h3></div>
+    <div class="work-item histories" data-title="Henry VI"><img src="images/placeholder.jpg" alt=""><h3>Henry VI</h3></div>
+    <div class="work-item histories" data-title="Richard II"><img src="images/placeholder.jpg" alt=""><h3>Richard II</h3></div>
+    <div class="work-item histories" data-title="Henry VIII"><img src="images/placeholder.jpg" alt=""><h3>Henry VIII</h3></div>
+    <div class="work-item histories" data-title="Edward III"><img src="images/placeholder.jpg" alt=""><h3>Edward III</h3></div>
+
+    <!-- COMEDIES -->
+    <div class="work-item comedies" data-title="A Midsummer Night’s Dream"><img src="images/placeholder.jpg" alt=""><h3>A Midsummer Night’s Dream</h3></div>
+    <div class="work-item comedies" data-title="Twelfth Night"><img src="images/placeholder.jpg" alt=""><h3>Twelfth Night</h3></div>
+    <div class="work-item comedies" data-title="The Two Gentlemen of Verona"><img src="images/placeholder.jpg" alt=""><h3>The Two Gentlemen of Verona</h3></div>
+    <div class="work-item comedies" data-title="As You Like It"><img src="images/placeholder.jpg" alt=""><h3>As You Like It</h3></div>
+    <div class="work-item comedies" data-title="Much Ado About Nothing"><img src="images/placeholder.jpg" alt=""><h3>Much Ado About Nothing</h3></div>
+    <div class="work-item comedies" data-title="The Merchant of Venice"><img src="images/placeholder.jpg" alt=""><h3>The Merchant of Venice</h3></div>
+    <div class="work-item comedies" data-title="The Tempest"><img src="images/placeholder.jpg" alt=""><h3>The Tempest</h3></div>
+    <div class="work-item comedies" data-title="The Comedy of Errors"><img src="images/placeholder.jpg" alt=""><h3>The Comedy of Errors</h3></div>
+
+    <!-- TRAGEDIES -->
+    <div class="work-item tragedies" data-title="Hamlet"><img src="images/placeholder.jpg" alt=""><h3>Hamlet</h3></div>
+    <div class="work-item tragedies" data-title="Macbeth"><img src="images/placeholder.jpg" alt=""><h3>Macbeth</h3></div>
+    <div class="work-item tragedies" data-title="Othello"><img src="images/placeholder.jpg" alt=""><h3>Othello</h3></div>
+    <div class="work-item tragedies" data-title="King Lear"><img src="images/placeholder.jpg" alt=""><h3>King Lear</h3></div>
+    <div class="work-item tragedies" data-title="Romeo and Juliet"><img src="images/placeholder.jpg" alt=""><h3>Romeo and Juliet</h3></div>
+    <div class="work-item tragedies" data-title="Julius Caesar"><img src="images/placeholder.jpg" alt=""><h3>Julius Caesar</h3></div>
+    <div class="work-item tragedies" data-title="Timon of Athens"><img src="images/placeholder.jpg" alt=""><h3>Timon of Athens</h3></div>
+    <div class="work-item tragedies" data-title="Coriolanus"><img src="images/placeholder.jpg" alt=""><h3>Coriolanus</h3></div>
+
+    <!-- SONNETS -->
+    <div class="work-item sonnets" data-title="Sonnets 1–32"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 1–32</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 33–64"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 33–64</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 65–96"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 65–96</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 97–128"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 97–128</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 129–154"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 129–154</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 155–160"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 155–160</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 161–170"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 161–170</h3></div>
+    <div class="work-item sonnets" data-title="Sonnets 171–176"><img src="images/placeholder.jpg" alt=""><h3>Sonnets 171–176</h3></div>
+  </div>
 </section>
 
-</br>
+<footer>© 2025 Shakespeare’s Quill</footer>
 
-    <div class="tragedies">
-
-      <div class="play-card">
-        <h2>Hamlet</h2>
-        <img src="https://www.denvercenter.org/wp-content/uploads/2024/08/hamlet.jpg" alt="Hamlet">
-      </br>
-        <button class="more-info" data-info="hamlet">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Macbeth</h2>
-        <img src="https://media.shakespeare.org.uk/images/Macbeth_RSC_PC_72_19_Ellen_Terry_as_Lady_Macbet.original_eyIgDcd.jpg" alt="Macbeth">
-      </br>
-         <button class="more-info" data-info="macbeth">Read More</button> 
-      </div>
-
-      <div class="play-card">
-        <h2>Othello</h2>
-       <img src="https://pressbooks.pub/app/uploads/sites/2046/2019/01/1024px-Othellos_Lamentation.jpg" alt="Othello">
-      </br>
-        <button class="more-info" data-info="othello">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>King Lear</h2>
-        <img src="https://www.thoughtco.com/thmb/yKDdwjShPDjUl6E4NuSv-9wphlg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/act-5-scene-3-from-king-lear-by-william-shakespeare-19th-century-804454982-9c89320fbdc249b8a692f592cffea301.jpg" alt="King Lear">
-      </br>
-        <button class="more-info" data-info="kingLear">Read More</button>
-      </div>
-
-        <div class="play-card">
-        <h2>Romeo and Juliet</h2>
-        <img src="https://shinzoo.com/wp-content/uploads/2025/09/romeo-juliet-meeting-in-balcony.jpg" alt="Romeo and Juliet">
-      </br>
-        <button class="more-info" data-info="romeoAndJuliet">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Julius Ceasar</h2>
-        <img src="https://media.shakespeare.org.uk/images/DSC02890julius_caesar1881.width-770.jpg" alt="Julius Caesar">
-      </br>
-        <button class="more-info" data-info="juliusCaesar">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Antony and Cleopatra</h2>
-       <img src="https://www.lookandlearn.com/history-images/preview/M/M594/M594927_Shakespeare-Antony-and-Cleopatra.jpg" alt="Antony and Cleopatra">
-      </br>
-        <button class="more-info" data-info="antonyAndCleopatra">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Titus Andronicus</h2>
-        <img src="https://www.lookandlearn.com/history-images/preview/M/M594/M594849_Shakespeare-Titus-Andronicus.jpg" alt="Titus Andronicus">
-      </br>
-        <button class="more-info" data-info="titusAndronicus">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Coriolanus</h2>
-       <img src="https://cdn.britannica.com/21/143521-050-EC274FCB/scene-Coriolanus-William-Shakespeare.jpg?w=300" alt="Coriolanus">
-      </br>
-        <button class="more-info" data-info="coriolanus">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Henry V</h2>
-       <img src="https://media.shakespeare.org.uk/images/Henry_V_SBT_Davies_HE5_2000_C15A-16.original.width-770.jpg" alt="Henry V">
-      </br>
-        <button class="more-info" data-info="henryV">Read More</button>
-      </div>
-
-      <div class="play-card">
-        <h2>Richard III</h2>
-       <img src="https://www.thoughtco.com/thmb/PJPv2qIRRTwkUuH_SncJMNae-Sg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/richard-iii-3300571-5af9ecb5ba617700363c575a.jpg" alt="Richard III">
-      </br>
-        <button class="more-info" data-info="richardIII">Read More</button>
-      </div>
-
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-    <p>b2029byatamon@pshs.edu.ph</p>
-    <p>b2029ydpanao@pshs.edu.ph</p>
-    <p>All refeerences are acknowledged at resources.</p>
-  </footer>
-
-  <div class="scroll-modal" id="scrollModal">
-    <div class="scroll-content">
-      <span class="close-btn" id="closeScroll">&times;</span>
-      <div id="scrollText"></div>
-    </div>
-  </div>
 <script>
-    const modal = document.getElementById("scrollModal");
-    const closeBtn = document.getElementById("closeScroll");
-    const scrollText = document.getElementById("scrollText");
+/* MUSIC BUTTON */
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  music.paused ? (music.play(), btn.textContent="♪ Pause Music")
+               : (music.pause(), btn.textContent="♪ Play Music");
+}
 
-    const contentData = {
-      hamlet: `
-      <h2>Hamlet</h2>
-      </br>
-      "The ghost of the King of Denmark tells his son Hamlet to avenge his murder by killing the new king, Hamlet's uncle. Hamlet feigns madness, contemplates life and death, and seeks revenge. His uncle, fearing for his life, also devises plots to kill Hamlet. The play ends with a duel, during which the King, Queen, Hamlet's opponent and Hamlet himself are all killed. " ("Shakespeare Birthplace Trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.sparknotes.com/shakespeare/hamlet/summary/ -- Summary
-      https://www.litcharts.com/lit/hamlet -- Summary
-      `,
+/* CLICK SOUND + NAV DELAY (1s limit) */
+const clickSound = document.getElementById("click-sound");
+clickSound.addEventListener("play", ()=>{
+  setTimeout(()=>clickSound.pause(), 1000); // stop after 1s
+});
 
+document.querySelectorAll(".nav-link").forEach(link=>{
+  link.addEventListener("click", e=>{
+    e.preventDefault();
+    clickSound.currentTime = 0;
+    clickSound.play();
+    const url = link.getAttribute("href");
+    setTimeout(()=> window.location.href=url, 600);
+  });
+});
 
-      macbeth: `
-      <h2>Macbeth</h2>
-      </br>
-      "Three witches tell the Scottish general Macbeth that he will be King of Scotland. Encouraged by his wife, Macbeth kills the king, becomes the new king, and kills more people out of paranoia. Civil war erupts to overthrow Macbeth, resulting in more death." ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials: 
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/macbeth/ -- More in-depth summary
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-characters/macbeth/ -- Character summaries
-      https://www.sparknotes.com/shakespeare/macbeth/summary/ -- Summary and analysis
-      `,
-
-      othello: `
-      <h2>Othello</h2>
-      </br>
-      "Iago is furious about being overlooked for promotion and plots to take revenge against his General: Othello, the Moor of Venice. Iago manipulates Othello into believing his wife Desdemona is unfaithful, stirring Othello's jealousy. Othello allows jealousy to consume him, murders Desdemona, and then kills himself." ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials: 
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/othello-moor-venice/ -- Summary
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-characters/othello/ -- Character summary
-      https://www.sparknotes.com/shakespeare/othello/summary/ -- Summary and analysis
-      `,
-
-      kingLear: `
-      <h2>King Lear</h2>
-      </br>
-      "King Lear divides his kingdom among the two daughters who flatter him and banishes the third one who loves him. His eldest daughters both then reject him at their homes, so Lear goes mad and wanders through a storm. His banished daughter returns with an army, but they lose the battle and Lear, all his daughters and more, die." (Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/king-lear/ -- Summary
-      https://www.sparknotes.com/shakespeare/lear/summary/ -- Summary and analysis
-      `,
-
-      romeoAndJuliet: `
-      <h2>Romeo and Juliet</h2>
-      </br>
-      "An age-old vendetta between two powerful families erupts into bloodshed. A group of masked Montagues risk further conflict by gatecrashing a Capulet party. A young lovesick Romeo Montague falls instantly in love with Juliet Capulet, who is due to marry her father’s choice, the County Paris. With the help of Juliet’s nurse, the women arrange for the couple to marry the next day, but Romeo’s attempt to halt a street fight leads to the death of Juliet’s own cousin, Tybalt, for which Romeo is banished. In a desperate attempt to be reunited with Romeo, Juliet follows the Friar’s plot and fakes her own death. The message fails to reach Romeo, and believing Juliet dead, he takes his life in her tomb. Juliet wakes to find Romeo’s corpse beside her and kills herself. The grieving family agree to end their feud." ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/romeo-and-juliet/ -- Summary
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-characters/romeo-and-juliet/ -- Character summary
-      https://www.sparknotes.com/shakespeare/romeojuliet/summary/ -- Summary and analysis
-      `,
-
-      juliusCaesar: `
-      <h2>Julius Ceasar</h2>
-      </br>
-      "Jealous conspirators convince Caesar's friend Brutus to join their assassination plot against Caesar. To stop Caesar from gaining too much power, Brutus and the conspirators kill him on the Ides of March. Mark Antony drives the conspirators out of Rome and fights them in a battle. Brutus and his friend Cassius lose and kill themselves, leaving Antony to rule in Rome. " ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/julius-caesar/ -- Summary
-      https://www.sparknotes.com/shakespeare/juliuscaesar/summary/ -- Summary and analysis
-      `,
-
-      antonyAndCleopatra: `
-      <h2>Antony and Cleopatra</h2>
-      </br>
-      "Mark Antony, one of three rulers of Rome, is in love with Cleopatra, Queen of Egypt. Antony is summoned back to Rome, where he clashes with another ruler Octavius before returning to Cleopatra in Egypt. Now in battle with Octavius, Antony and Cleopatra suffer losses and miscommunication, and both eventually commit suicide." ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/antony-and-cleopatra/ -- Summary
-      https://www.sparknotes.com/shakespeare/antony/summary/ -- Summary and analysis
-      `,
-
-      titusAndronicus: `
-      <h2>Titus Andronicus</h2>
-      </br>
-      "The Roman general Titus Andronicus returns from war with four prisoners who vow to take revenge against him. They rape and mutilate Titus' daughter and have his sons killed and banished. Titus kills two of them and cooks them into a pie, which he serves to their mother before killing her too. The Roman emperor kills Titus, and Titus' last remaining son kills the emperor and takes his place. " ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study Materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/titus-andronicus/ -- Summary
-      https://www.sparknotes.com/shakespeare/titus/summary/ -- Summary and analysis
-      `,
-
-      coriolanus: `
-      <h2>Coriolanus</h2>
-      </br>
-      "Roman general Coriolanus makes his name defeating an enemy army and defending Rome. The Senate nominates him as consul but he cannot win the people's vote, so he is banished from Rome and allies with his old enemy. He comes to attack Rome, his mother persuades him not to, and his new-found ally kills him for the betrayal."  ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/coriolanus/ -- Summary
-      https://www.sparknotes.com/shakespeare/coriolanus/summary/ -- Summary and analysis
-
-      `,
-
-      henryV: `
-      <h2>Henry V</h2>
-      </br>
-      "After an insult from the French Dauphin, King Henry V of England invades France to claim the throne he believes should be his. Henry stops an assassination plot, gives powerful speeches, and wins battles against the odds. In the end, he woos and marries the Princess of France, linking the two nations." ("Shakespeare Birthplace trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/henry-v/ -- Summary
-      https://www.sparknotes.com/shakespeare/henryv/summary/ -- Summary and analysis
-      `,
-
-      richardIII: `
-      <h2>Richard III</h2>
-      </br>
-      "Jealous and crippled, Richard of Gloucester wants to be King of England and uses manipulation and deceit to achieve his goal. He murders his brothers, nephews, and any opposition to become King Richard III. In the end, Henry of Richmond raises an army, kills Richard in battle, and becomes King Henry VII. " ("Shakespeare Birthplace Trust", n.d.)
-      </br></br>
-      Study materials:
-      https://www.shakespeare.org.uk/explore-shakespeare/shakespedia/shakespeares-plays/richard-iii/ -- Summary
-      https://www.sparknotes.com/shakespeare/richardiii/summary/-- Summary and analysis
-      `
-    };
-
-
-
-    document.querySelectorAll(".more-info").forEach(button => {
-      button.addEventListener("click", () => {
-        const key = button.getAttribute("data-info");
-        scrollText.innerHTML = contentData[key];
-        modal.style.display = "flex";
-      });
+/* FILTER BUTTONS */
+const filterBtns = document.querySelectorAll(".filter-buttons button");
+const works = document.querySelectorAll(".work-item");
+filterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const filter = btn.dataset.filter;
+    works.forEach(w => {
+      if(filter === "all" || w.classList.contains(filter)) w.style.display = "block";
+      else w.style.display = "none";
     });
+  });
+});
 
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+/* SEARCH */
+const searchInput = document.getElementById("search");
+searchInput.addEventListener("input", ()=>{
+  const query = searchInput.value.toLowerCase();
+  works.forEach(w=>{
+    const title = w.dataset.title.toLowerCase();
+    w.style.display = title.includes(query) ? "block" : "none";
+  });
+});
 
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
+/* READ MORE OVERLAY */
+works.forEach(work => {
+  work.addEventListener("click", ()=>{
+    clickSound.currentTime=0;
+    clickSound.play();
+    const overlay = document.createElement("div");
+    overlay.className = "works-overlay";
+    document.body.appendChild(overlay);
+
+    const img = document.createElement("img");
+    img.src = work.querySelector("img").src;
+    img.className = "overlay-img";
+    overlay.appendChild(img);
+
+    const textBox = document.createElement("div");
+    textBox.className = "overlay-text";
+    textBox.innerHTML = `<h2>${work.dataset.title}</h2>`;
+    overlay.appendChild(textBox);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "overlay-close";
+    closeBtn.textContent = "×";
+    overlay.appendChild(closeBtn);
+
+    setTimeout(()=> {
+      img.classList.add("show");
+      textBox.classList.add("show");
+      closeBtn.style.opacity = 1;
+    },50);
+
+    closeBtn.addEventListener("click",()=>overlay.remove());
+    overlay.addEventListener("click", e=>{
+      if(e.target===overlay) overlay.remove();
     });
-  </script>
+  });
+});
+
+/* FADE-IN ANIMATION ON PAGE LOAD */
+window.addEventListener("DOMContentLoaded", () => {
+  works.forEach((w, i)=>{
+    w.style.opacity = 0;
+    w.style.transform = "translateY(40px)";
+    setTimeout(() => {
+      w.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+      w.style.opacity = 1;
+      w.style.transform = "translateY(0)";
+    }, i * 100); // staggered fade-in
+  });
+});
+</script>
 
 </body>
 </html>

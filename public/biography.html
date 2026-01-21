@@ -1,193 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Shakespeare’s Quill | Biography</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Shakespeare’s Quill | Biography</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="../assets/tab.png">
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: #0d111c;
+  color: #f3ead7;
+  overflow-x: hidden;
+}
 
-  <link rel="icon" type="image/x-icon" href="../assets/tab.png">
+/* VIGNETTE & AURORA */
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 55%, rgba(0,0,0,0.85));
+  z-index: 5;
+}
+.aurora {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255,140,60,0.18), transparent 40%),
+    radial-gradient(ellipse at 80% 70%, rgba(255,110,40,0.15), transparent 45%);
+  animation: auroraMove 20s infinite alternate ease-in-out;
+  z-index: -2;
+}
+@keyframes auroraMove {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(30px); }
+}
 
-  <style>
-    .scroll-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
+/* EMBERS */
+.embers span {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: #ffcc88;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: ember linear infinite;
+}
+@keyframes ember {
+  0% { transform: translateY(110vh) scale(0.4); opacity:0; }
+  20% { opacity:0.6; }
+  100% { transform: translateY(-120vh) scale(1.2); opacity:0; }
+}
 
-    body, html{
-      height: 100%;
-      
-      
-    }
+/* NAVBAR */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  position: sticky;
+  top: 0;
+  background: rgba(18,24,38,0.9);
+  backdrop-filter: blur(6px);
+  z-index: 20;
+}
+.logo {
+  font-family: 'Cinzel';
+  letter-spacing: 2px;
+  color: #f3ead7;
+}
+nav a {
+  color: #f3ead7;
+  margin-left: 30px;
+  text-decoration: none;
+  position: relative;
+}
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  background: #b89b5e;
+  left: 0;
+  bottom: -4px;
+  transition: 0.3s;
+}
+nav a:hover::after,
+nav a.active::after { width: 100%; }
 
-    body{
-    background-image: url('../assets/img4.jpg');
-    background-repeat: no-repeat;
-    height: 100%;
-    background-position: center;
-  background-repeat: repeat-y;
-  background-size: cover;
-  
-    }
+/* MUSIC BUTTON */
+.music-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #b89b5e;
+  color: #121826;
+  border: none;
+  padding: 12px 18px;
+  font-family: 'Cinzel';
+  cursor: pointer;
+  z-index: 30;
+}
 
-    body img{
-      aspect-ratio: 16 / 9;
-    position: scroll;
-    }
+/* HERO */
+.hero {
+  height: 80vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding-top:120px;
+}
+.hero h2 {
+  font-family:'Cinzel';
+  font-size:72px;
+  color: #ffdf9e;
+  border-right: 2px solid #b89b5e;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.hero p {
+  margin-top:20px;
+  font-size:22px;
+  opacity:0;
+  transition: 1s;
+}
 
-    .scroll-content {
-      background: #f5f1e6;
-      width: 80%;
-      max-width: 700px;
-      max-height: 80vh;
-      padding: 40px;
-      border-radius: 12px;
-      overflow-y: auto;
-      position: relative;
-      animation: fadeIn 0.4s ease;
-    }
+/* BIOGRAPHY SECTIONS */
+.biography {
+  padding: 80px 10%;
+}
+.bio-card {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  background: rgba(243,234,215,0.05);
+  padding: 40px;
+  margin-bottom: 60px;
+  border-radius: 12px;
+  opacity:0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+.bio-card:nth-child(even){ flex-direction: row-reverse; }
+.bio-card img {
+  width: 50%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.bio-card-text {
+  flex: 1;
+}
+.bio-card-text h3 {
+  font-family: 'Cinzel';
+  font-size: 36px;
+  color: #ffdf9e;
+  border-right: 2px solid #b89b5e;
+  padding-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.bio-card-text p {
+  margin-top: 15px;
+  font-size: 18px;
+  line-height: 1.7;
+  opacity:0;
+  transition: 1s;
+}
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      cursor: pointer;
-    }
+/* TIMELINE */
+/* TIMELINE */
+.timeline {
+  padding: 100px 5%;
+  text-align: center;
+  position: relative;
+}
+.timeline h2 {
+  font-family: 'Cinzel';
+  font-size: 36px;
+  color: #ffdf9e;
+  margin-bottom: 60px;
+}
+.timeline-track {
+  position: relative;
+  height: 6px;
+  background: linear-gradient(to right, #bbb 0%, #b89b5e 100%);
+  margin: 0 auto 40px;
+  width: 90%;
+  border-radius: 3px;
+}
+.timeline-event {
+  position: absolute;
+  top: -18px;
+  transform: translateX(-50%);
+  opacity:0;
+  transition:1s;
+}
+.timeline-event::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #b89b5e;
+  box-shadow: 0 0 12px #ffdf9e;
+}
+.timeline-event h4 {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel';
+  font-size: 16px;
+  color: #ffdf9e;
+  white-space: nowrap;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  </style>
+/* FOOTER */
+footer {
+  padding:40px;
+  text-align:center;
+  opacity:0.7;
+}
+
+/* ANIMATIONS */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.show { opacity:1; transform:none; transition:1s; }
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">
-      <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-    </div>
+<div class="aurora"></div>
+<div class="vignette"></div>
 
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="biography.html" class="active">Biography</a>
-      <a href="works.html">Works</a>
-      <a href="quotes.html">Quotes</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="resources.html">Resources</a>
-    </nav>
-  </header>
+<!-- EMBERS -->
+<div class="embers">
+  <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
+  <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
+  <span style="left:25%;animation-duration:14s;animation-delay:2s"></span>
+  <span style="left:35%;animation-duration:18s;animation-delay:6s"></span>
+  <span style="left:45%;animation-duration:15s;animation-delay:1s"></span>
+  <span style="left:55%;animation-duration:17s;animation-delay:5s"></span>
+  <span style="left:65%;animation-duration:13s;animation-delay:3s"></span>
+  <span style="left:75%;animation-duration:19s;animation-delay:7s"></span>
+  <span style="left:85%;animation-duration:14s;animation-delay:2s"></span>
+</div>
 
-  <section class="hero">
-    <h2>William Shakespeare: The Bard of Avon</h2>
-    <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
-      
-    </video>
-  </section>
+<!-- MUSIC -->
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
 
-  <section class="biography">
-    <h3>Shakespeare’s Life & Legacy</h3>
+<header>
+  <div class="logo">Shakespeare’s Quill</div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="biography.html" class="active">Biography</a>
+    <a href="works.html">Works</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="resources.html">Resources</a>
+  </nav>
+</header>
 
-    <div class="bio-grid">
+<section class="hero">
+  <h2 id="heroTitle">William Shakespeare: The Bard of Avon</h2><br><br><br><br>
+  <p>"All the world’s a stage…" – William Shakespeare, 1599</p>
+</section>
 
-      <div class="bio-card">
-        <h4>Early Life</h4>
-        <p>William Shakespeare was born in 1564 in Stratford-upon-Avon. His father was a glove-maker and his mother came from a farming family. He studied at the King’s New School where he learned Latin and classical literature.</p>
-        <button class="more-info" data-info="early">Read More</button>
-      </div>
+<!-- TIMELINE -->
+<section class="timeline">
+  <h2>Timeline of Shakespeare's Life</h2><br>
+  <div class="timeline-track">
+    <div class="timeline-event" style="left:0%"><h4>1564 - Birth</h4></div>
+    <div class="timeline-event" style="left:15%"><h4>1582 - Marriage</h4></div>
+    <div class="timeline-event" style="left:30%"><h4>1585 - Children</h4></div>
+    <div class="timeline-event" style="left:50%"><h4>1592 - First Plays</h4></div>
+    <div class="timeline-event" style="left:65%"><h4>1599 - Globe Theatre</h4></div>
+    <div class="timeline-event" style="left:80%"><h4>1603 - King’s Men</h4></div>
+    <div class="timeline-event" style="left:100%"><h4>1616 - Death</h4></div>
+  </div>
+</section>
 
-      <div class="bio-card">
-        <h4>London Years</h4>
-        <p>Shakespeare moved to London in the 1580s and joined the Lord Chamberlain’s Men. His plays were performed at the Globe Theatre and he became one of the most successful playwrights of the Elizabethan era.</p>
-        <button class="more-info" data-info="london">Read More</button>
-      </div>
+<section class="biography">
 
-      <div class="bio-card">
-        <h4>Later Works</h4>
-        <p>In his later life, Shakespeare wrote masterpieces such as Hamlet, Othello, King Lear, and Macbeth—works that explored power, madness, love, and betrayal.</p>
-        <button class="more-info" data-info="later">Read More</button>
-      </div>
-
-      <div class="bio-card">
-        <h4>Legacy</h4>
-        <p>Shakespeare’s influence continues across literature, film, and theater. His works are studied globally and translated into hundreds of languages.</p>
-        <button class="more-info" data-info="legacy">Read More</button>
-      </div>
-
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-    <p>b2029byatamon@pshs.edu.ph</p>
-    <p>b2029ydpanao@pshs.edu.ph</p>
-    <p>All refeerences are acknowledged at resources.</p>
-  </footer>
-
-  <div class="scroll-modal" id="scrollModal">
-    <div class="scroll-content">
-      <span class="close-btn" id="closeScroll">&times;</span>
-      <div id="scrollText"></div>
+  <!-- Early Life -->
+  <div class="bio-card">
+    <img src="../assets/earlylife.jpg" alt="Early Life">
+    <div class="bio-card-text">
+      <h3>Early Life</h3>
+      <p>William Shakespeare was born in Stratford-upon-Avon in Warwickshire England, on or about April 23rd 1564. He was the 3rd of 8 children, his father John Shakespeare was a glove maker, and his mother Mary Arden came from a wealthy family. Shakespeare attended King’s New School, studying Latin and classics. At 18, he married Anne Hathaway and had three children, Susanna, and twins Hamnet and Judith. The loss of Hamnet at age 11 profoundly influenced his later writing.</p>
     </div>
   </div>
 
-  <script>
-    const modal = document.getElementById("scrollModal");
-    const closeBtn = document.getElementById("closeScroll");
-    const scrollText = document.getElementById("scrollText");
+  <!-- London Years -->
+  <div class="bio-card">
+    <img src="../assets/london.jpg" alt="London Years">
+    <div class="bio-card-text">
+      <h3>London Years</h3>
+      <p>Shakespeare moved to London in the 1580s/1590s, joined the Lord Chamberlain’s Men, and performed at the Globe Theatre. He wrote plays like Henry VI, Richard III, and co-founded the Globe in 1599. His comedies include A Midsummer Night’s Dream, and tragedies include Romeo and Juliet and Julius Caesar. He also invested in real estate and became a shareholder in the King's Men after James I ascended.</p>
+    </div>
+  </div>
 
-    const contentData = {
-      early: `
-        <h2>Early Life</h2>
-        <p>William Shakespeare was born in Stratford-upon-Avon in Warwickshire England, on or about April 23rd 1564. He was the 3rd of 8 children, his father was John Shakespeare, a prosperous Glove Maker, Leatherworker, and local government official, who held the title of Alderman, Law Keeper, and Bailiff. His mother Mary Arden was the daughter of a wealthy landowner. The family was in the middle class socio-economic group and the father held many positions of authority within the community. However, as an adult the father experienced many financial difficulties due to debts and legal issues. William had many siblings. He had two older sisters, Joan and Margaret, who both died at very young ages and several younger brothers (Gilbert, Richard, Edmund, and Anne).</p> <br/>
-        <p>It is likely that Shakespeare went to King's New School, which was established by Edward VI as a free grammar school in Stratford-upon-Avon, England in 1553. This school had an emphasis on studying the Latin classics, learning how to write well in Latin, and learning to read literature written by the Romans and Greeks.  Shakespeare did not go to a university when he got older; in fact, it is thought that around 14-15 years old, he left school to work for his family or pursue other opportunities outside of education. Shakespeare married Anne Hathaway in November 1582, when he was only 18 years old, and she came from a nearby village to Stratford.</p> <br/>
-        <p>They had their first child, Susanna, born in May 1583, followed by twins Hamnet and Judith in February 1585. Sadly, Hamnet passed away at the age of 11 in 1596, and this loss had a profound impact on Shakespeare's writing after that time period; for instance, Hamlet was written around 1600, and there are some indications within the play that reflect upon the tragedy that ultimately was brought upon Hamlet's father. At the time, Shakespeare most likely lived with his family in Stratford and may have worked either as a school teacher, as a clerk for a lawyer, or in the same trade as his father, who was a glove maker..</p> <br/>
-      `,
+  <!-- Later Works -->
+  <div class="bio-card">
+    <img src="../assets/laterworks.jpg" alt="Later Works">
+    <div class="bio-card-text">
+      <h3>Later Works</h3>
+      <p>Shakespeare wrote 39 plays, 154 sonnets, and long poems. His tragedies explored ambition, jealousy, and fate (Hamlet, Othello, Macbeth). Comedies explored love and humor (Twelfth Night, As You Like It). Historical plays dramatized past kings’ lives (Richard III, Henry V). His sonnets explored beauty, time, mortality, and love, shaping literature worldwide.</p>
+    </div>
+  </div>
 
-      london: `
-        <h2>London Years</h2>
-        <p>Shakespeare likely moved to London in the late 1580s or early 1590s, possibly around 1587, though exact dates are uncertain. Theories suggest he fled Stratford to escape persecution for poaching deer on a local estate (a common crime), or he was drawn by London's booming theater scene. By 1592, he was established as an actor and playwright in the city. He joined the Lord Chamberlain's Men, an acting company patronized by Queen Elizabeth I, and became a key member. Early roles included acting in his own plays, and he began writing prolifically, producing works like the Henry VI trilogy (c. 1590-1592) and Richard III (c. 1592-1593), which drew on historical sources and appealed to audiences fascinated by England's past.</p> <br/>
-        <p>Shakespeare's London years coincided with the Elizabethan theater's golden age. He collaborated with actors like Richard Burbage and wrote for the company's success. By 1599, he co-founded the Globe Theatre on the south bank of the Thames, a wooden amphitheater that seated up to 3,000 spectators. It became a hub for his plays, including comedies like A Midsummer Night's Dream (c. 1595-1596) and The Merchant of Venice (c. 1596-1597), histories such as Henry V (c. 1599), and tragedies like Romeo and Juliet (c. 1595) and Julius Caesar (c. 1599). His works often premiered at the Globe or the indoor Blackfriars Theatre. Shakespeare also invested in real estate, buying properties like New Place in Stratford, and became a shareholder in the King's Men after James I ascended in 1603, renaming the company.
-</p>
-      `,
+  <!-- Legacy -->
+  <div class="bio-card">
+    <img src="../assets/legacy.jpg" alt="Legacy">
+    <div class="bio-card-text">
+      <h3>Legacy</h3>
+      <p>Shakespeare’s legacy spans literature, drama, film, and language. He popularized over 1,000 words/phrases like "wild-goose chase" and "heart of gold." His characters are complex, emotionally realistic, and his plays set frameworks for storytelling. The Globe Theatre symbolizes world theatre, and Shakespeare continues to inspire artists globally.</p>
+    </div>
+  </div>
 
-      later: `
-        <h2>Later Works</h2>
-        <p>Many of the plays he wrote have relatable character and storylines for people of today. He wrote as many as 39 plays, 154 sonnets, and a number of long poems. His plays have been classified into three major categories: comedies, histories, and tragedies. To illustrate the nature of those plays, we can consider some examples. In his tragedies, he tends to explore very serious themes, such as ambition, jealousy, and fate, via well-known examples such as Hamlet, Othello, Macbeth, and Romeo and Juliet. While his comedies are generally lighthearted and include themes that involve love, mistaken identities, and humor, his comedies include multiple examples, including A Midsummer Night’s Dream, Much Ado About Nothing, Twelfth Night, and As You Like It. </p> <br/>
-        <p>Similarly, Shakespeare also created several historical plays that dramatized the tragic lives of past kings and the political turmoil of the time; for example, Richard III, Henry V, and Henry IV (Parts 1 and 2). However, Shakespeare did not only create drama with his writing. He wrote 154 sonnets, which, even now, after almost 400 years, are still some of the most often-recited works of poetry in the world. His sonnets often discuss themes such as beauty, time, mortality, and love. Overall, Shakespeare's works, both past and present, are distinguished by their intensity of emotion, their memorable characters, and their profoundness of language, and they have shaped much of literature and entertainment in today’s world.. </p> <br/>
-      `,
+</section>
 
-      legacy: `
-        <h2>Legacy</h2>
-        <p> Shakespeare left an enormous legacy that continues to influence writing, drama, film, and everyday language 400 years later. He changed English literature by demonstrating how powerful and expressive the English language could be. He created or popularised over 1,000 words and expressions that we still use today, such as “break the ice,” “wild-goose chase,” and “heart of gold.” He demonstrated that characters could be complex and emotionally realistic, impacting the development of many writers, playwrights, and filmmakers. He created plot structures and character types that later became templates for contemporary forms of drama; these types of stories or ideas can be found in many films, television programmes, and novels. He introduced themes such as forbidden love in "Romeo and Juliet," ambition in "Macbeth," jealousy in "Othello," and identity in "Twelfth Night." Finally, many of Shakespeare's characters are portrayed as human beings who are flawed, confused, and capable of being understood and identified with—this has changed the way in which many fiction writers develop their story ideas. </p> <br/>
-        <p> The themes of ambition (in Macbeth), jealousy (in Othello), and identity (in Twelfth Night) can be found all over television, movies, and literature, but they are all expressed through Shakespeare's characters, who are relatable, humanistic, and realistic; they exemplify what is flawed, conflicted, and chaotic about humanity. The character development used by Shakespeare influenced and developed the way in which many writers create fiction. The Globe Theatre, associated with Shakespeare's company, represents world theatre in its entirety. Furthermore, students of literature all over the world have studied Shakespeare's plays not just because of their history, but because they still address many of the same questions, emotions, fears, loyalties, and the quest for meaning that we as humans continue to grapple with today. Shakespeare's legacy is the establishment of the framework for storytelling, the enrichment of the English language, and the provision of timeless inspiration to artists, thinkers, and the global audience for over 400 years since his passing. </p> <br/>
-      `
-    };
+<footer>© 2025 Shakespeare’s Quill</footer>
 
-    document.querySelectorAll(".more-info").forEach(button => {
-      button.addEventListener("click", () => {
-        const key = button.getAttribute("data-info");
-        scrollText.innerHTML = contentData[key];
-        modal.style.display = "flex";
-      });
-    });
+<script>
+/* MUSIC BUTTON */
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  music.paused ? (music.play(), btn.textContent="♪ Pause Music")
+               : (music.pause(), btn.textContent="♪ Play Music");
+}
 
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
+/* CLICK SOUND + DELAYED NAV */
+const clickSound=document.getElementById("click-sound");
+document.querySelectorAll("nav a").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    clickSound.currentTime=0;
+    clickSound.play();
+    const url=link.getAttribute("href");
+    setTimeout(()=>window.location.href=url,1000);
+  });
+});
 
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  </script>
+/* HERO TYPEWRITER */
+const heroTitle=document.getElementById("heroTitle");
+let i=0;
+const text=heroTitle.textContent;
+heroTitle.textContent="";
+function typeWriter(){
+  if(i<text.length){
+    heroTitle.textContent+=text.charAt(i);
+    i++;
+    setTimeout(typeWriter,60);
+  } else {
+    document.querySelector(".hero p").style.opacity=1;
+  }
+}
+typeWriter();
+
+/* FADE-IN BIO CARDS & PARAGRAPHS */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+      entry.target.querySelectorAll("p").forEach(p=>p.style.opacity=1);
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll(".bio-card").forEach(card=>observer.observe(card));
+
+/* TIMELINE FADE-IN */
+const timelineEvents=document.querySelectorAll(".timeline-event");
+const timelineObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{threshold:0.5});
+timelineEvents.forEach(ev=>timelineObserver.observe(ev));
+</script>
 
 </body>
 </html>
