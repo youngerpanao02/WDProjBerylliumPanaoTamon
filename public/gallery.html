@@ -8,7 +8,6 @@
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 
 <style>
-/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Cormorant Garamond',serif;
@@ -23,7 +22,7 @@ body{
   background:
     radial-gradient(ellipse at 20% 30%, rgba(255,140,60,.18), transparent 40%),
     radial-gradient(ellipse at 80% 70%, rgba(255,110,40,.15), transparent 45%);
-  animation:auroraMove 20s infinite alternate;
+  animation:auroraMove 20s infinite alternate ease-in-out;
   z-index:-3;
 }
 @keyframes auroraMove{
@@ -32,7 +31,7 @@ body{
 }
 .vignette{
   position:fixed; inset:0;
-  background:radial-gradient(circle,transparent 60%,rgba(0,0,0,.6));
+  background:radial-gradient(circle,transparent 60%,rgba(0,0,0,.65));
   z-index:-2;
 }
 
@@ -44,25 +43,25 @@ body{
   position:absolute;
   bottom:-20px;
   width:6px;height:6px;
-  background:rgba(255,210,120,.9);
+  background:rgba(255,210,120,.95);
   border-radius:50%;
-  box-shadow:0 0 12px rgba(255,200,100,.9);
-  animation:ember 15s linear infinite;
+  box-shadow:0 0 14px rgba(255,200,100,1);
+  animation:ember 14s linear infinite;
 }
 @keyframes ember{
   from{transform:translateY(0) scale(.6); opacity:0}
   to{transform:translateY(-110vh) scale(1); opacity:1}
 }
 
-/* FALLING FLOWERS */
+/* FLOWERS */
 .flower{
-  position:absolute;
+  position:fixed;
   top:-40px;
-  width:16px;height:16px;
+  width:14px;height:14px;
   background:orange;
   border-radius:50% 50% 50% 0;
   transform:rotate(45deg);
-  opacity:.6;
+  opacity:.55;
   animation:fall linear infinite;
 }
 @keyframes fall{
@@ -92,7 +91,8 @@ nav a::after{
   left:0;bottom:-4px;
   transition:.3s;
 }
-nav a:hover::after, nav a.active::after{width:100%}
+nav a:hover::after,
+nav a.active::after{width:100%}
 
 /* MUSIC BUTTON */
 .music-btn{
@@ -110,34 +110,34 @@ nav a:hover::after, nav a.active::after{width:100%}
 /* HERO */
 .hero{
   text-align:center;
-  padding:140px 20px 60px;
+  padding:140px 20px 80px;
 }
 .hero h1{
   font-family:'Cinzel';
   font-size:64px;
   color:#ffdf9e;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 .hero p{
   font-size:22px;
   opacity:.8;
 }
-.hero{margin-bottom:140px}
+.hero{margin-bottom:120px}
 
-/* GALLERY STRIPS */
+/* GALLERY */
 .gallery{
   display:flex;
   flex-direction:column;
-  gap:50px;
-  padding-bottom:120px;
+  gap:60px;
+  padding-bottom:140px;
 }
 .strip{
   display:flex;
-  gap:20px;
+  gap:24px;
   width:max-content;
 }
-.strip.left{animation:scrollL 60s linear infinite}
-.strip.right{animation:scrollR 60s linear infinite}
+.strip.left{animation:scrollL 65s linear infinite}
+.strip.right{animation:scrollR 65s linear infinite}
 
 @keyframes scrollL{
   from{transform:translateX(0)}
@@ -149,25 +149,25 @@ nav a:hover::after, nav a.active::after{width:100%}
 }
 
 .gallery img{
-  width:340px;
-  height:200px;
+  width:360px;
+  height:210px;
   object-fit:cover;
-  border-radius:14px;
+  border-radius:16px;
   cursor:pointer;
   transition:.4s;
 }
 .gallery img:hover{
-  transform:scale(1.05);
+  transform:scale(1.06);
   box-shadow:
-    0 0 20px rgba(255,223,158,.8),
-    0 0 40px rgba(255,160,60,.4);
+    0 0 24px rgba(255,223,158,.85),
+    0 0 44px rgba(255,160,60,.4);
 }
 
 /* OVERLAY */
 .gallery-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,.88);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -175,13 +175,13 @@ nav a:hover::after, nav a.active::after{width:100%}
   z-index:100;
 }
 .gallery-photo{
-  width:40%;
+  width:42%;
   opacity:0;
   transform:translateX(-40px);
   transition:.8s;
 }
 .gallery-text{
-  max-width:400px;
+  max-width:420px;
   font-size:22px;
   line-height:1.6;
   opacity:0;
@@ -202,6 +202,108 @@ nav a:hover::after, nav a.active::after{width:100%}
   color:#ffdf9e;
   cursor:pointer;
 }
+
+/* TITUS PORTAL IMAGE + TEXT */
+.titus-portal-container {
+  position: fixed;
+  top: 55%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.titus-text {
+  color: #ff0000;
+  font-family: 'Cinzel', serif;
+  font-size: 12px; /* small text */
+  text-shadow: 1px 1px 2px black;
+}
+
+.glitch-image {
+  width: 80px; /* smaller image */
+  opacity: 0.25;
+  filter: contrast(1.2) saturate(.8);
+  animation: glitch 3.5s infinite;
+  cursor: pointer;
+}
+
+.glitch-image:hover {
+  filter: drop-shadow(1px 0 red) drop-shadow(-1px 0 cyan) brightness(1.1);
+  opacity: 0.5;
+}
+
+/* BLACK OVERLAY */
+.titus-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* GLITCH TEXT */
+.glitch-text {
+  font-family: 'Cinzel', serif;
+  font-size: 40px;
+  color: #ff0000;
+  position: relative;
+  animation: glitchAnim 0.5s infinite;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* GLITCH ANIMATION */
+@keyframes glitchAnim {
+  0% { transform: translate(0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+  10% { transform: translate(-2px, -2px); text-shadow: 2px 2px #ff0000, -2px -2px #ff0000; }
+  20% { transform: translate(2px, 2px); text-shadow: -2px 2px #ff0000, 2px -2px #ff0000; }
+  30% { transform: translate(-1px, 1px); text-shadow: 1px -1px #ff0000, -1px 1px #ff0000; }
+  40% { transform: translate(1px, -1px); text-shadow: -1px 1px #ff0000, 1px -1px #ff0000; }
+  50% { transform: translate(-2px, 0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+  60% { transform: translate(2px, 1px); text-shadow: -2px -1px #ff0000, 2px 1px #ff0000; }
+  70% { transform: translate(-1px, -1px); text-shadow: 1px 1px #ff0000, -1px -1px #ff0000; }
+  80% { transform: translate(1px, 2px); text-shadow: -1px -2px #ff0000, 1px 2px #ff0000; }
+  90% { transform: translate(0, -2px); text-shadow: 0 2px #ff0000, 0 -2px #ff0000; }
+  100% { transform: translate(0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+}
+
+@keyframes glitch {
+  0%{transform:translate(0)}
+  20%{transform:translate(-2px,2px)}
+  40%{transform:translate(2px,-1px)}
+  60%{transform:translate(-1px,1px)}
+  80%{transform:translate(1px,-2px)}
+  100%{transform:translate(0)}
+}
+
+/* TITUS LOADING OVERLAY */
+.titus-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+
+.titus-overlay p {
+  color: #ff0000;
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
+}
 </style>
 </head>
 
@@ -212,16 +314,16 @@ nav a:hover::after, nav a.active::after{width:100%}
 
 <!-- EMBERS -->
 <div class="embers">
-  <script>
-    for(let i=0;i<30;i++){
-      document.write(`<span style="left:${Math.random()*100}%;animation-duration:${10+Math.random()*10}s"></span>`)
-    }
-  </script>
+<script>
+for(let i=0;i<30;i++){
+  document.write(`<span style="left:${Math.random()*100}%;animation-duration:${10+Math.random()*10}s"></span>`);
+}
+</script>
 </div>
 
 <!-- FLOWERS -->
 <script>
-for(let i=0;i<20;i++){
+for(let i=0;i<18;i++){
   const f=document.createElement("div");
   f.className="flower";
   f.style.left=Math.random()*100+"%";
@@ -235,12 +337,13 @@ for(let i=0;i<20;i++){
   <source src="../assets/music.mp3" type="audio/mpeg">
 </audio>
 <audio id="click-sound" src="../assets/click.mp3"></audio>
+
 <button class="music-btn" id="musicBtn">♪ Play Music</button>
 
 <header>
   <div class="logo">Shakespeare’s Quill</div>
   <nav>
-    <a href="index.html">Home</a>
+    <a href="home.html">Home</a>
     <a href="biography.html">Biography</a>
     <a href="works.html">Works</a>
     <a href="quotes.html">Quotes</a>
@@ -254,26 +357,53 @@ for(let i=0;i<20;i++){
   <p>Scenes, moments, and echoes through time</p>
 </section>
 
-<section class="gallery">
+<!-- SECRET TITUS PORTAL -->
+<div class="titus-portal-container">
+  <a href="#" class="glitch-link">
+    <img src="../assets/titus-bg.jpg" alt="Titus Andronicus" class="glitch-image">
+  </a>
+  <span class="titus-text">Click the photo</span>
+</div>
 
+<!-- BLACK LOADING OVERLAY -->
+<div class="titus-overlay" id="titusOverlay">
+  <p class="glitch-text">What did you do?</p>
+</div>
+
+<!-- SCARY SOUND -->
+<audio id="titusSound">
+  <source src="../assets/scarymusic.mp3" type="audio/mpeg">
+</audio>
+
+
+
+<section class="gallery">
   <div class="strip left">
-    <img src="../assets/g1.jpg" data-text="Romeo and Juliet – A love doomed by fate">
-    <img src="../assets/g2.jpg" data-text="Hamlet – Madness and revenge">
-    <img src="../assets/g3.jpg" data-text="Macbeth – Ambition and blood">
-    <img src="../assets/g4.jpg" data-text="King Lear – Power and betrayal">
-    <img src="../assets/g5.jpg" data-text="Othello – Jealousy unleashed">
-    <img src="../assets/g6.jpg" data-text="The Tempest – Magic and forgiveness">
+    <img src="../assets/g1.jpg" data-text="Romeo and Juliet — Love doomed by fate">
+    <img src="../assets/g2.jpg" data-text="Hamlet — Madness and revenge">
+    <img src="../assets/g3.jpg" data-text="Macbeth — Ambition and blood">
+    <img src="../assets/g4.jpg" data-text="King Lear — Power and betrayal">
+    <img src="../assets/g5.jpg" data-text="Othello — Jealousy unleashed">
+    <img src="../assets/g6.jpg" data-text="The Tempest — Magic and forgiveness">
   </div>
 
   <div class="strip right">
-    <img src="../assets/g7.jpg" data-text="A Midsummer Night’s Dream – Enchanted chaos">
-    <img src="../assets/g8.jpg" data-text="Twelfth Night – Masks and desire">
-    <img src="../assets/g9.jpg" data-text="Julius Caesar – Power and betrayal">
-    <img src="../assets/g10.jpg" data-text="Richard III – Villainy on stage">
-    <img src="../assets/g11.jpg" data-text="Much Ado About Nothing – Wit and romance">
-    <img src="../assets/g12.jpg" data-text="Henry V – War and honor">
+    <img src="../assets/g7.jpg" data-text="A Midsummer Night’s Dream — Enchanted chaos">
+    <img src="../assets/g8.jpg" data-text="Twelfth Night — Masks and desire">
+    <img src="../assets/g9.jpg" data-text="Julius Caesar — Power and betrayal">
+    <img src="../assets/g10.jpg" data-text="Richard III — Villainy on stage">
+    <img src="../assets/g11.jpg" data-text="Much Ado About Nothing — Wit and romance">
+    <img src="../assets/g12.jpg" data-text="Henry V — War and honor">
   </div>
 
+  <div class="strip left">
+    <img src="../assets/g13.jpg" data-text="The Winter’s Tale — Loss and redemption">
+    <img src="../assets/g14.jpg" data-text="As You Like It — Pastoral love">
+    <img src="../assets/g15.jpg" data-text="Antony and Cleopatra — Passion and power">
+    <img src="../assets/g16.jpg" data-text="Coriolanus — Pride and downfall">
+    <img src="../assets/g17.jpg" data-text="Measure for Measure — Justice and mercy">
+    <img src="../assets/g18.jpg" data-text="Pericles — A journey of loss">
+  </div>
 </section>
 
 <script>
@@ -285,15 +415,27 @@ btn.onclick=()=>{
   (music.pause(),btn.textContent="♪ Play Music");
 }
 
-/* CLICK SOUND */
+/* CLICK SOUND — 1 SECOND */
 const click=document.getElementById("click-sound");
+function playClick(){
+  click.currentTime=0;
+  click.play();
+  setTimeout(()=>click.pause(),1000);
+}
 
-/* IMAGE OVERLAY */
+/* NAVBAR CLICK SOUND */
+document.querySelectorAll("nav a").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    playClick();
+    setTimeout(()=>window.location.href=link.href,180);
+  });
+});
+
+/* GALLERY OVERLAY */
 document.querySelectorAll(".gallery img").forEach(img=>{
   img.onclick=()=>{
-    click.currentTime=0;
-    click.play();
-
+    playClick();
     const overlay=document.createElement("div");
     overlay.className="gallery-overlay";
     overlay.innerHTML=`
@@ -306,17 +448,43 @@ document.querySelectorAll(".gallery img").forEach(img=>{
     setTimeout(()=>{
       overlay.querySelector(".gallery-photo").classList.add("show");
       overlay.querySelector(".gallery-text").classList.add("show");
-    },50);
+    },60);
 
     overlay.onclick=e=>{
-      if(e.target===overlay || e.target.classList.contains("gallery-close")){
-        click.currentTime=0;
-        click.play();
+      if(e.target===overlay||e.target.classList.contains("gallery-close")){
+        playClick();
         overlay.remove();
       }
     }
   }
 });
+const glitchLink = document.querySelector(".glitch-link");
+const overlay = document.getElementById("titusOverlay");
+const scarySound = document.getElementById("titusSound");
+const clickSound = document.getElementById("click-sound"); // reuse click sound
+
+glitchLink.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // play click sound immediately
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  // show black overlay + glitch text
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+
+  // play scary sound immediately
+  scarySound.currentTime = 0;
+  scarySound.play();
+
+  // redirect to titus.html after 3s overlay + 5s scary sound
+  setTimeout(() => {
+    window.location.href = "titus.html";
+  }, 8000); // 3s overlay + 5s scary sound
+});
+
+
 </script>
 
 </body>
