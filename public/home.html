@@ -127,6 +127,7 @@
 <footer>© 2025 Shakespeare’s Quill</footer>
 
 <script>
+
 /* MUSIC */
 const music=document.getElementById("bg-music");
 const btn=document.getElementById("musicBtn");
@@ -163,6 +164,14 @@ const isAdmin = prompt("Enter admin key to view feedback (leave blank if not adm
 
 // Load stored feedback
 const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+if(stored.length && isAdmin){
+  table.style.display = "table";
+  stored.forEach(e => {
+    const r = document.createElement("tr");
+    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
+    tbody.appendChild(r);
+  });
+}
 if(stored.length && isAdmin){
   table.style.display = "table";
   stored.forEach(e => {
