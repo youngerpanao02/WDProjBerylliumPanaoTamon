@@ -1,165 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
 <title>Shakespeare’s Quill | Quotes</title>
-
-<link rel="icon" type="image/x-icon" href="../assets/tab.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
 /* =======================
-   GLOBAL
-======================= */
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  font-family:'Playfair Display',serif;
-  background:#ebe8e2;
-  color:#152238;
-  line-height:1.6;
-}
-
-/* =======================
-   HEADER
-======================= */
-header{
-  background:linear-gradient(to right,#152238,#1d2f4a);
-  padding:18px 60px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo img{height:45px}
-
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:25px;
-  font-weight:600;
-  padding:8px 16px;
-  border-radius:8px;
-}
-
-nav a.active,nav a:hover{
-  background:#a89a5a;
-  color:#152238;
-}
-
-/* =======================
-   VARIABLES
-======================= */
-:root{
-  --accent:#bfa760;
-  --overlay:rgba(21,34,56,.6);
-  --nav-bg:#1d2f4a;
-}
-
-/* =======================
-   HERO
+   QUOTES PAGE SPECIFIC
 ======================= */
 .quotes-hero{
   position:relative;
   min-height:60vh;
   display:flex;
+  flex-direction:column;      /* stack big quote + buttons */
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:90px 6% 70px;
   color:white;
-  overflow:hidden;
-}
-
-.hero-video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-3;
-}
-
-.quotes-hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:var(--overlay);
-  z-index:-2;
+  padding:80px 6% 40px;
+  z-index:1;
 }
 
 .big-quote{
-  font-size:clamp(2.4rem,4vw,3.4rem);
+  font-size:clamp(2rem,4vw,3rem);
   font-weight:700;
-  margin-bottom:22px;
-  max-width:900px;
+  text-shadow: 0 0 8px #ff9c00, 0 0 16px #ff4500, 0 0 24px #ff6347;
+  animation:fireGlow 1.2s infinite alternate;
   opacity:0;
+  max-width:900px;
+  margin-bottom:20px;   /* space between quote and buttons */
 }
 
-.quote-source{
-  font-size:1rem;
-  font-style:italic;
-  margin-bottom:26px;
-  color:#e6e6e6;
+.controls{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  margin-top:0;   /* remove extra spacing */
 }
 
-/* TYPEWRITER */
-.typing{
-  border-right:3px solid white;
-  padding-right:4px;
-  animation:blink 1s infinite;
-}
-@keyframes blink{50%{border-color:transparent}}
 
-.fade-slide{
-  animation:fadeSlide .6s ease forwards;
-}
-@keyframes fadeSlide{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes fireGlow{
+  0%{text-shadow:0 0 6px #ff9c00,0 0 12px #ff4500,0 0 18px #ff6347;}
+  50%{text-shadow:0 0 12px #ffd700,0 0 24px #ff4500,0 0 32px #ff6347;}
+  100%{text-shadow:0 0 6px #ff9c00,0 0 12px #ff4500,0 0 18px #ff6347;}
 }
 
-/* =======================
-   BUTTONS
-======================= */
-.controls{display:flex;gap:14px;justify-content:center}
-
-.btn-quote{
-  background:var(--accent);
-  border:none;
-  padding:12px 28px;
-  border-radius:28px;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.btn-light{background:white}
-
-/* =======================
-   MUSIC
-======================= */
-#music-toggle{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:rgba(0,0,0,.65);
-  color:white;
-  border:none;
-  padding:12px 18px;
-  border-radius:12px;
-  cursor:pointer;
-  z-index:999;
-}
-
-/* =======================
-   QUOTE GRID
-======================= */
 .quote-grid-section{
-  background:var(--nav-bg);
-  padding:70px 6% 110px;
+  opacity:0;
+  transition:opacity 1s ease-in-out;
 }
 
+.quote-grid-section.show{
+  opacity:1;
+}
+
+/* QUOTE GRID */
 .quotes-layout{
   max-width:1350px;
   margin:auto;
@@ -179,10 +75,18 @@ nav a.active,nav a:hover{
 }
 
 .card{
-  background:radial-gradient(circle at top,#fffdf7,#f6f0e2);
+  background:rgba(255, 255, 255, 0.15); /* transparent cards */
   border-radius:18px;
   padding:34px 36px;
   position:relative;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 20px #ff9c00;
 }
 
 .card::before{
@@ -202,14 +106,38 @@ nav a.active,nav a:hover{
 }
 
 .q{font-size:1.05rem;margin-bottom:14px}
-.meta{display:flex;justify-content:space-between;font-size:.9rem;color:#5a5546}
+.meta{display:flex;justify-content:space-between;font-size:.9rem;color:#e6e6e6}
 
 .context{
   font-size:.95rem;
   line-height:1.6;
   border-left:2px solid #d6c28a;
   padding-left:14px;
+  color:white;
 }
+
+/* TYPEWRITER */
+.typing{
+  border-right:3px solid white;
+  padding-right:4px;
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{border-color:transparent}}
+
+/* BUTTONS */
+.controls{display:flex;gap:14px;justify-content:center;margin-top:20px}
+
+.btn-quote{
+  background:#bfa760;
+  border:none;
+  padding:12px 28px;
+  border-radius:28px;
+  font-weight:700;
+  cursor:pointer;
+  color:#152238;
+}
+
+.btn-light{background:white;color:#152238}
 
 /* RESPONSIVE */
 @media(max-width:1080px){
@@ -225,152 +153,161 @@ nav a.active,nav a:hover{
     padding-top:12px;
   }
 }
-
-/* FOOTER */
-footer{
-  background:var(--nav-bg);
-  color:white;
-  text-align:center;
-  padding:22px;
-}
 </style>
 </head>
-
 <body>
 
+<div class="aurora"></div>
+<div class="vignette"></div>
+
+<!-- EMBERS -->
+<div class="embers">
+  <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
+  <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
+  <span style="left:25%;animation-duration:14s;animation-delay:2s"></span>
+  <span style="left:35%;animation-duration:18s;animation-delay:6s"></span>
+  <span style="left:45%;animation-duration:15s;animation-delay:1s"></span>
+  <span style="left:55%;animation-duration:17s;animation-delay:5s"></span>
+  <span style="left:65%;animation-duration:13s;animation-delay:3s"></span>
+  <span style="left:75%;animation-duration:19s;animation-delay:7s"></span>
+  <span style="left:85%;animation-duration:14s;animation-delay:2s"></span>
+</div>
+
+<!-- MUSIC -->
 <audio id="bg-music" loop>
   <source src="../assets/music.mp3" type="audio/mpeg">
 </audio>
-<button id="music-toggle">🔊 Music</button>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+<!-- CLICK SOUND -->
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
 
 <header>
-  <div class="logo"><img src="../assets/logo.png"></div>
+  <div class="logo">Shakespeare’s Quill</div>
   <nav>
-    <a href="home.html">Home</a>
-    <a href="biography.html">Biography</a>
-    <a href="works.html">Works</a>
-    <a href="quotes.html" class="active">Quotes</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="resources.html">Resources</a>
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="biography.html" class="nav-link">Biography</a>
+    <a href="works.html" class="nav-link">Works</a>
+    <a href="quotes.html" class="nav-link active">Quotes</a>
+    <a href="gallery.html" class="nav-link">Gallery</a>
+    <a href="resources.html" class="nav-link">Resources</a>
   </nav>
 </header>
 
 <section class="quotes-hero">
-  <video class="hero-video" autoplay muted loop>
-    <source src="../assets/background.mp4" type="video/mp4">
-  </video>
-
-  <div>
-    <div id="bigQuote" class="big-quote">
-      <span id="typewriter" class="typing"></span>
-    </div>
-    <div id="quoteSource" class="quote-source"></div>
-    <div class="controls">
-      <button id="genBtn" class="btn-quote">Generate Quote</button>
-      <button id="copyBtn" class="btn-quote btn-light">Copy</button>
-    </div>
+  <div id="bigQuote" class="big-quote">
+    <span id="typewriter" class="typing"></span>
+  </div>
+  <div class="controls">
+    <button id="genBtn" class="btn-quote">Generate Quote</button>
+    <button id="copyBtn" class="btn-quote btn-light">Copy</button>
   </div>
 </section>
 
 <section class="quote-grid-section">
 <div class="quotes-layout">
 
-<div class="intro-box"> <h2 class="intro-title">Shakespeare’s Timeless Words</h2> <p> The enduring value of works written by William Shakespeare is his ability to express the complexity of the human emotional experience. His characters grapple with many different aspects of the human condition: life, love, ambition, betrayal, self-identity and destiny - themes that today's audiences continue to relate to. The language in Shakespeare's works is always precise, vivid and evocative; some passages are so powerful and well constructed that a reader often feels as though they have walked through an entire world when they have only read several short lines of text. </p> <p> Through these quotes, we see the voice of the author, a philosophy, romance, humour and tragic events which ultimately reinforce his humanity. These quotes also allow us to understand how every generation has experienced problems, hope and dream of something larger than themselves. The quotes also show that the impact of art continues beyond the Shakespeare’s life and affects people hundreds of years after he has died. </p> </div>
+<div class="intro-box">
+<h2 class="intro-title">Shakespeare’s Timeless Words</h2>
+<p>Explore the wisdom, philosophy, and beauty of Shakespeare’s writing through these memorable quotes.</p>
+</div>
 
 <div class="grid">
 
-<!-- 15 TOTAL QUOTES -->
-<!-- I kept them concise & academic -->
+<!-- FULL QUOTES GRID -->
+<div class="card"><div class="card-content"><div><div class="q">“To be, or not to be — that is the question.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Hamlet reflects on the nature of existence, questioning whether it is nobler to endure suffering or to end one’s life.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“To be, or not to be — that is the question.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Hamlet reflects on the nature of existence, questioning whether it is nobler to endure suffering or to end one’s life. The soliloquy reveals his deep inner conflict and philosophical struggle with mortality, pain, and moral responsibility.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“All the world’s a stage.”</div><div class="meta"><span>As You Like It</span><span>1599</span></div></div><div class="context">Jacques compares human life to a theatrical performance in which individuals play different roles throughout their lives.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“All the world’s a stage.”</div><div class="meta"><span>As You Like It</span><span>1599</span></div></div><div class="context">Jacques compares human life to a theatrical performance in which individuals play different roles throughout their lives. The speech emphasizes the fleeting nature of human existence and the inevitability of change.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Love looks not with the eyes.”</div><div class="meta"><span>Midsummer</span><span>1595</span></div></div><div class="context">Helena explains that love is driven by emotion rather than logic or physical appearance.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Love looks not with the eyes.”</div><div class="meta"><span>Midsummer</span><span>1595</span></div></div><div class="context">Helena explains that love is driven by emotion rather than logic or physical appearance. The line highlights the irrational and often uncontrollable nature of love, a central theme of the play.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Some are born great.”</div><div class="meta"><span>Twelfth Night</span><span>1601</span></div></div><div class="context">Greatness can come through birth, effort, or circumstance.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Some are born great.”</div><div class="meta"><span>Twelfth Night</span><span>1601</span></div></div><div class="context">This line suggests that greatness can come through birth, effort, or circumstance. It reflects the play’s exploration of identity, ambition, and the unpredictable nature of social status.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“We are such stuff as dreams are made on.”</div><div class="meta"><span>The Tempest</span><span>1611</span></div></div><div class="context">This line explores identity, ambition, and the unpredictable nature of human experience.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“We are such stuff as dreams are made on.”</div><div class="meta"><span>The Tempest</span><span>1611</span></div></div><div class="context">This line suggests that greatness can come through birth, effort, or circumstance. It reflects the play’s exploration of identity, ambition, and the unpredictable nature of social status.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“This above all: to thine own self be true.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Polonius advises honesty and self-awareness, highlighting integrity as central to human behavior.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“This above all: to thine own self be true.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Polonius advises his son Laertes to remain honest and faithful to his values. Although spoken by a flawed character, the line conveys an enduring message about integrity and self-awareness.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Brevity is the soul of wit.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Concise speech reflects wisdom, emphasizing Shakespeare’s use of irony and commentary on human nature.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Brevity is the soul of wit.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Polonius claims that concise speech reflects wisdom, despite ironically speaking at great length himself. The quote highlights Shakespeare’s use of irony and commentary on human behavior.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“The fault, dear Brutus, is not in our stars.”</div><div class="meta"><span>Julius Caesar</span><span>1599</span></div></div><div class="context">Cassius argues that people shape their own destinies rather than being controlled by fate.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“The fault, dear Brutus, is not in our stars.”</div><div class="meta"><span>Julius Caesar</span><span>1599</span></div></div><div class="context">Cassius argues that people shape their own destinies rather than being controlled by fate. The line challenges the belief in destiny and emphasizes personal responsibility and free will.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Cowards die many times before their deaths.”</div><div class="meta"><span>Julius Caesar</span><span>1599</span></div></div><div class="context">Caesar suggests that fear causes repeated suffering, while bravery allows one to face death only once.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Cowards die many times before their deaths.”</div><div class="meta"><span>Julius Caesar</span><span>1599</span></div></div><div class="context">Caesar suggests that fear causes repeated suffering, while bravery allows one to face death only once. The quote reflects Roman ideals of honor, courage, and strength.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“If music be the food of love, play on.”</div><div class="meta"><span>Twelfth Night</span><span>1601</span></div></div><div class="context">Duke Orsino opens the play by associating music with emotional intensity.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“If music be the food of love, play on.”</div><div class="meta"><span>Twelfth Night</span><span>1601</span></div></div><div class="context">Duke Orsino opens the play by associating music with emotional intensity. The line establishes themes of love, longing, and excess that drive the play’s romantic conflicts.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“What’s done cannot be undone.”</div><div class="meta"><span>Macbeth</span><span>1606</span></div></div><div class="context">Lady Macbeth realizes the permanence of her actions after the murder of King Duncan.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“What’s done cannot be undone.”</div><div class="meta"><span>Macbeth</span><span>1606</span></div></div><div class="context">Lady Macbeth realizes the permanence of her actions after the murder of King Duncan. The quote expresses guilt, remorse, and the irreversible consequences of ambition-driven decisions.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Fair is foul, and foul is fair.”</div><div class="meta"><span>Macbeth</span><span>1606</span></div></div><div class="context">Spoken by the witches, establishing a world where moral boundaries are blurred.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Fair is foul, and foul is fair.”</div><div class="meta"><span>Macbeth</span><span>1606</span></div></div><div class="context">Spoken by the witches, this line establishes a world where moral boundaries are blurred. It introduces the theme of deception and the inversion of good and evil throughout the play.
-</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“Uneasy lies the head that wears a crown.”</div><div class="meta"><span>Henry IV</span><span>1597</span></div></div><div class="context">King Henry reflects on the burdens of leadership and power.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“Uneasy lies the head that wears a crown.”</div><div class="meta"><span>Henry IV</span><span>1597</span></div></div><div class="context">King Henry reflects on the burdens of leadership and power. The quote suggests that authority brings constant anxiety and responsibility rather than peace.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“All that glitters is not gold.”</div><div class="meta"><span>Merchant of Venice</span><span>1596</span></div></div><div class="context">The line warns against judging based on appearance alone.</div></div></div>
 
-<div class="card"><div class="card-content"><div><div class="q">“All that glitters is not gold.”</div><div class="meta"><span>Merchant of Venice</span><span>1596</span></div></div><div class="context">The line warns against judging based on appearance alone. It reinforces the play’s theme that true worth lies beneath the surface, not in outward beauty or wealth.</div></div></div>
-
-<div class="card"><div class="card-content"><div><div class="q">“The lady doth protest too much.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Queen Gertrude comments on exaggerated expressions of innocence, implying that excessive denial can reveal dishonesty. The quote critiques insincerity and performative behavior.</div></div></div>
+<div class="card"><div class="card-content"><div><div class="q">“The lady doth protest too much.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Queen Gertrude comments on exaggerated expressions of innocence.</div></div></div>
 
 </div>
 </div>
 </section>
 
-<footer>
-<p>© 2025 Shakespeare’s Quill</p>
-</footer>
+<footer>© 2025 Shakespeare’s Quill</footer>
 
 <script>
 /* MUSIC */
-const music=document.getElementById("bg-music");
-const toggle=document.getElementById("music-toggle");
-toggle.onclick=()=>{
-  if(music.paused){music.play();toggle.textContent="🔊 Music On";}
-  else{music.pause();toggle.textContent="🔇 Music Off";}
-};
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  music.paused ? (music.play(), btn.textContent="♪ Pause Music")
+               : (music.pause(), btn.textContent="♪ Play Music");
+}
 
-/* QUOTE GENERATOR */
+/* NAVBAR CLICK SOUND */
+const clickSound=document.getElementById("click-sound");
+document.querySelectorAll(".nav-link").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    clickSound.currentTime=0;
+    clickSound.play();
+    const url=link.getAttribute("href");
+    setTimeout(()=>window.location.href=url,1000);
+  });
+});
+
+/* TYPEWRITER QUOTE + GENERATE */
 const QUOTES=[
-{text:"To be, or not to be—that is the question.",source:"Hamlet, 1603"},
-{text:"All the world's a stage, and all the men and women merely players.",source:"As You Like It, 1599"},
-{text:"The course of true love never did run smooth.",source:"A Midsummer Night’s Dream"},
-{text:"If music be the food of love, play on.",source:"Twelfth Night"},
-{text:"We are such stuff as dreams are made on.",source:"The Tempest"}
+  {text:"To be, or not to be — that is the question.",source:"Hamlet, 1603"},
+  {text:"All the world's a stage, and all the men and women merely players.",source:"As You Like It, 1599"},
+  {text:"The course of true love never did run smooth.",source:"A Midsummer Night’s Dream"},
+  {text:"If music be the food of love, play on.",source:"Twelfth Night, 1601"},
+  {text:"We are such stuff as dreams are made on.",source:"The Tempest, 1611"}
 ];
 
 const typeEl=document.getElementById("typewriter");
-const srcEl=document.getElementById("quoteSource");
-const wrap=document.getElementById("bigQuote");
 
 function typeText(text){
   typeEl.textContent="";
   let i=0;
   const interval=setInterval(()=>{
     typeEl.textContent+=text[i++]||"";
-    if(i>text.length)clearInterval(interval);
+    if(i>text.length) clearInterval(interval);
   },30);
 }
 
 function showRandom(){
   const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];
-  wrap.classList.remove("fade-slide");
-  wrap.style.opacity=0;
-  setTimeout(()=>{
-    typeText(q.text);
-    srcEl.textContent=q.source;
-    wrap.style.opacity=1;
-    wrap.classList.add("fade-slide");
-  },250);
+  typeText(q.text);
 }
 
 document.getElementById("genBtn").onclick=showRandom;
-
 document.getElementById("copyBtn").onclick=()=>{
-  navigator.clipboard.writeText(typeEl.textContent+" — "+srcEl.textContent);
+  navigator.clipboard.writeText(typeEl.textContent);
 };
 
-window.onload=showRandom;
+window.addEventListener("load",()=>{
+  // show big quote
+  setTimeout(()=>{document.getElementById("bigQuote").style.opacity=1;},300);
+  // show grid after 3 seconds
+  setTimeout(()=>{document.querySelector(".quote-grid-section").classList.add("show");},3300);
+  showRandom();
+});
 </script>
 
 </body>

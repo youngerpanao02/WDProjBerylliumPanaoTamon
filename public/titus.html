@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Titus Andronicus | Shakespeare’s Quill</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="../assets/tab.png">
+
+<style>
+
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Cormorant Garamond', serif;
+  background:#000;
+  color:#f5e6e6;
+  overflow-x:hidden;
+}
+
+/* BLOOD BACKGROUND */
+.blood-bg {
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(150,0,0,0.35), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(100,0,0,0.4), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(120,0,0,0.5), transparent 50%);
+  animation:pulseBlood 8s infinite alternate;
+  z-index:-3;
+}
+
+@keyframes pulseBlood {
+  from { filter:brightness(0.6); }
+  to { filter:brightness(1); }
+}
+
+/* DRIPPING BLOOD */
+.drip {
+  position:fixed;
+  top:-100px;
+  width:6px;
+  height:120px;
+  background:linear-gradient(to bottom, #8b0000, transparent);
+  animation: drip 6s infinite;
+  opacity:0.7;
+  z-index:-2;
+}
+
+@keyframes drip {
+  0% { transform:translateY(0); opacity:0; }
+  20% { opacity:1; }
+  100% { transform:translateY(120vh); opacity:0; }
+}
+
+/* NAVBAR */
+header {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 60px;
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.9);
+  border-bottom:1px solid #8b0000;
+  z-index:20;
+}
+
+.logo {
+  font-family:'Cinzel';
+  letter-spacing:3px;
+  color:#b30000;
+  font-size:22px;
+}
+
+nav a {
+  color:#f5e6e6;
+  margin-left:30px;
+  text-decoration:none;
+  position:relative;
+  font-weight:600;
+}
+
+nav a::after {
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  background:#8b0000;
+  left:0;
+  bottom:-4px;
+  transition:0.3s;
+}
+
+nav a:hover::after {
+  width:100%;
+}
+
+/* HERO */
+.hero {
+  text-align:center;
+  padding:120px 20px 60px;
+}
+
+.hero h1 {
+  font-family:'Cinzel';
+  font-size:64px;
+  color:#b30000;
+  text-shadow:0 0 20px rgba(139,0,0,0.9);
+  position:relative;
+}
+
+/* GLITCH */
+.glitch {
+  position:relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0.8;
+}
+
+.glitch::before {
+  color:#ff0000;
+  animation:glitchTop 2s infinite;
+  left:-5px; /* left-shift for spooky effect */
+}
+
+.glitch::after {
+  color:#5a0000;
+  animation:glitchBottom 2s infinite;
+  left:3px;
+}
+
+@keyframes glitchTop {
+  0%{transform:translate(2px,-2px);}
+  20%{transform:translate(-2px,2px);}
+  40%{transform:translate(2px,0);}
+  60%{transform:translate(-2px,2px);}
+  80%{transform:translate(0,-2px);}
+  100%{transform:translate(0,0);}
+}
+
+@keyframes glitchBottom {
+  0%{transform:translate(-2px,2px);}
+  20%{transform:translate(2px,-2px);}
+  40%{transform:translate(-2px,0);}
+  60%{transform:translate(2px,-2px);}
+  80%{transform:translate(0,2px);}
+  100%{transform:translate(0,0);}
+}
+
+/* SUBTITLE */
+.hero p {
+  font-size:20px;
+  margin-top:20px;
+  color:#d9b0b0;
+  animation:flicker 4s infinite;
+}
+
+@keyframes flicker {
+  0%,18%,22%,25%,53%,57%,100% { opacity:1; }
+  20%,24%,55% { opacity:0.3; }
+}
+
+/* CONTENT */
+section.content {
+  max-width:900px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.text {
+  margin-bottom:50px;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.text h2 {
+  font-family:'Cinzel';
+  color:#8b0000;
+  margin-bottom:10px;
+  text-shadow:0 0 10px rgba(139,0,0,0.8);
+}
+
+/* RANDOM WORD GLITCH */
+.glitch-word {
+  color:#ff0000;
+  animation:wordGlitch 1.5s infinite;
+}
+
+@keyframes wordGlitch {
+  0% { text-shadow:2px 0 red; }
+  50% { text-shadow:-2px 0 darkred; }
+  100% { text-shadow:2px 0 red; }
+}
+
+/* BACK BUTTON */
+.back-btn {
+  display:inline-block;
+  margin:40px auto 80px;
+  padding:14px 28px;
+  background:#8b0000;
+  color:#f5e6e6;
+  font-family:'Cinzel';
+  text-decoration:none;
+  border-radius:8px;
+  transition:0.3s;
+}
+
+.back-btn:hover {
+  background:#ff0000;
+}
+
+/* MEDIA */
+@media screen and (max-width:900px){
+  .text { font-size:16px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="blood-bg"></div>
+
+<!-- DRIPPING BLOOD -->
+<script>
+for(let i=0;i<20;i++){
+  const d=document.createElement("div");
+  d.className="drip";
+  d.style.left=Math.random()*100+"%";
+  d.style.animationDelay=Math.random()*5+"s";
+  d.style.height=(Math.random()*150+80)+"px";
+  document.body.appendChild(d);
+}
+</script>
+
+<!-- AUTO MUSIC -->
+<audio id="bg-music" autoplay loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<section class="hero">
+  <h1 class="glitch" data-text="Titus Andronicus">Titus Andronicus</h1>
+  <p>A tragedy soaked in <span class="glitch-word">blood</span>, revenge, and madness.</p>
+</section>
+
+<section class="content">
+  <div class="text">
+    <h2>Introduction</h2>
+    <p><span class="glitch-word">Titus Andronicus</span> is Shakespeare’s earliest written tragedy, though it is also his most horrific. It takes the audience on a continuous journey through a world of violence, betrayal, and corrupted politics.
+
+The emotional states of grief, rage, and vengeance overwhelm the characters in the play to the extent that they create a form of moral ambiguity. Rome is left in chaos.
+
+The play also illustrates how vengeance affects not just one character but all of society; the desire for power and domination will ultimately prevail over rational thinking and compassion for fellow humans.
+
+he play incorporates an apocalyptic quality to its tone; it contains many scenes of <span class="glitch-word">brutality</span>  due to the extreme amount of violence and horror it includes and push the limits of what could be accomplished in Elizabethan Drama.
+
+Like other tragedies, Titus Andronicus raises questions about how we view justice, loyalty, and what it means to be human in the face of overwhelming rage for <span class="glitch-word">revenge</span> .</p>
+  </div>
+
+  <div class="text">
+    <h2>Main Conflict</h2>
+    <p>TThe main conflict arises from the bitter feud between Titus, a Roman general, and Tamora, the queen of the Goths. Every act of vengeance leads to further brutal violence.
+
+The characters act because of obsession driven by a need for revenge for wrongs perpetrated against them. They act unethically with dire results.
+
+From <span class="glitch-word">mutilations and executions</span> , a world in which betrayal and treachery are prevalent, and a world in which trust has become a rarity
+
+As the horror and the tragedy are heightened by the skullduggery and machinations of the key players, no character remains unscathed by the violence that erupts on stage.
+
+At the end of it all, Titus’s obsession with revenge brings tragic consequences, and several issues arise in regard to the cost of revenge and its effect on the soul.</p>
+  </div>
+
+  <div class="text">
+    <h2>Legacy</h2>
+    <p>There are also Elizabethan plays and horror films which took inspiration from <span class="glitch-word">Titus Andronicus</span> , a play which reminds us of the darkest elements in humanity.
+
+The play continues to be a lesson in morality, the uses of power, and the effects of the unleashing of vengeance.
+
+Its reinspiring themes and images continue to influence new interpretations in literary, theatrical, and motion-picture forms.
+
+The constant tension, the bloody violence, the mental anguish—it all adds up to a kind of frightening one-on-one interaction that unsettles, repulses, and enthralls audiences in equal measure.
+
+Through its investigation into the human capacity for cruel behavior as well as the effects of revenge upon society as a whole, *Titus Andronicus* remains chillingly topical even to this day.</p>
+  </div>
+</section>
+
+<a href="gallery.html" class="back-btn">← Back to Gallery</a>
+</body>
+</html>

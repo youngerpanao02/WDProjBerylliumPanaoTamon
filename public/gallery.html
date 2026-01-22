@@ -2,33 +2,346 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shakespeare’s Quill | Gallery [Work in Progress] </title>
+<title>Shakespeare’s Quill | Gallery</title>
 
-<link rel="stylesheet" href="gallerystyle.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 
 <style>
-/* ===== RESET & BODY ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:#0d111c;
+  color:#f3ead7;
+  overflow-x:hidden;
+}
 
+/* AURORA + VIGNETTE */
+.aurora{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255,140,60,.18), transparent 40%),
+    radial-gradient(ellipse at 80% 70%, rgba(255,110,40,.15), transparent 45%);
+  animation:auroraMove 20s infinite alternate ease-in-out;
+  z-index:-3;
+}
+@keyframes auroraMove{
+  from{transform:translateX(-30px)}
+  to{transform:translateX(30px)}
+}
+.vignette{
+  position:fixed; inset:0;
+  background:radial-gradient(circle,transparent 60%,rgba(0,0,0,.65));
+  z-index:-2;
+}
+
+/* EMBERS */
+.embers{
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+}
+.embers span{
+  position:absolute;
+  bottom:-20px;
+  width:6px;height:6px;
+  background:rgba(255,210,120,.95);
+  border-radius:50%;
+  box-shadow:0 0 14px rgba(255,200,100,1);
+  animation:ember 14s linear infinite;
+}
+@keyframes ember{
+  from{transform:translateY(0) scale(.6); opacity:0}
+  to{transform:translateY(-110vh) scale(1); opacity:1}
+}
+
+/* FLOWERS */
+.flower{
+  position:fixed;
+  top:-40px;
+  width:14px;height:14px;
+  background:orange;
+  border-radius:50% 50% 50% 0;
+  transform:rotate(45deg);
+  opacity:.55;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(120vh) rotate(360deg)}
+}
+
+/* NAVBAR */
+header{
+  display:flex;justify-content:space-between;
+  padding:20px 60px;
+  position:sticky;top:0;
+  background:rgba(18,24,38,.9);
+  backdrop-filter:blur(6px);
+  z-index:20;
+}
+.logo{font-family:'Cinzel';letter-spacing:2px}
+nav a{
+  color:#f3ead7;
+  margin-left:30px;
+  text-decoration:none;
+  position:relative;
+}
+nav a::after{
+  content:"";position:absolute;
+  width:0;height:1px;
+  background:#b89b5e;
+  left:0;bottom:-4px;
+  transition:.3s;
+}
+nav a:hover::after,
+nav a.active::after{width:100%}
+
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  bottom:30px; right:30px;
+  background:#b89b5e;
+  color:#121826;
+  border:none;
+  padding:12px 18px;
+  font-family:'Cinzel';
+  cursor:pointer;
+  z-index:30;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:140px 20px 80px;
+}
+.hero h1{
+  font-family:'Cinzel';
+  font-size:64px;
+  color:#ffdf9e;
+  margin-bottom:18px;
+}
+.hero p{
+  font-size:22px;
+  opacity:.8;
+}
+.hero{margin-bottom:120px}
+
+/* GALLERY */
+.gallery{
+  display:flex;
+  flex-direction:column;
+  gap:60px;
+  padding-bottom:140px;
+}
+.strip{
+  display:flex;
+  gap:24px;
+  width:max-content;
+}
+.strip.left{animation:scrollL 65s linear infinite}
+.strip.right{animation:scrollR 65s linear infinite}
+
+@keyframes scrollL{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+@keyframes scrollR{
+  from{transform:translateX(-50%)}
+  to{transform:translateX(0)}
+}
+
+.gallery img{
+  width:360px;
+  height:210px;
+  object-fit:cover;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.4s;
+}
+.gallery img:hover{
+  transform:scale(1.06);
+  box-shadow:
+    0 0 24px rgba(255,223,158,.85),
+    0 0 44px rgba(255,160,60,.4);
+}
+
+/* OVERLAY */
+.gallery-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:60px;
+  z-index:100;
+}
+.gallery-photo{
+  width:42%;
+  opacity:0;
+  transform:translateX(-40px);
+  transition:.8s;
+}
+.gallery-text{
+  max-width:420px;
+  font-size:22px;
+  line-height:1.6;
+  opacity:0;
+  transform:translateX(40px);
+  transition:.8s;
+}
+.gallery-photo.show,
+.gallery-text.show{
+  opacity:1;
+  transform:translateX(0);
+}
+.gallery-close{
+  position:absolute;
+  top:30px; right:40px;
+  font-size:40px;
+  background:none;
+  border:none;
+  color:#ffdf9e;
+  cursor:pointer;
+}
+
+/* TITUS PORTAL IMAGE + TEXT */
+.titus-portal-container {
+  position: fixed;
+  top: 55%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.titus-text {
+  color: #ff0000;
+  font-family: 'Cinzel', serif;
+  font-size: 12px; /* small text */
+  text-shadow: 1px 1px 2px black;
+}
+
+.glitch-image {
+  width: 80px; /* smaller image */
+  opacity: 0.25;
+  filter: contrast(1.2) saturate(.8);
+  animation: glitch 3.5s infinite;
+  cursor: pointer;
+}
+
+.glitch-image:hover {
+  filter: drop-shadow(1px 0 red) drop-shadow(-1px 0 cyan) brightness(1.1);
+  opacity: 0.5;
+}
+
+/* BLACK OVERLAY */
+.titus-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* GLITCH TEXT */
+.glitch-text {
+  font-family: 'Cinzel', serif;
+  font-size: 40px;
+  color: #ff0000;
+  position: relative;
+  animation: glitchAnim 0.5s infinite;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* GLITCH ANIMATION */
+@keyframes glitchAnim {
+  0% { transform: translate(0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+  10% { transform: translate(-2px, -2px); text-shadow: 2px 2px #ff0000, -2px -2px #ff0000; }
+  20% { transform: translate(2px, 2px); text-shadow: -2px 2px #ff0000, 2px -2px #ff0000; }
+  30% { transform: translate(-1px, 1px); text-shadow: 1px -1px #ff0000, -1px 1px #ff0000; }
+  40% { transform: translate(1px, -1px); text-shadow: -1px 1px #ff0000, 1px -1px #ff0000; }
+  50% { transform: translate(-2px, 0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+  60% { transform: translate(2px, 1px); text-shadow: -2px -1px #ff0000, 2px 1px #ff0000; }
+  70% { transform: translate(-1px, -1px); text-shadow: 1px 1px #ff0000, -1px -1px #ff0000; }
+  80% { transform: translate(1px, 2px); text-shadow: -1px -2px #ff0000, 1px 2px #ff0000; }
+  90% { transform: translate(0, -2px); text-shadow: 0 2px #ff0000, 0 -2px #ff0000; }
+  100% { transform: translate(0); text-shadow: 2px 0 #ff0000, -2px 0 #ff0000; }
+}
+
+@keyframes glitch {
+  0%{transform:translate(0)}
+  20%{transform:translate(-2px,2px)}
+  40%{transform:translate(2px,-1px)}
+  60%{transform:translate(-1px,1px)}
+  80%{transform:translate(1px,-2px)}
+  100%{transform:translate(0)}
+}
+
+/* TITUS LOADING OVERLAY */
+.titus-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
+
+.titus-overlay p {
+  color: #ff0000;
+  font-family: 'Cinzel', serif;
+  font-size: 28px;
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
+}
 </style>
 </head>
 
 <body>
 
+<div class="aurora"></div>
+<div class="vignette"></div>
 
-<div id="galleryIntro" class="gallery-intro">
-  <div class="intro-text">
-    <h1>Shakespeare Through Time [Work in Progress] </h1>
-    <p>Moments, places, and inspirations behind the Bard</p>
-  </div>
+<!-- EMBERS -->
+<div class="embers">
+<script>
+for(let i=0;i<30;i++){
+  document.write(`<span style="left:${Math.random()*100}%;animation-duration:${10+Math.random()*10}s"></span>`);
+}
+</script>
 </div>
 
+<!-- FLOWERS -->
+<script>
+for(let i=0;i<18;i++){
+  const f=document.createElement("div");
+  f.className="flower";
+  f.style.left=Math.random()*100+"%";
+  f.style.animationDuration=8+Math.random()*10+"s";
+  document.body.appendChild(f);
+}
+</script>
+
+<!-- AUDIO -->
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<audio id="click-sound" src="../assets/click.mp3"></audio>
+
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+
 <header>
-  <div class="logo">
-    <img src="../assets/logo.png" alt="Shakespeare’s Quill Logo">
-  </div>
+  <div class="logo">Shakespeare’s Quill</div>
   <nav>
     <a href="home.html">Home</a>
     <a href="biography.html">Biography</a>
@@ -39,150 +352,139 @@
   </nav>
 </header>
 
-<section class="gallery-section">
-  <div class="gallery-grid">
-    <div class="portraits">
-      <div class="gallery-item" onclick="openModal(0)">
-      <img src="../assets/por1.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(1)">
-      <img src="../assets/por2.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(2)">
-      <img src="../assets/por3.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(3)">
-      <img src="../assets/por4.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(4)">
-      <img src="../assets/por5.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(5)">
-      <img src="../assets/por6.png">
-    </div>
-    </div>
-  </br>
-    <div class="landscapes">
-      <div class="gallery-item" onclick="openModal(6)">
-      <img src="../assets/img1.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(7)">
-      <img src="../assets/img2.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(8)">
-      <img src="../assets/img3.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(9)">
-      <img src="../assets/img4.jpg">
-    </div>
-    <div class="gallery-item" onclick="openModal(10)">
-      <img src="../assets/img5.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(11)">
-      <img src="../assets/img6.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(12)">
-      <img src="../assets/img7.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(13)">
-      <img src="../assets/img8.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(14)">
-      <img src="../assets/img9.png">
-    </div>
-    <div class="gallery-item" onclick="openModal(15)">
-      <img src="../assets/img10.png">
-    </div>
-    </div>
-    
+<section class="hero">
+  <h1>Gallery of Shakespeare</h1>
+  <p>Scenes, moments, and echoes through time</p>
+</section>
+
+<!-- SECRET TITUS PORTAL -->
+<div class="titus-portal-container">
+  <a href="#" class="glitch-link">
+    <img src="../assets/titus-bg.jpg" alt="Titus Andronicus" class="glitch-image">
+  </a>
+  <span class="titus-text">Click the photo</span>
+</div>
+
+<!-- BLACK LOADING OVERLAY -->
+<div class="titus-overlay" id="titusOverlay">
+  <p class="glitch-text">What did you do?</p>
+</div>
+
+<!-- SCARY SOUND -->
+<audio id="titusSound">
+  <source src="../assets/scarymusic.mp3" type="audio/mpeg">
+</audio>
+
+
+
+<section class="gallery">
+  <div class="strip left">
+    <img src="../assets/antonyandcelopatra.jpg" data-text="Antony and CLeopatra — This painting, titled “Antony and Cleopatra” by artist Iain Will, is part of his “Visual Shakespeare Project.” The project draws inspiration from Shakespeare’s play of the same name. French operatic soprano Ariel Daunizeau models the woman in the painting. This artwork is a detail from a larger piece associated with the novel “The Women Who Saved Shakespeare” by Mai Black.">
+    <img src="../assets/1971macbeth.png" data-text="Macbeth 1971 Film version — This image captures a scene from Roman Polanski’s 1971 film adaptation of Shakespeare's Macbeth. Renowned for its raw and graphic depiction of the tragedy, the production stars Jon Finch as Macbeth and Francesca Annis as Lady Macbeth.">
+    <img src="../assets/act2scene3titusandronicus.jpg" data-text="Titus Andronicus, Act II, Scene 3: Tamora, Lavinia, Demetrius and Chironh — This work captures one of the most harrowing moments in Shakespeare’s tragedy. Set within a dark forest, the piece depicts Tamora, Queen of the Goths, inciting her sons Demetrius and Chiron to commit their brutal assault and mutilation of Lavinia, the daughter of the Roman general Titus Andronicus.">
+    <img src="../assets/davidgarrickrichardiii.jpg" data-text="David Garrick as Richard III — William Hogarth’s celebrated 1745 portrait, David Garrick as Richard III, captures a defining moment in theatrical history. It depicts the legendary actor during the 'tent scene' of Shakespeare's Richard III, as the King starts awake in terror. Haunted by the ghosts of his victims on the eve of the Battle of Bosworth Field, Richard's visceral reaction is immortalized through Hogarth’s dynamic composition.">
+    <img src="../assets/deathofcardinalbeaufort.jpg" data-text="The Death of Cardinal Beaufort — This detail comes from Sir Joshua Reynolds’ 1789 masterpiece, The Death of Cardinal Beaufort, which illustrates a harrowing scene from Shakespeare’s Henry VI, Part 2. The work depicts the dying Cardinal tormented by a 'fiend' as King Henry VI watches in dismay. While Reynolds’ literal inclusion of the demon was widely criticized at the time, the figure was eventually obscured under layers of dark varnish and paint for nearly 200 years. It was only in 2023 that a meticulous restoration finally brought this controversial supernatural detail back to light.">
+    <img src="../assets/johnphilipkembleincoriolanus.jpg" data-text="Coriolanus at the Hearth of Tullus Aufidius — This portrait by Sir Thomas Lawrence brings to life the gravitas of John Philip Kemble (1757–1823) in the role that defined his career. Here, we see Coriolanus at his lowest point: banished from Rome and standing at the hearth of his greatest foe, Tullus Aufidius. The painting serves as both a record of a historic theatrical performance and a powerful depiction of one of Shakespeare's most complex characters.">
+  </div>
+
+  <div class="strip right">
+    <img src="../assets/macbethseeingghostofbanquo.jpg" data-text="Banquo’s Ghost — French Romantic painter Théodore Chassériau’s Banquo’s Ghost (also known as Macbeth Seeing the Ghost of Banquo) captures the psychological unraveling of Shakespeare’s usurper King. In this haunting scene, Macbeth is tormented by the apparition of his murdered friend during a royal feast. By depicting the ghost seated in Macbeth’s own place, Chassériau creates a visceral metaphor for the King’s mounting guilt and the inescapable consequences of his treachery.">
+    <img src="../assets/macbethseizingthedaggers.jpg" data-text="Lady Macbeth Seizing the Daggers — Henry Fuseli’s 1812 oil painting, Lady Macbeth Seizing the Daggers, is a masterpiece of Gothic Romanticism. It captures the frantic aftermath of King Duncan’s murder in Act II, Scene 2. Fuseli masterfully contrasts the two figures: a transfixed Macbeth, paralyzed by the horror of his deed and still clutching the bloody weapons, and an imperious Lady Macbeth, who reaches out to seize the daggers and the initiative. The stark, dark background forces the viewer to focus on the distorted, ghost-like figures, heightening the play's psychological terror.">
+    <img src="../assets/mactbeththeweridsisters.jpg" data-text="'Macbeth', Act I, Scene 3, the Weird Sisters — Fuseli’s The Weird Sisters (c. 1783) is a definitive example of the 18th-century 'Sublime' in art. Rather than portraying the witches as mere hags, Fuseli renders them as a singular, rhythmic force of nature. By aligning their profiles and having them gesture for silence, he highlights the shared consciousness of the sisters. The dramatic lighting not only defines their form but also reinforces the play’s themes of hidden truth and the blurred line between the natural and supernatural worlds.">
+    <img src="../assets/margaretgilliesasyoulikeit.png" data-text="Beatrice and Hero — This painting by Thomas Francis Dicksee illustrates a tender moment of solidarity from Shakespeare’s Much Ado About Nothing. It depicts Beatrice comforting her cousin Hero after the young bride was falsely accused of infidelity and publicly shamed during her wedding. Through soft lighting and intimate posing, Dicksee captures Beatrice’s unwavering devotion as she supports Hero during her greatest moment of vulnerability. This scene highlights the deep bond between the two women, serving as a quiet emotional contrast to the chaotic betrayal that unfolds elsewhere in the play.">
+    <img src="../assets/opheliabysirjohneverettmilais.jpg" data-text="Ophelia — This iconic Pre-Raphaelite masterpiece depicts the tragic death of Ophelia from William Shakespeare’s Hamlet. Millais illustrates the moment she floats in a stream, singing before she eventually drowns after falling into the water while gathering flowers. The painting is celebrated for its incredible botanical detail, with each flower—such as the poppies for sleep and death and the pansies for 'thoughts—carrying specific symbolic meaning'".>
+    <img src="../assets/othelloanddesdemona.jpg" data-text="Othello and Desdemona —  This work by Daniel Maclise depicts the central couple from Shakespeare’s tragedy Othello during a rare moment of quiet intimacy in Venice. Othello, the Moorish general, is shown seated beside his wife, Desdemona, whose downward gaze suggests a sense of modesty or perhaps a hint of the tragic fate to come. The painting is notable for its rich, period-accurate textures and the contrast between Othello's dark armor and Desdemona’s luminous gown.">
+  </div>
+
+  <div class="strip left">
+    <img src="../assets/othellokillingdesdemona.jpg" data-text="Othello kills Desdemona — In this dramatic interpretation by the French Romantic painter Théodore Chassériau, the tragic climax of Othello is brought to life. The scene depicts Othello standing in horror and remorse over the bed of Desdemona, whom he has just murdered in a fit of jealousy fueled by deception. The intense red curtains and stark lighting heighten the emotional violence of the moment, capturing the final collapse of the general's nobility and his realization of his wife's innocence.">
+    <img src="../assets/romeoandjulietbenjaminwest.jpg" data-text="Romeo and Juliet: The Farewell — This painting by Benjamin West captures the heart-wrenching moment from Act III, Scene 5, as Romeo prepares to leave Juliet’s chamber for exile. The composition highlights the couple's desperate embrace as the Nurse looks on with concern, gesturing toward the approaching dawn. West uses dramatic gestures and a sombre sky to emphasize the urgency and tragic weight of their final meeting before their eventual demise.">
+    <img src="../assets/romeroandjulietinfirarlawrencesscell.png" data-text="Romeo and Juliet: Act II, Scene 6 — This illustration depicts the secret nuptials of Romeo and Juliet within the secluded confines of Friar Laurence’s cell. The scene highlights the role of the Friar as a mediator between the feuding families, capturing the solemnity of the vow as he joins the hands of the ill-fated lovers. The presence of religious iconography and the somber environment emphasize the gravity of their union, which seeks to reconcile ancient grudges through a transformative, yet ultimately tragic, bond.">
+    <img src="../assets/shakespeareleavinghomethefarewell.jpg" data-text="The Winter's Tale: The Abandonment of Perdita — This monochrome composition depicts a pivotal narrative bridge from Shakespeare’s The Winter's Tale, illustrating the abandonment of the infant Perdita on the coast of Bohemia. The artist captures the moment Antigonus leaves the child to the mercy of nature, a scene that transitions the play from a bleak courtly tragedy into a pastoral romance. The vast, open landscape and the presence of the rider emphasize the isolation of the infant, setting the stage for her eventual discovery and the play's themes of redemption and rebirth.">
+    <img src="../assets/shakespearereadinghamlettohisfamily.jpg" data-text="This image is an illustration titled Shakespeare's family circle, depicting William Shakespeare reciting his play Hamlet to his family. ">
+    <img src="../assets/thetwogentlemenofgeronaact4scene2.jpg" data-text="Who Is Sylvia? What Is She, That All the Swains Commend Her? — This academic composition by American artist Edwin Austin Abbey derives its thematic inspiration from William Shakespeare’s early comedy, The Two Gentlemen of Verona. The painting’s title is drawn from the opening interrogative of a serenade composed by Proteus, one of the many suitors vying for the affections of the central figure. Abbey portrays Sylvia, the daughter of the Duke of Milan, in a refined courtly setting, encircled by a retinue of musicians and attendants. Currently held in the permanent collection of the National Gallery of Art, the work is a significant example of Abbey's late 19th-century exploration of Shakespearean subjects through a lush, detailed aesthetic.">
   </div>
 </section>
 
-<footer>
-    <p>© 2025 Shakespeare’s Quill. All rights reserved.</p>
-    <p>b2029byatamon@pshs.edu.ph</p>
-    <p>b2029ydpanao@pshs.edu.ph</p>
-    <p>All refeerences are acknowledged at resources.</p>
-  </footer>
-
-
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">×</span>
-    <img id="modalImg">
-    <h2 id="modalTitle"></h2>
-    <div class="modal-text" id="modalText"></div>
-
-    <div class="modal-controls">
-      <button onclick="prevImg()">‹ Prev</button>
-      <button onclick="nextImg()">Next ›</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const galleryData = [
-  { img: "../assets/por1.png", title: "The Chandos Portrait", text: `<p> The Chandos portrait is one of the many oil-painted portraits believed t odepict William Shakespeare’s appearance. It is painted between 1600 and 1610, and is supposedly thought to be the only portrait of Shakespeare made from life during his lifetime. The portrait was given to the National Portrait Gallery in 1856 and is named after the 3rd Duke of Chandos, who was a former owner of the portrait.
-</p><br/> <p>The attribution of the portrait is conjectural, with some people arguing that it may have been painted by John Taylor, who was a member of the Painter-Stainers’ Company. The National Portrait Gallery believes it “certainly fairly likely” depicts Shakespeare, although it has not been definitely proven. The portrait has undergone several attempts to clean it over the centuries, which have left it damaged.<p/>` },
-  { img: "../assets/por2.png", title: "Frank Dicksee's 'Romeo and Juliet'", text: `<p>Frank Dicksee's portrayal of Romeo and Juliet is a poignant reminder of the enduring power of love. His artwork captures the essence of the balcony scene, where Romeo and Juliet profess their love amidst the backdrop of a cold stone wall and fading candlelight. Dicksee's painting is not only a visual representation of the iconic moment but also a reflection of the romantic sentimentality of the late Victorian era. The artwork has been voted as Britain's most romantic artwork in a recent poll, highlighting its significance in the realm of romantic art.
-</p>` },
-  { img: "../assets/por3.png", title: "Millais’ Lesser-Known Representation of a Shakespearean Woman", text: `<p>In contrast to Dicksee’s Romeo and Juliet, this 1851 painting by Sir John Everett Millais depicts a character from a lesser-known Shakespeare play, Measure for Measure. Shakespeare’s Measure for Measure involves a character named Mariana who is abandoned by her lover and lives a life of isolation. This play is often cited as a problem play due to its ambiguous characters and the open question of whether it is a comedy or a tragedy. Millais exhibits incredible skill and attention to detail in this painting, capturing the character of Mariana’s wistfulness and longing. This painting was originally accompanied by Tennyson’s poem Mariana, which describes the character’s unfortunate situation in verse. (Berry, n.d.)</p>` },
-  { img: "../assets/por4.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/por5.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/por6.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img1.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img2.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img3.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img4.jpg", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img5.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img6.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img7.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img8.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img9.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-  { img: "../assets/img10.png", title: "Lorem Ipsum", text: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>` },
-]
-let currentIndex = 0;
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
-const modalTitle = document.getElementById("modalTitle");
-const modalText = document.getElementById("modalText");
-
-
-function openModal(index){
-  currentIndex = index;
-  updateModal();
-  modal.classList.add("active");
+/* MUSIC */
+const music=document.getElementById("bg-music");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>{
+  music.paused?(music.play(),btn.textContent="♪ Pause Music"):
+  (music.pause(),btn.textContent="♪ Play Music");
 }
 
-function closeModal(){
-  modal.classList.remove("active");
+/* CLICK SOUND — 1 SECOND */
+const click=document.getElementById("click-sound");
+function playClick(){
+  click.currentTime=0;
+  click.play();
+  setTimeout(()=>click.pause(),1000);
 }
 
-function updateModal(){
-  modalImg.src = galleryData[currentIndex].img;
-  modalTitle.textContent = galleryData[currentIndex].title;
-  modalText.style.opacity = 0;
-  modalText.innerHTML = galleryData[currentIndex].text;
-  setTimeout(()=> modalText.style.opacity = 1, 200);
-}
-
-function nextImg(){
-  currentIndex = (currentIndex + 1) % galleryData.length;
-  updateModal();
-}
-
-function prevImg(){
-  currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
-  updateModal();
-}
-
-
-window.addEventListener('DOMContentLoaded', () => {
-  const intro = document.getElementById('galleryIntro');
-  setTimeout(() => {
-    intro.classList.add('hide'); 
-  }, 3700);
+/* NAVBAR CLICK SOUND */
+document.querySelectorAll("nav a").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    playClick();
+    setTimeout(()=>window.location.href=link.href,180);
+  });
 });
+
+/* GALLERY OVERLAY */
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.onclick=()=>{
+    playClick();
+    const overlay=document.createElement("div");
+    overlay.className="gallery-overlay";
+    overlay.innerHTML=`
+      <img src="${img.src}" class="gallery-photo">
+      <div class="gallery-text">${img.dataset.text}</div>
+      <button class="gallery-close">×</button>
+    `;
+    document.body.appendChild(overlay);
+
+    setTimeout(()=>{
+      overlay.querySelector(".gallery-photo").classList.add("show");
+      overlay.querySelector(".gallery-text").classList.add("show");
+    },60);
+
+    overlay.onclick=e=>{
+      if(e.target===overlay||e.target.classList.contains("gallery-close")){
+        playClick();
+        overlay.remove();
+      }
+    }
+  }
+});
+const glitchLink = document.querySelector(".glitch-link");
+const overlay = document.getElementById("titusOverlay");
+const scarySound = document.getElementById("titusSound");
+const clickSound = document.getElementById("click-sound"); // reuse click sound
+
+glitchLink.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // play click sound immediately
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  // show black overlay + glitch text
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
+
+  // play scary sound immediately
+  scarySound.currentTime = 0;
+  scarySound.play();
+
+  // redirect to titus.html after 3s overlay + 5s scary sound
+  setTimeout(() => {
+    window.location.href = "titus.html";
+  }, 8000); // 3s overlay + 5s scary sound
+});
+
+
 </script>
 
 </body>

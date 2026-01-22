@@ -6,12 +6,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <div class="aurora"></div>
 <div class="vignette"></div>
 
-<!-- EMBERSS -->
+<!-- EMBERS -->
 <div class="embers">
   <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
   <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
@@ -29,6 +30,7 @@
   <source src="../assets/music.mp3" type="audio/mpeg">
 </audio>
 <button class="music-btn" id="musicBtn">♪ Play Music</button>
+
 <!-- CLICK SOUND -->
 <audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
 
@@ -49,13 +51,13 @@
   <p class="hero-sub fade-up">Poet. Playwright. Timeless voice of humanity.</p>
 </section>
 
-<!-- TIMELINE -->
+<!-- TIMELINE (UNCHANGED) -->
 <section class="timeline">
   <h2>Shakespeare’s Works Through Time</h2><br><br><br><br><br><br>
   <div class="timeline-track">
     <div class="event" data-year="1593" data-title="Venus and Adonis" data-desc="First published poem" data-pos="top"></div>
     <div class="event" data-year="1594" data-title="Two Gentlemen of Verona" data-desc="Romantic comedy" data-pos="bottom"></div>
-    <div class="event" data-year="1595" data-title="A Midsummer Night’s Dream" data-desc="Fairy‑tale comedy" data-pos="top"></div>
+    <div class="event" data-year="1595" data-title="A Midsummer Night’s Dream" data-desc="Fairy-tale comedy" data-pos="top"></div>
     <div class="event" data-year="1596" data-title="Romeo and Juliet" data-desc="Tragic love story" data-pos="bottom"></div>
     <div class="event" data-year="1597" data-title="Richard III" data-desc="Historical tragedy" data-pos="top"></div>
     <div class="event" data-year="1599" data-title="Henry V" data-desc="Heroic history" data-pos="bottom"></div>
@@ -70,7 +72,7 @@
   </div>
 </section>
 
-<!-- MANUSCRIPT -->
+<!-- MANUSCRIPT (UNCHANGED) -->
 <section class="manuscript">
   <div class="manuscript-card fade-left"><h2>The Living Manuscript</h2><p>Shakespeare’s words breathe through centuries.</p></div>
   <div class="manuscript-card fade-up"><h2>A World on Stage</h2><p>From kings to fools, every soul finds a mirror.</p></div>
@@ -80,29 +82,30 @@
   <div class="manuscript-card fade-right"><h2>Harold Bloom</h2><p>“He is old because he is read.”</p></div>
 </section>
 
-<!-- GALLERY -->
-<section class="gallery">
-  <a href="#" data-text="Venus and Adonis – First published poem">
-    <img src="../assets/laterworks.png" alt="Venus and Adonis">
-  </a>
-  <a href="#" data-text="Two Gentlemen of Verona – Romantic comedy">
-    <img src="images/2.jpg" alt="Two Gentlemen of Verona">
-  </a>
-  <a href="#" data-text="A Midsummer Night’s Dream – Fairy‑tale comedy">
-    <img src="images/3.jpg" alt="A Midsummer Night’s Dream">
-  </a>
-  <a href="#" data-text="Romeo and Juliet – Tragic love story">
-    <img src="images/4.jpg" alt="Romeo and Juliet">
-  </a>
-  <a href="#" data-text="Richard III – Historical tragedy">
-    <img src="images/5.jpg" alt="Richard III">
-  </a>
-  <a href="#" data-text="Henry V – Heroic history">
-    <img src="images/6.jpg" alt="Henry V">
-  </a>
+<!-- 🔥 FEEDBACK (REPLACES GALLERY ONLY) -->
+<section class="feedback fade-up">
+  <h2 class="glow">How fares our humble website?</h2>
+  <p>Speak thy thoughts, good soul.</p>
+
+  <form id="feedbackForm">
+    <input type="text" id="fbName" placeholder="Thy Name" required>
+    <textarea id="fbComment" placeholder="What sayest thou?" required></textarea>
+    <button type="submit">Submit Thy Words</button>
+  </form>
+
+  <p id="thankYou" style="display:none;" class="glow">
+    “We thank thee kindly — thy voice now lives within these halls.”
+  </p>
+
+  <table id="feedbackTable" style="display:none;">
+    <thead>
+      <tr><th>Name</th><th>Comment</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 </section>
 
-<!-- ORBIT -->
+<!-- ORBIT (UNCHANGED) -->
 <section class="orbit-section">
   <div class="orbit-container">
     <div class="orbit">
@@ -127,25 +130,59 @@
 
 <script>
 /* MUSIC */
-const music = document.getElementById("bg-music");
-const btn = document.getElementById("musicBtn");
-btn.onclick = () => {
-  music.paused ? (music.play(), btn.textContent="♪ Pause Music")
-               : (music.pause(), btn.textContent="♪ Play Music");
-}
+const music=document.getElementById("bg-music");
+const btn=document.getElementById("musicBtn");
+btn.onclick=()=>music.paused?(music.play(),btn.textContent="♪ Pause Music"):(music.pause(),btn.textContent="♪ Play Music");
 
-/* CLICK SOUND + DELAYED NAV */
+/* CLICK SOUND + BLOCK NAV */
 const clickSound=document.getElementById("click-sound");
+const feedbackKey="homeFeedbackDone";
+
 document.querySelectorAll(".nav-link").forEach(link=>{
   link.addEventListener("click",e=>{
+    if(!localStorage.getItem(feedbackKey)){
+      e.preventDefault();
+      alert("Pray, leave thy thoughts ere thou depart.");
+      return;
+    }
     e.preventDefault();
     clickSound.currentTime=0;
     clickSound.play();
-    const url=link.getAttribute("href");
-    setTimeout(()=>window.location.href=url,1000);
+    setTimeout(()=>window.location.href=link.href,1000);
   });
 });
 
+/* FEEDBACK STORAGE */
+const form=document.getElementById("feedbackForm");
+const table=document.getElementById("feedbackTable");
+const tbody=table.querySelector("tbody");
+const thank=document.getElementById("thankYou");
+
+const stored=JSON.parse(localStorage.getItem("feedbackList"))||[];
+if(stored.length){
+  table.style.display="table";
+  stored.forEach(e=>{
+    const r=document.createElement("tr");
+    r.innerHTML=`<td>${e.name}</td><td>${e.comment}</td>`;
+    tbody.appendChild(r);
+  });
+}
+
+form.onsubmit=e=>{
+  e.preventDefault();
+  const entry={name:fbName.value,comment:fbComment.value};
+  stored.push(entry);
+  localStorage.setItem("feedbackList",JSON.stringify(stored));
+  localStorage.setItem(feedbackKey,"true");
+
+  const r=document.createElement("tr");
+  r.innerHTML=`<td>${entry.name}</td><td>${entry.comment}</td>`;
+  tbody.appendChild(r);
+
+  table.style.display="table";
+  thank.style.display="block";
+  form.style.display="none";
+};
 /* SCROLL ANIMATION */
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
