@@ -127,7 +127,6 @@
 <footer>© 2025 Shakespeare’s Quill</footer>
 
 <script>
-
 /* ==========================
    MUSIC BUTTON
 ========================== */
@@ -239,12 +238,12 @@ const tbody = table.querySelector("tbody");
 const thank = document.getElementById("thankYou");
 
 // Secret admin key
-const adminKey = "shakespeareAdminAccess";
+const adminKey = "MySuperSecretKey123";
 
-// Create View Feedback button for admin
+// Create View Feedback button for admin, hidden by default
 const viewBtn = document.createElement("button");
 viewBtn.textContent = "View Feedback (Admin)";
-viewBtn.style.display = "none";
+viewBtn.style.display = "none"; // HIDE by default
 viewBtn.style.marginTop = "15px";
 viewBtn.style.padding = "10px 20px";
 viewBtn.style.fontFamily = "'Cinzel'";
@@ -258,13 +257,17 @@ document.querySelector(".feedback").appendChild(viewBtn);
 
 // Load stored feedback
 const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+
+// Show view button only if feedback exists
 if (stored.length) {
-  viewBtn.style.display = "inline-block"; 
+  viewBtn.style.display = "inline-block";
 }
 
+// Show table only if admin enters key
 viewBtn.addEventListener("click", () => {
   const enteredKey = prompt("Enter admin key to view feedback:");
   if (enteredKey === adminKey) {
+    // Show table
     table.style.display = "table";
     tbody.innerHTML = ""; // Clear old entries
     stored.forEach(e => {
