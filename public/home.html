@@ -151,36 +151,46 @@ document.querySelectorAll(".nav-link").forEach(link=>{
 });
 
 /* FEEDBACK STORAGE */
-const form=document.getElementById("feedbackForm");
-const table=document.getElementById("feedbackTable");
-const tbody=table.querySelector("tbody");
-const thank=document.getElementById("thankYou");
+const form = document.getElementById("feedbackForm");
+const table = document.getElementById("feedbackTable");
+const tbody = table.querySelector("tbody");
+const thank = document.getElementById("thankYou");
 
-const stored=JSON.parse(localStorage.getItem("feedbackList"))||[];
-if(stored.length){
-  table.style.display="table";
-  stored.forEach(e=>{
-    const r=document.createElement("tr");
-    r.innerHTML=`<td>${e.name}</td><td>${e.comment}</td>`;
+// ADMIN key (set this to anything secret)
+const adminKey = "shakespeareAdminAccess"; 
+// prompt for admin
+const isAdmin = prompt("Enter admin key to view feedback (leave blank if not admin):") === adminKey;
+
+// Load stored feedback
+const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+if(stored.length && isAdmin){
+  table.style.display = "table";
+  stored.forEach(e => {
+    const r = document.createElement("tr");
+    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
     tbody.appendChild(r);
   });
 }
 
-form.onsubmit=e=>{
+// Handle feedback submission
+form.onsubmit = e => {
   e.preventDefault();
-  const entry={name:fbName.value,comment:fbComment.value};
+  const entry = { name: fbName.value, comment: fbComment.value };
   stored.push(entry);
-  localStorage.setItem("feedbackList",JSON.stringify(stored));
-  localStorage.setItem(feedbackKey,"true");
+  localStorage.setItem("feedbackList", JSON.stringify(stored));
+  localStorage.setItem("homeFeedbackDone", "true");
 
-  const r=document.createElement("tr");
-  r.innerHTML=`<td>${entry.name}</td><td>${entry.comment}</td>`;
-  tbody.appendChild(r);
+  if(isAdmin){
+    const r = document.createElement("tr");
+    r.innerHTML = `<td>${entry.name}</td><td>${entry.comment}</td>`;
+    tbody.appendChild(r);
+    table.style.display = "table";
+  }
 
-  table.style.display="table";
-  thank.style.display="block";
-  form.style.display="none";
+  thank.style.display = "block";
+  form.style.display = "none";
 };
+
 /* SCROLL ANIMATION */
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
@@ -312,6 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
 
 </script>
 
