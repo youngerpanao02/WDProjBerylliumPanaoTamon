@@ -34,7 +34,7 @@ nav a:hover::after, nav a.active::after{width:100%;}
 /* GRID */
 .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
 .work-item{background:#1c1b18;color:#f3ead7;border-radius:6px;overflow:hidden;cursor:pointer;transition:0.3s;}
-.work-item img{width:100%;display:block;}
+.work-item img{aspect-ratio: 3/2; object-fit: cover; width:100%;display:block;}
 .work-item h3{padding:10px;text-align:center;font-family:'Cinzel';}
 
 /* OVERLAY */
