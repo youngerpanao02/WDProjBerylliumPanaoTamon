@@ -3,165 +3,294 @@
 <head>
 <meta charset="UTF-8">
 <title>Titus Andronicus | Shakespeare’s Quill</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 
 <style>
-/* RESET & BASE */
+
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Cormorant Garamond', serif; background:#0d0d0d; color:#f3ead7; overflow-x:hidden; }
 
-/* AURORA & EMBERS */
-.aurora {
-  position: fixed; inset:0; 
+body {
+  font-family:'Cormorant Garamond', serif;
+  background:#000;
+  color:#f5e6e6;
+  overflow-x:hidden;
+}
+
+/* BLOOD BACKGROUND */
+.blood-bg {
+  position:fixed;
+  inset:0;
   background:
-    radial-gradient(ellipse at 20% 30%, rgba(255,140,60,0.15), transparent 40%),
-    radial-gradient(ellipse at 80% 70%, rgba(255,110,40,0.12), transparent 45%);
-  animation: auroraMove 20s infinite alternate ease-in-out; z-index:-2;
+    radial-gradient(circle at 10% 20%, rgba(150,0,0,0.35), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(100,0,0,0.4), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(120,0,0,0.5), transparent 50%);
+  animation:pulseBlood 8s infinite alternate;
+  z-index:-3;
 }
-@keyframes auroraMove { from { transform: translateX(-30px); } to { transform: translateX(30px); } }
 
-.embers {
-  position: fixed; inset:0; pointer-events:none; z-index:-1;
+@keyframes pulseBlood {
+  from { filter:brightness(0.6); }
+  to { filter:brightness(1); }
 }
-.ember {
-  position: absolute; width:6px; height:6px; background:rgba(255,180,100,0.9); border-radius:50%;
-  box-shadow:0 0 12px rgba(255,180,100,0.9);
-  animation: emberRise linear infinite;
+
+/* DRIPPING BLOOD */
+.drip {
+  position:fixed;
+  top:-100px;
+  width:6px;
+  height:120px;
+  background:linear-gradient(to bottom, #8b0000, transparent);
+  animation: drip 6s infinite;
+  opacity:0.7;
+  z-index:-2;
 }
-@keyframes emberRise { from { transform: translateY(100vh) scale(0.5); opacity:0;} to { transform: translateY(-50vh) scale(1); opacity:1; } }
+
+@keyframes drip {
+  0% { transform:translateY(0); opacity:0; }
+  20% { opacity:1; }
+  100% { transform:translateY(120vh); opacity:0; }
+}
 
 /* NAVBAR */
 header {
-  display:flex; justify-content:space-between; padding:20px 60px;
-  position:sticky; top:0; background: rgba(18,24,38,0.9); backdrop-filter: blur(6px); z-index:20;
-}
-.logo { font-family:'Cinzel'; letter-spacing:2px; color:#f3ead7; font-size:22px; }
-nav a { color:#f3ead7; margin-left:30px; text-decoration:none; position:relative; font-weight:600;}
-nav a::after { content:""; position:absolute; width:0; height:1px; background:#b89b5e; left:0; bottom:-4px; transition:0.3s; }
-nav a:hover::after, nav a.active::after { width:100%; }
-
-/* MUSIC BUTTON */
-.music-btn {
-  position: fixed; bottom: 30px; right: 30px; background:#b89b5e; color:#121826; border:none;
-  padding:12px 18px; font-family:'Cinzel'; cursor:pointer; z-index:30;
+  display:flex;
+  justify-content:space-between;
+  padding:20px 60px;
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.9);
+  border-bottom:1px solid #8b0000;
+  z-index:20;
 }
 
-/* HERO / TITLE */
-.hero { text-align:center; padding:100px 20px 40px; }
-.hero h1 { font-family:'Cinzel'; font-size:60px; animation:typewriter 3s forwards; }
-.hero p { font-size:20px; margin-top:20px; opacity:0; animation:fadeInText 2s forwards 3s; }
-
-/* GLITCH EFFECT FOR TITLES */
-.glitch { position:relative; font-weight:bold; color:#b0721c; } /* base brown */
-.glitch::before, .glitch::after {
-  content: attrdata-text; position:absolute; left:0; top:0; opacity:0.8;
+.logo {
+  font-family:'Cinzel';
+  letter-spacing:3px;
+  color:#b30000;
+  font-size:22px;
 }
-.glitch::before { animation: glitchTop 2s infinite; color:#ff0000; } /* red */
-.glitch::after { animation: glitchBottom 2s infinite; color:#6a0dad; } /* purple */
-@keyframes glitchTop { 0%{transform:translate(2px,-2px);} 20%{transform:translate(-2px,2px);} 40%{transform:translate(2px,0);} 60%{transform:translate(-2px,2px);} 80%{transform:translate(0,-2px);} 100%{transform:translate(0,0);} }
-@keyframes glitchBottom { 0%{transform:translate(-2px,2px);} 20%{transform:translate(2px,-2px);} 40%{transform:translate(-2px,0);} 60%{transform:translate(2px,-2px);} 80%{transform:translate(0,2px);} 100%{transform:translate(0,0);} }
 
-/* CONTENT SECTIONS */
-section.content { max-width:1000px; margin:0 auto; padding:50px 20px; display:flex; flex-wrap:wrap; gap:40px; }
-.content img { flex:1 1 300px; border-radius:12px; box-shadow:0 0 20px rgba(255,100,50,0.5); cursor:pointer; transition:0.3s; }
-.content img:hover { transform:scale(1.05); box-shadow:0 0 30px rgba(255,150,50,0.8); }
+nav a {
+  color:#f5e6e6;
+  margin-left:30px;
+  text-decoration:none;
+  position:relative;
+  font-weight:600;
+}
 
-/* TEXT */
-.content .text { flex:1 1 400px; color:#f3ead7; font-size:18px; line-height:1.6; opacity:0; transform:translateY(20px); transition:1s; }
-.content.show .text { opacity:1; transform:translateY(0); }
+nav a::after {
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  background:#8b0000;
+  left:0;
+  bottom:-4px;
+  transition:0.3s;
+}
+
+nav a:hover::after {
+  width:100%;
+}
+
+/* HERO */
+.hero {
+  text-align:center;
+  padding:120px 20px 60px;
+}
+
+.hero h1 {
+  font-family:'Cinzel';
+  font-size:64px;
+  color:#b30000;
+  text-shadow:0 0 20px rgba(139,0,0,0.9);
+  position:relative;
+}
+
+/* GLITCH */
+.glitch {
+  position:relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  top:0;
+  opacity:0.8;
+}
+
+.glitch::before {
+  color:#ff0000;
+  animation:glitchTop 2s infinite;
+  left:-5px; /* left-shift for spooky effect */
+}
+
+.glitch::after {
+  color:#5a0000;
+  animation:glitchBottom 2s infinite;
+  left:3px;
+}
+
+@keyframes glitchTop {
+  0%{transform:translate(2px,-2px);}
+  20%{transform:translate(-2px,2px);}
+  40%{transform:translate(2px,0);}
+  60%{transform:translate(-2px,2px);}
+  80%{transform:translate(0,-2px);}
+  100%{transform:translate(0,0);}
+}
+
+@keyframes glitchBottom {
+  0%{transform:translate(-2px,2px);}
+  20%{transform:translate(2px,-2px);}
+  40%{transform:translate(-2px,0);}
+  60%{transform:translate(2px,-2px);}
+  80%{transform:translate(0,2px);}
+  100%{transform:translate(0,0);}
+}
+
+/* SUBTITLE */
+.hero p {
+  font-size:20px;
+  margin-top:20px;
+  color:#d9b0b0;
+  animation:flicker 4s infinite;
+}
+
+@keyframes flicker {
+  0%,18%,22%,25%,53%,57%,100% { opacity:1; }
+  20%,24%,55% { opacity:0.3; }
+}
+
+/* CONTENT */
+section.content {
+  max-width:900px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.text {
+  margin-bottom:50px;
+  font-size:18px;
+  line-height:1.7;
+}
+
+.text h2 {
+  font-family:'Cinzel';
+  color:#8b0000;
+  margin-bottom:10px;
+  text-shadow:0 0 10px rgba(139,0,0,0.8);
+}
+
+/* RANDOM WORD GLITCH */
+.glitch-word {
+  color:#ff0000;
+  animation:wordGlitch 1.5s infinite;
+}
+
+@keyframes wordGlitch {
+  0% { text-shadow:2px 0 red; }
+  50% { text-shadow:-2px 0 darkred; }
+  100% { text-shadow:2px 0 red; }
+}
 
 /* BACK BUTTON */
 .back-btn {
-  display:inline-block; margin:50px auto; padding:12px 24px; background:#b89b5e; color:#121826; font-family:'Cinzel';
-  font-weight:600; text-decoration:none; border-radius:10px; transition:0.3s;
+  display:inline-block;
+  margin:40px auto 80px;
+  padding:14px 28px;
+  background:#8b0000;
+  color:#f5e6e6;
+  font-family:'Cinzel';
+  text-decoration:none;
+  border-radius:8px;
+  transition:0.3s;
 }
-.back-btn:hover { background:#ff5e5e; color:#f3ead7; }
 
-/* ANIMATIONS */
-@keyframes typewriter { from { opacity:0; transform:translateX(-20px);} to { opacity:1; transform:translateX(0);} }
-@keyframes fadeInText { from{opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+.back-btn:hover {
+  background:#ff0000;
+}
 
+/* MEDIA */
 @media screen and (max-width:900px){
-  .content { flex-direction:column; }
+  .text { font-size:16px; }
 }
+
 </style>
 </head>
+
 <body>
 
-<div class="aurora"></div>
-<div class="embers"></div>
+<div class="blood-bg"></div>
 
-<!-- MUSIC -->
-<audio id="bg-music" loop>
+<!-- DRIPPING BLOOD -->
+<script>
+for(let i=0;i<20;i++){
+  const d=document.createElement("div");
+  d.className="drip";
+  d.style.left=Math.random()*100+"%";
+  d.style.animationDelay=Math.random()*5+"s";
+  d.style.height=(Math.random()*150+80)+"px";
+  document.body.appendChild(d);
+}
+</script>
+
+<!-- AUTO MUSIC -->
+<audio id="bg-music" autoplay loop>
   <source src="../assets/music.mp3" type="audio/mpeg">
 </audio>
-<button class="music-btn" id="musicBtn">♪ Play Music</button>
-<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
-
 
 <section class="hero">
   <h1 class="glitch" data-text="Titus Andronicus">Titus Andronicus</h1>
-  <p>Explore Shakespeare’s darkest tragedy, full of revenge and ambition.</p>
+  <p>A tragedy soaked in <span class="glitch-word">blood</span>, revenge, and madness.</p>
 </section>
 
 <section class="content">
   <div class="text">
     <h2>Introduction</h2>
-    <p>Titus Andronicus is Shakespeare’s earliest and bloodiest tragedy, portraying a cycle of revenge, betrayal, and political intrigue.</p>
+    <p><span class="glitch-word">Titus Andronicus</span> is Shakespeare’s earliest written tragedy, though it is also his most horrific. It takes the audience on a continuous journey through a world of violence, betrayal, and corrupted politics.
+
+The emotional states of grief, rage, and vengeance overwhelm the characters in the play to the extent that they create a form of moral ambiguity. Rome is left in chaos.
+
+The play also illustrates how vengeance affects not just one character but all of society; the desire for power and domination will ultimately prevail over rational thinking and compassion for fellow humans.
+
+he play incorporates an apocalyptic quality to its tone; it contains many scenes of <span class="glitch-word">brutality</span>  due to the extreme amount of violence and horror it includes and push the limits of what could be accomplished in Elizabethan Drama.
+
+Like other tragedies, Titus Andronicus raises questions about how we view justice, loyalty, and what it means to be human in the face of overwhelming rage for <span class="glitch-word">revenge</span> .</p>
   </div>
+
   <div class="text">
     <h2>Main Conflict</h2>
-    <p>The story revolves around Titus, a Roman general, and the violent feud with Tamora, Queen of the Goths. Themes of justice and vengeance dominate the play.</p>
+    <p>TThe main conflict arises from the bitter feud between Titus, a Roman general, and Tamora, the queen of the Goths. Every act of vengeance leads to further brutal violence.
+
+The characters act because of obsession driven by a need for revenge for wrongs perpetrated against them. They act unethically with dire results.
+
+From <span class="glitch-word">mutilations and executions</span> , a world in which betrayal and treachery are prevalent, and a world in which trust has become a rarity
+
+As the horror and the tragedy are heightened by the skullduggery and machinations of the key players, no character remains unscathed by the violence that erupts on stage.
+
+At the end of it all, Titus’s obsession with revenge brings tragic consequences, and several issues arise in regard to the cost of revenge and its effect on the soul.</p>
   </div>
+
   <div class="text">
     <h2>Legacy</h2>
-    <p>Though considered gory, Titus Andronicus influenced Elizabethan drama and explores morality, power, and the consequences of unchecked revenge.</p>
+    <p>There are also Elizabethan plays and horror films which took inspiration from <span class="glitch-word">Titus Andronicus</span> , a play which reminds us of the darkest elements in humanity.
+
+The play continues to be a lesson in morality, the uses of power, and the effects of the unleashing of vengeance.
+
+Its reinspiring themes and images continue to influence new interpretations in literary, theatrical, and motion-picture forms.
+
+The constant tension, the bloody violence, the mental anguish—it all adds up to a kind of frightening one-on-one interaction that unsettles, repulses, and enthralls audiences in equal measure.
+
+Through its investigation into the human capacity for cruel behavior as well as the effects of revenge upon society as a whole, *Titus Andronicus* remains chillingly topical even to this day.</p>
   </div>
 </section>
 
 <a href="gallery.html" class="back-btn">← Back to Gallery</a>
-
-<script>
-/* MUSIC BUTTON */
-const music=document.getElementById("bg-music");
-const btn=document.getElementById("musicBtn");
-btn.onclick=()=>{ music.paused?(music.play(), btn.textContent="♪ Pause Music"):(music.pause(), btn.textContent="♪ Play Music"); }
-
-/* CLICK SOUND FOR NAV AND IMAGES (1 SECOND) */
-const clickSound=document.getElementById("click-sound");
-clickSound.addEventListener("canplaythrough",()=>{ clickSound.duration=1; });
-document.querySelectorAll("nav a, .clickable-img, .back-btn").forEach(el=>{
-  el.addEventListener("click", e=>{
-    clickSound.currentTime=0;
-    clickSound.play();
-  });
-});
-
-/* SHOW TEXT ON SCROLL */
-const sections = document.querySelectorAll(".content");
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-    }
-  });
-},{threshold:0.2});
-sections.forEach(sec => observer.observe(sec));
-
-/* CREATE 30 EMBERS */
-const embersContainer=document.querySelector(".embers");
-for(let i=0;i<30;i++){
-  const ember=document.createElement("div");
-  ember.classList.add("ember");
-  ember.style.left=Math.random()*100+"%";
-  ember.style.animationDuration=(Math.random()*10+5)+"s";
-  ember.style.animationDelay=(Math.random()*5)+"s";
-  ember.style.width=(Math.random()*4+2)+"px";
-  ember.style.height=(Math.random()*4+2)+"px";
-  embersContainer.appendChild(ember);
-};
-</script>
-
 </body>
 </html>
