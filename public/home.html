@@ -128,111 +128,44 @@
 
 <script>
 
-/* MUSIC */
-const music=document.getElementById("bg-music");
-const btn=document.getElementById("musicBtn");
-btn.onclick=()=>music.paused?(music.play(),btn.textContent="♪ Pause Music"):(music.pause(),btn.textContent="♪ Play Music");
+/* ==========================
+   MUSIC BUTTON
+========================== */
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  if (music.paused) {
+    music.play();
+    btn.textContent = "♪ Pause Music";
+  } else {
+    music.pause();
+    btn.textContent = "♪ Play Music";
+  }
+};
 
-/* CLICK SOUND + BLOCK NAV */
-const clickSound=document.getElementById("click-sound");
-const feedbackKey="homeFeedbackDone";
+/* ==========================
+   CLICK SOUND + NAV BLOCK
+========================== */
+const clickSound = document.getElementById("click-sound");
+const feedbackKey = "homeFeedbackDone";
 
-document.querySelectorAll(".nav-link").forEach(link=>{
-  link.addEventListener("click",e=>{
-    if(!localStorage.getItem(feedbackKey)){
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", e => {
+    if (!localStorage.getItem(feedbackKey)) {
       e.preventDefault();
       alert("Pray, leave thy thoughts ere thou depart.");
       return;
     }
     e.preventDefault();
-    clickSound.currentTime=0;
+    clickSound.currentTime = 0;
     clickSound.play();
-    setTimeout(()=>window.location.href=link.href,1000);
+    setTimeout(() => window.location.href = link.href, 1000);
   });
 });
 
-/* FEEDBACK STORAGE */
-const form = document.getElementById("feedbackForm");
-const table = document.getElementById("feedbackTable");
-const tbody = table.querySelector("tbody");
-const thank = document.getElementById("thankYou");
-
-// ADMIN key (set this to anything secret)
-const adminKey = "shakespeareAdminAccess"; 
-// prompt for admin
-const isAdmin = prompt("Enter admin key to view feedback (leave blank if not admin):") === adminKey;
-
-// Load stored feedback
-const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
-if(stored.length && isAdmin){
-  table.style.display = "table";
-  stored.forEach(e => {
-    const r = document.createElement("tr");
-    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
-    tbody.appendChild(r);
-  });
-}
-if(stored.length && isAdmin){
-  table.style.display = "table";
-  stored.forEach(e => {
-    const r = document.createElement("tr");
-    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
-    tbody.appendChild(r);
-  });
-}
-
-// Handle feedback submission
-form.onsubmit = e => {
-  e.preventDefault();
-  const entry = { name: fbName.value, comment: fbComment.value };
-  stored.push(entry);
-  localStorage.setItem("feedbackList", JSON.stringify(stored));
-  localStorage.setItem("homeFeedbackDone", "true");
-
-  if(isAdmin){
-    const r = document.createElement("tr");
-    r.innerHTML = `<td>${entry.name}</td><td>${entry.comment}</td>`;
-    tbody.appendChild(r);
-    table.style.display = "table";
-  }
-
-  thank.style.display = "block";
-  form.style.display = "none";
-};
-
-/* SCROLL ANIMATION */
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
-},{threshold:0.3});
-document.querySelectorAll(".fade-up,.fade-left,.fade-right,.orbit-section,.manuscript-card")
-.forEach(el=>observer.observe(el));
-
-/* TYPEWRITER EFFECT */
-const typeEl=document.getElementById("typewriter");
-let typing;
-document.querySelectorAll(".orbit-item").forEach(item=>{
-  item.addEventListener("mouseenter",()=>{
-    clearInterval(typing);
-    typeEl.textContent="";
-    const text=item.dataset.text;
-    let i=0;
-    typing=setInterval(()=>{
-      typeEl.textContent+=text.charAt(i);
-      i++;
-      if(i>=text.length) clearInterval(typing);
-    },40);
-  });
-});
-
-/* TIMELINE ANIMATION */
-const tlSection = document.querySelector(".timeline-track");
-window.addEventListener("scroll", () => {
-  const rect = tlSection.getBoundingClientRect();
-  if (rect.top < window.innerHeight * 0.7) {
-    tlSection.classList.add("visible");
-  }
-});
-
+/* ==========================
+   TIMELINE ANIMATION
+========================== */
 const timelineEvents = document.querySelectorAll(".timeline .event");
 const timelineObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -245,94 +178,108 @@ const timelineObserver = new IntersectionObserver(entries => {
       if (!ev.querySelector("h3")) {
         const title = document.createElement("h3");
         title.textContent = titleText;
-        if(pos === "top"){
-          title.style.top = "-80px";
-        } else {
-          title.style.top = "20px";
-        }
         const desc = document.createElement("p");
         desc.textContent = descText;
+
         if(pos === "top"){
+          title.style.top = "-80px";
           desc.style.top = "-58px";
         } else {
+          title.style.top = "20px";
           desc.style.top = "40px";
         }
+
         ev.appendChild(title);
         ev.appendChild(desc);
       }
+
       ev.classList.add("show");
     }
   });
-},{ threshold: 0.5 });
+}, { threshold: 0.5 });
+
 timelineEvents.forEach(e => timelineObserver.observe(e));
-// SIMPLE FADE-IN GALLERY
-document.querySelectorAll(".gallery a").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
 
-    const img = link.querySelector("img");
-    const textContent = link.dataset.text;
+/* ==========================
+   SCROLL ANIMATIONS (Fade-in)
+========================== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => e.target.classList.toggle("show", e.isIntersecting));
+}, { threshold: 0.3 });
 
-    // CREATE OVERLAY
-    const overlay = document.createElement("div");
-    overlay.className = "gallery-overlay";
-    document.body.appendChild(overlay);
+document.querySelectorAll(".fade-up,.fade-left,.fade-right,.orbit-section,.manuscript-card")
+.forEach(el => observer.observe(el));
 
-    // PHOTO LEFT
-    const photo = document.createElement("img");
-    photo.src = img.src;
-    photo.className = "gallery-photo";
-    overlay.appendChild(photo);
-
-    // TEXT RIGHT
-    const textBox = document.createElement("div");
-    textBox.className = "gallery-text";
-    textBox.textContent = textContent;
-    overlay.appendChild(textBox);
-
-    // CLOSE BUTTON
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "gallery-close";
-    closeBtn.textContent = "×";
-    overlay.appendChild(closeBtn);
-
-    // FADE IN
-    setTimeout(() => {
-      photo.classList.add("show");
-      textBox.classList.add("show");
-      closeBtn.style.opacity = 1;
-    }, 50);
-
-    closeBtn.addEventListener("click", () => overlay.remove());
-    overlay.addEventListener("click", ev => {
-      if (ev.target === overlay) overlay.remove();
-    });
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const typeEl = document.getElementById("typewriter");
-  let typing;
-
-  document.querySelectorAll(".star-btn").forEach(btn => {
-    btn.addEventListener("mouseenter", () => {
-      clearInterval(typing);     
-      typeEl.textContent = "";     
-      const text = btn.dataset.text;
-      let i = 0;
-      typing = setInterval(() => {
-        typeEl.textContent += text.charAt(i);
-        i++;
-        if(i >= text.length) clearInterval(typing);
-      }, 40);
-    });
-    btn.addEventListener("mouseleave", () => {
-      clearInterval(typing);
-      typeEl.textContent = "Hover over a star to unveil its theme.";
-    });
+/* ==========================
+   TYPEWRITER EFFECT (Orbit/Stars)
+========================== */
+const typeEl = document.getElementById("typewriter");
+let typing;
+document.querySelectorAll(".star-btn").forEach(item => {
+  item.addEventListener("mouseenter", () => {
+    clearInterval(typing);
+    typeEl.textContent = "";
+    const text = item.dataset.text;
+    let i = 0;
+    typing = setInterval(() => {
+      typeEl.textContent += text.charAt(i);
+      i++;
+      if (i >= text.length) clearInterval(typing);
+    }, 40);
   });
 });
 
+/* ==========================
+   ADMIN-ONLY FEEDBACK
+========================== */
+const form = document.getElementById("feedbackForm");
+const table = document.getElementById("feedbackTable");
+const tbody = table.querySelector("tbody");
+const thank = document.getElementById("thankYou");
 
+// Set your secret admin key here
+const adminKey = "MySuperSecretKey123";
+// Prompt for admin access
+const isAdmin = prompt("Enter admin key to view feedback (leave blank if not admin):") === adminKey;
+
+// Load stored feedback
+const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+if (stored.length && isAdmin) {
+  table.style.display = "table";
+  stored.forEach(e => {
+    const r = document.createElement("tr");
+    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
+    tbody.appendChild(r);
+  });
+}
+
+// Handle feedback submission
+form.onsubmit = e => {
+  // Browser stops submission automatically if required fields are empty
+  e.preventDefault();
+
+  const fbName = document.getElementById("fbName").value.trim();
+  const fbComment = document.getElementById("fbComment").value.trim();
+
+  // Double-check in JS
+  if (!fbName || !fbComment) return;
+
+  const entry = { name: fbName, comment: fbComment };
+  stored.push(entry);
+  localStorage.setItem("feedbackList", JSON.stringify(stored));
+  localStorage.setItem(feedbackKey, "true");
+
+  // Only show table if admin
+  if (isAdmin) {
+    const r = document.createElement("tr");
+    r.innerHTML = `<td>${entry.name}</td><td>${entry.comment}</td>`;
+    tbody.appendChild(r);
+    table.style.display = "table";
+  }
+
+  thank.style.display = "block";
+  form.style.display = "none";
+};
 </script>
 
 </body>
