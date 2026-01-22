@@ -149,6 +149,7 @@ btn.onclick = () => {
 const clickSound = document.getElementById("click-sound");
 const feedbackKey = "homeFeedbackDone";
 
+// Navigation blocking: user must submit feedback first
 document.querySelectorAll(".nav-link").forEach(link => {
   link.addEventListener("click", e => {
     if (!localStorage.getItem(feedbackKey)) {
@@ -207,11 +208,11 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => e.target.classList.toggle("show", e.isIntersecting));
 }, { threshold: 0.3 });
 
-document.querySelectorAll(".fade-up,.fade-left,.fade-right,.orbit-section,.manuscript-card")
+document.querySelectorAll(".fade-up,.fade-left,.fade-right,.star-container,.manuscript-card")
 .forEach(el => observer.observe(el));
 
 /* ==========================
-   TYPEWRITER EFFECT (Orbit/Stars)
+   TYPEWRITER EFFECT (Star buttons)
 ========================== */
 const typeEl = document.getElementById("typewriter");
 let typing;
@@ -237,31 +238,53 @@ const table = document.getElementById("feedbackTable");
 const tbody = table.querySelector("tbody");
 const thank = document.getElementById("thankYou");
 
-// Set your secret admin key here
+// Secret admin key
 const adminKey = "MySuperSecretKey123";
-// Prompt for admin access
-const isAdmin = prompt("Enter admin key to view feedback (leave blank if not admin):") === adminKey;
+
+// Create View Feedback button for admin
+const viewBtn = document.createElement("button");
+viewBtn.textContent = "View Feedback (Admin)";
+viewBtn.style.display = "none";
+viewBtn.style.marginTop = "15px";
+viewBtn.style.padding = "10px 20px";
+viewBtn.style.fontFamily = "'Cinzel'";
+viewBtn.style.cursor = "pointer";
+viewBtn.style.border = "none";
+viewBtn.style.borderRadius = "6px";
+viewBtn.style.background = "#b89b5e";
+viewBtn.style.color = "#121826";
+viewBtn.style.boxShadow = "0 0 12px rgba(184,155,94,0.6)";
+document.querySelector(".feedback").appendChild(viewBtn);
 
 // Load stored feedback
 const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
-if (stored.length && isAdmin) {
-  table.style.display = "table";
-  stored.forEach(e => {
-    const r = document.createElement("tr");
-    r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
-    tbody.appendChild(r);
-  });
+if (stored.length) {
+  viewBtn.style.display = "inline-block"; 
 }
+
+viewBtn.addEventListener("click", () => {
+  const enteredKey = prompt("Enter admin key to view feedback:");
+  if (enteredKey === adminKey) {
+    table.style.display = "table";
+    tbody.innerHTML = ""; // Clear old entries
+    stored.forEach(e => {
+      const r = document.createElement("tr");
+      r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
+      tbody.appendChild(r);
+    });
+  } else {
+    alert("Incorrect key! Access denied.");
+  }
+});
 
 // Handle feedback submission
 form.onsubmit = e => {
-  // Browser stops submission automatically if required fields are empty
   e.preventDefault();
 
   const fbName = document.getElementById("fbName").value.trim();
   const fbComment = document.getElementById("fbComment").value.trim();
 
-  // Double-check in JS
+  // Stop submission if empty (required fields)
   if (!fbName || !fbComment) return;
 
   const entry = { name: fbName, comment: fbComment };
@@ -269,17 +292,14 @@ form.onsubmit = e => {
   localStorage.setItem("feedbackList", JSON.stringify(stored));
   localStorage.setItem(feedbackKey, "true");
 
-  // Only show table if admin
-  if (isAdmin) {
-    const r = document.createElement("tr");
-    r.innerHTML = `<td>${entry.name}</td><td>${entry.comment}</td>`;
-    tbody.appendChild(r);
-    table.style.display = "table";
-  }
-
+  // Hide form, show thank you message
   thank.style.display = "block";
   form.style.display = "none";
+
+  // Show view button to admin if feedback exists
+  viewBtn.style.display = "inline-block";
 };
+
 </script>
 
 </body>
