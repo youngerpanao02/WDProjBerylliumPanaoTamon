@@ -37,7 +37,7 @@
 <header>
   <div class="logo">Shakespeare’s Quill</div>
   <nav>
-    <a href="index.html" class="nav-link active">Home</a>
+    <a href="home.html" class="nav-link active">Home</a>
     <a href="biography.html" class="nav-link">Biography</a>
     <a href="works.html" class="nav-link">Works</a>
     <a href="quotes.html" class="nav-link">Quotes</a>
@@ -51,28 +51,23 @@
   <p class="hero-sub fade-up">Poet. Playwright. Timeless voice of humanity.</p>
 </section>
 
-<!-- TIMELINE (UNCHANGED) -->
+<!-- TIMELINE -->
 <section class="timeline">
-  <h2>Shakespeare’s Works Through Time</h2><br><br><br><br><br><br>
+  <h2>Some of Shakespeare’s Works Through Time</h2><br><br><br><br><br><br>
   <div class="timeline-track">
-    <div class="event" data-year="1593" data-title="Venus and Adonis" data-desc="First published poem" data-pos="top"></div>
-    <div class="event" data-year="1594" data-title="Two Gentlemen of Verona" data-desc="Romantic comedy" data-pos="bottom"></div>
-    <div class="event" data-year="1595" data-title="A Midsummer Night’s Dream" data-desc="Fairy-tale comedy" data-pos="top"></div>
     <div class="event" data-year="1596" data-title="Romeo and Juliet" data-desc="Tragic love story" data-pos="bottom"></div>
     <div class="event" data-year="1597" data-title="Richard III" data-desc="Historical tragedy" data-pos="top"></div>
     <div class="event" data-year="1599" data-title="Henry V" data-desc="Heroic history" data-pos="bottom"></div>
     <div class="event" data-year="1600" data-title="Hamlet" data-desc="Revenge tragedy" data-pos="top"></div>
-    <div class="event" data-year="1601" data-title="Twelfth Night" data-desc="Masquerade comedy" data-pos="bottom"></div>
     <div class="event" data-year="1603" data-title="Othello" data-desc="Jealousy and betrayal" data-pos="top"></div>
     <div class="event" data-year="1605" data-title="King Lear" data-desc="Betrayal & fate" data-pos="bottom"></div>
     <div class="event" data-year="1606" data-title="Macbeth" data-desc="Ambition and downfall" data-pos="top"></div>
     <div class="event" data-year="1609" data-title="Sonnets" data-desc="154 poems of love & time" data-pos="bottom"></div>
-    <div class="event" data-year="1610" data-title="The Winter’s Tale" data-desc="Romantic drama" data-pos="top"></div>
     <div class="event" data-year="1611" data-title="The Tempest" data-desc="Final play masterpiece" data-pos="bottom"></div>
   </div>
 </section>
 
-<!-- MANUSCRIPT (UNCHANGED) -->
+<!-- Manuscript -->
 <section class="manuscript">
   <div class="manuscript-card fade-left"><h2>The Living Manuscript</h2><p>Shakespeare’s words breathe through centuries.</p></div>
   <div class="manuscript-card fade-up"><h2>A World on Stage</h2><p>From kings to fools, every soul finds a mirror.</p></div>
@@ -82,7 +77,7 @@
   <div class="manuscript-card fade-right"><h2>Harold Bloom</h2><p>“He is old because he is read.”</p></div>
 </section>
 
-<!-- 🔥 FEEDBACK (REPLACES GALLERY ONLY) -->
+<!-- Feedback -->
 <section class="feedback fade-up">
   <h2 class="glow">How fares our humble website?</h2>
   <p>Speak thy thoughts, good soul.</p>
@@ -105,20 +100,18 @@
   </table>
 </section>
 
-<!-- ORBIT (UNCHANGED) -->
+<!-- Orbit) -->
 <section class="orbit-section">
-  <div class="orbit-container">
-    <div class="orbit">
-      <div class="orbit-item" data-text="A chronicle of his life and rise.">Biography</div>
-      <div class="orbit-item" data-text="Ambition, madness, and fate.">Tragedies</div>
-      <div class="orbit-item" data-text="Love, wit, and disguise.">Comedies</div>
-      <div class="orbit-item" data-text="Kings, wars, and power.">Histories</div>
-      <div class="orbit-item" data-text="Poetry of time and beauty.">Sonnets</div>
-      <div class="orbit-item" data-text="Enduring cultural legacy.">Impact</div>
-    </div>
-    <div class="typewriter" id="typewriter">
-      Hover around the circle to unveil its themes.
-    </div>
+  <div class="star-container">
+    <button class="star-btn" data-text="A chronicle of his life and rise.">Biography</button>
+    <button class="star-btn" data-text="Ambition, madness, and fate.">Tragedies</button>
+    <button class="star-btn" data-text="Love, wit, and disguise.">Comedies</button>
+    <button class="star-btn" data-text="Kings, wars, and power.">Histories</button>
+    <button class="star-btn" data-text="Poetry of time and beauty.">Sonnets</button>
+    <button class="star-btn" data-text="Enduring cultural legacy.">Impact</button>
+  </div>
+  <div class="typewriter" id="typewriter">
+    Hover over a star to unveil its theme.
   </div>
 </section>
 
@@ -289,6 +282,28 @@ document.querySelectorAll(".gallery a").forEach(link => {
     closeBtn.addEventListener("click", () => overlay.remove());
     overlay.addEventListener("click", ev => {
       if (ev.target === overlay) overlay.remove();
+    });
+  });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const typeEl = document.getElementById("typewriter");
+  let typing;
+
+  document.querySelectorAll(".star-btn").forEach(btn => {
+    btn.addEventListener("mouseenter", () => {
+      clearInterval(typing);     
+      typeEl.textContent = "";     
+      const text = btn.dataset.text;
+      let i = 0;
+      typing = setInterval(() => {
+        typeEl.textContent += text.charAt(i);
+        i++;
+        if(i >= text.length) clearInterval(typing);
+      }, 40);
+    });
+    btn.addEventListener("mouseleave", () => {
+      clearInterval(typing);
+      typeEl.textContent = "Hover over a star to unveil its theme.";
     });
   });
 });
