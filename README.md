@@ -1,5 +1,12 @@
 # WDProjBerylliumPanaoTamon
 
+---
+
+## FINAL MODIFICATION PROPOSAL
+The final modification of our project includes public comments users can publish in the gallery section of our website. In each photo, there will be a comment section with the description where users can share their thoughts, knowledge, or even simply interact with other users. This can help develop new knowledge, insights, and connections through Shakespeare. Users can also edit or delete their comments anytime, which is how data in localStorage can be updated or removed.
+
+![wireframe](assets/prop.png)
+
 ## Website Title
 ### **Shakespeare’s Quill**
 A concise, memorable title that reflects the site’s devotion to **William Shakespeare’s creative legacy**.  
