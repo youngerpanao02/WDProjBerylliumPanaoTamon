@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shakespeare’s Quill | Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+  /* dark background */
+.nav-link img{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+
+.nav-link img.active{
+    border: 1px solid rgb(104, 92, 26);
+}
+
+.modal {
+  position: fixed;
+  border-radius: 8px;
+  overflow:visible;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  border: 2px rgb(104, 92, 26);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+  z-index: 5;
+}
+
+.name{
+  display: flex;
+  gap: 50px;
+}
+
+.userpass{
+  display: flex;
+  gap: 50px;
+}
+
+.addinfo{
+  display: flex;
+  gap: 50px;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group button{
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 30px;
+  background-color: rgb(104, 92, 26);
+  border-radius: 2px;
+  gap: 10px;
+}
+
+.create-btn {
+  text-decoration: none;
+  background-color: rgb(104, 92, 26);
+  color: black;
+  border-radius: 2px;
+}
+
+.button-group a{
+  width: 120px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 30px;
+  background-color: rgb(104, 92, 26);
+  border-radius: 2px;
+  gap: 10px;
+}
+
+fieldset {
+  border: none;
+}
+
+/* show modal */
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-box {
+  background: rgb(4, 25, 55);
+  padding: 20px;
+  border-radius: 10px;
+  width: 800px;
+  position: relative;
+
+  opacity: 0;
+  transform: translateY(-80px);
+  transition: transform 0.9s ease, opacity 0.9s ease;
+  border: 1px solid rgb(104, 92, 26);
+}
+
+.modal.fade-out .modal-box {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.modal-box h1{
+  color: rgb(104, 92, 26);
+}
+
+.modal.show .modal-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+label{
+  font-size: 18px;
+}
+
+</style>
+<body>
+
+<div class="aurora"></div>
+<div class="vignette"></div>
+
+<!-- EMBERS -->
+<div class="embers">
+  <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
+  <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
+  <span style="left:25%;animation-duration:14s;animation-delay:2s"></span>
+  <span style="left:35%;animation-duration:18s;animation-delay:6s"></span>
+  <span style="left:45%;animation-duration:15s;animation-delay:1s"></span>
+  <span style="left:55%;animation-duration:17s;animation-delay:5s"></span>
+  <span style="left:65%;animation-duration:13s;animation-delay:3s"></span>
+  <span style="left:75%;animation-duration:19s;animation-delay:7s"></span>
+  <span style="left:85%;animation-duration:14s;animation-delay:2s"></span>
+</div>
+
+<!-- MUSIC -->
+<audio id="bg-music" loop>
+  <source src="../assets/music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+
+<!-- CLICK SOUND -->
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
+
+<header>
+  <div class="logo">Shakespeare’s Quill</div>
+  <nav>
+    <a href="profile.html" class="nav-link active">
+        <img src="../assets/nopfp.png" alt="pfp">
+    </a>
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="biography.html" class="nav-link">Biography</a>
+    <a href="works.html" class="nav-link">Works</a>
+    <a href="quotes.html" class="nav-link">Quotes</a>
+    <a href="gallery.html" class="nav-link">Gallery</a>
+    <a href="resources.html" class="nav-link">Resources</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Profile</h1>
+  <p class="hero-sub fade-up">Poet. Playwright. Timeless voice of humanity.</p>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <h2>Some of Shakespeare’s Works Through Time</h2><br><br><br><br><br><br>
+  <div class="timeline-track">
+    <div class="event" data-year="1596" data-title="Romeo and Juliet" data-desc="Tragic love story" data-pos="bottom"></div>
+    <div class="event" data-year="1597" data-title="Richard III" data-desc="Historical tragedy" data-pos="top"></div>
+    <div class="event" data-year="1599" data-title="Henry V" data-desc="Heroic history" data-pos="bottom"></div>
+    <div class="event" data-year="1600" data-title="Hamlet" data-desc="Revenge tragedy" data-pos="top"></div>
+    <div class="event" data-year="1603" data-title="Othello" data-desc="Jealousy and betrayal" data-pos="top"></div>
+    <div class="event" data-year="1605" data-title="King Lear" data-desc="Betrayal & fate" data-pos="bottom"></div>
+    <div class="event" data-year="1606" data-title="Macbeth" data-desc="Ambition and downfall" data-pos="top"></div>
+    <div class="event" data-year="1609" data-title="Sonnets" data-desc="154 poems of love & time" data-pos="bottom"></div>
+    <div class="event" data-year="1611" data-title="The Tempest" data-desc="Final play masterpiece" data-pos="bottom"></div>
+  </div>
+</section>
+
+<!-- Manuscript -->
+<section class="manuscript">
+  <div class="manuscript-card fade-left"><h2>The Living Manuscript</h2><p>Shakespeare’s words breathe through centuries.</p></div>
+  <div class="manuscript-card fade-up"><h2>A World on Stage</h2><p>From kings to fools, every soul finds a mirror.</p></div>
+  <div class="manuscript-card fade-right"><h2>Ink That Outlived Time</h2><p>Language reshaped, emotions preserved.</p></div>
+  <div class="manuscript-card fade-left"><h2>Humanity, Penned</h2><p>Love, ambition, betrayal—immortalized.</p></div>
+  <div class="manuscript-card fade-up"><h2>The Guardian</h2><p>“A writer whose relevance refuses to fade.”</p></div>
+  <div class="manuscript-card fade-right"><h2>Harold Bloom</h2><p>“He is old because he is read.”</p></div>
+</section>
+
+<!-- Feedback -->
+<section class="feedback fade-up">
+  <h2 class="glow">How fares our humble website?</h2>
+  <p>Speak thy thoughts, good soul.</p>
+
+  <form id="feedbackForm">
+    <input type="text" id="fbName" placeholder="Thy Name" required>
+    <textarea id="fbComment" placeholder="What sayest thou?" required></textarea>
+    <button type="submit">Submit Thy Words</button>
+  </form>
+
+  <p id="thankYou" style="display:none;" class="glow">
+    “We thank thee kindly — thy voice now lives within these halls.”
+  </p>
+
+  <table id="feedbackTable" style="display:none;">
+    <thead>
+      <tr><th>Name</th><th>Comment</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section class="orbit-section">
+  <div class="star-container">
+    <button class="star-btn" data-text="Shakespeare’s life in Stratford-upon-Avon and his rise to literary fame shaped the works that still resonate today. His experiences influenced both his plays and poetry.">Biography</button>
+
+    <button class="star-btn" data-text="Tragedies depict ambition, jealousy, and the consequences of human flaws. These plays explore the darker sides of human nature and fate.">Tragedies</button>
+
+    <button class="star-btn" data-text="Comedies showcase wit, romance, and playful misunderstandings. They celebrate humor, cleverness, and the joys of life.">Comedies</button>
+
+    <button class="star-btn" data-text="Histories recount kings, wars, and political intrigue. They reflect on leadership, power struggles, and the shaping of nations.">Histories</button>
+
+    <button class="star-btn" data-text="Sonnets explore love, time, beauty, and mortality in lyrical verse. Each poem captures emotions and reflections that endure across centuries.">Sonnets</button>
+
+    <button class="star-btn" data-text="Shakespeare’s works have influenced literature, theatre, and art across generations. His legacy continues to shape culture and thought worldwide.">Impact</button>
+  </div>
+
+  <div class="typewriter" id="typewriter">
+    Hover over a star to unveil its theme.
+  </div>
+</section>
+
+<section class="seal-section">
+  <a href="works.html" class="seal nav-link"><span>Enter the Works</span></a>
+</section>
+
+<footer>© 2025 Shakespeare’s Quill</footer>
+
+<script>
+
+const signupModal = document.getElementById("signupModal");
+const loginModal = document.getElementById("loginModal");
+
+function hideAllModals() {
+  loginModal.classList.remove("show");
+  signupModal.classList.remove("show");
+}
+
+document.getElementById("goSignup").onclick = () => {
+  loginModal.classList.remove("show");
+  signupModal.classList.add("show");
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = localStorage.getItem("loggedIn");
+
+  if (!isLoggedIn) {
+    loginModal.classList.add("show");
+  }
+});
+
+document.getElementById("closeLogin").onclick = () => {
+  loginModal.classList.remove("show");
+};
+
+document.getElementById("closeSignup").onclick = () => {
+  signupModal.classList.remove("show");
+};
+
+function getAccounts() {
+  return JSON.parse(localStorage.getItem("accounts")) || [];
+}
+
+function saveAccounts(accounts) {
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+}
+
+document.getElementById("signUp").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const username = document.getElementById("su_user").value.trim();
+const password = document.getElementById("su_password").value.trim();
+
+  let accounts = getAccounts();
+
+  // check if username already exists
+  const exists = accounts.find(acc => acc.username === username);
+
+  if (exists) {
+    alert("Username already exists!");
+    return;
+  }
+
+  accounts.push({ username, password });
+  saveAccounts(accounts);
+
+  alert("Account created!");
+
+  // switch back to login
+  signupModal.classList.remove("show");
+  loginModal.classList.add("show");
+});
+
+document.getElementById("logIn").addEventListener("submit", function(e){
+  e.preventDefault();
+  
+
+  const username = document.getElementById("si_user").value.trim();
+const password = document.getElementById("si_password").value.trim();
+
+  let accounts = getAccounts();
+
+  const match = accounts.find(acc =>
+    acc.username === username && acc.password === password
+  );
+
+  if (!match) {
+    alert("Invalid username or password");
+    return;
+  }
+
+  alert("Login successful!");
+  loginModal.classList.add("fade-out");
+
+// remove modal completely after animation
+setTimeout(() => {
+  loginModal.classList.remove("show");
+  loginModal.classList.remove("fade-out");
+}, 500);
+
+// save login state
+localStorage.setItem("loggedIn", "true");
+
+});
+
+
+/* ==========================
+   MUSIC BUTTON
+========================== */
+
+const music = document.getElementById("bg-music");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  if (music.paused) {
+    music.play();
+    btn.textContent = "♪ Pause Music";
+  } else {
+    music.pause();
+    btn.textContent = "♪ Play Music";
+  }
+};
+
+/* ==========================
+   CLICK SOUND + NAV BLOCK
+========================== */
+const clickSound = document.getElementById("click-sound");
+const feedbackKey = "homeFeedbackDone";
+
+// Navigation blocking: user must submit feedback first
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+
+    clickSound.currentTime = 0;
+    clickSound.play();
+
+    setTimeout(() => {
+      window.location.href = link.href;
+    }, 300);
+  });
+});
+
+/* ==========================
+   TIMELINE ANIMATION
+========================== */
+const timelineEvents = document.querySelectorAll(".timeline .event");
+const timelineObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const ev = entry.target;
+      const titleText = ev.dataset.title;
+      const descText = ev.dataset.desc;
+      const pos = ev.dataset.pos;
+
+      if (!ev.querySelector("h3")) {
+        const title = document.createElement("h3");
+        title.textContent = titleText;
+        const desc = document.createElement("p");
+        desc.textContent = descText;
+
+        if(pos === "top"){
+          title.style.top = "-80px";
+          desc.style.top = "-58px";
+        } else {
+          title.style.top = "20px";
+          desc.style.top = "40px";
+        }
+
+        ev.appendChild(title);
+        ev.appendChild(desc);
+      }
+
+      ev.classList.add("show");
+    }
+  });
+}, { threshold: 0.5 });
+
+timelineEvents.forEach(e => timelineObserver.observe(e));
+
+/* ==========================
+   SCROLL ANIMATIONS (Fade-in)
+========================== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => e.target.classList.toggle("show", e.isIntersecting));
+}, { threshold: 0.3 });
+
+document.querySelectorAll(".fade-up,.fade-left,.fade-right,.star-container,.manuscript-card")
+.forEach(el => observer.observe(el));
+
+/* ==========================
+   TYPEWRITER EFFECT (Star buttons)
+========================== */
+const typeEl = document.getElementById("typewriter");
+let typing;
+document.querySelectorAll(".star-btn").forEach(item => {
+  item.addEventListener("mouseenter", () => {
+    clearInterval(typing);
+    typeEl.textContent = "";
+    const text = item.dataset.text;
+    let i = 0;
+    typing = setInterval(() => {
+      typeEl.textContent += text.charAt(i);
+      i++;
+      if (i >= text.length) clearInterval(typing);
+    }, 40);
+  });
+});
+
+/* ==========================
+   ADMIN-ONLY FEEDBACK
+========================== */
+const form = document.getElementById("feedbackForm");
+const table = document.getElementById("feedbackTable");
+const tbody = table.querySelector("tbody");
+const thank = document.getElementById("thankYou");
+
+// Secret admin key
+const adminKey = "sixsevennnnn";
+
+// Create View Feedback button for admin, hidden by default
+const viewBtn = document.createElement("button");
+viewBtn.textContent = "View Feedback (Admin)";
+viewBtn.style.display = "none"; // HIDE by default
+viewBtn.style.marginTop = "15px";
+viewBtn.style.padding = "10px 20px";
+viewBtn.style.fontFamily = "'Cinzel'";
+viewBtn.style.cursor = "pointer";
+viewBtn.style.border = "none";
+viewBtn.style.borderRadius = "6px";
+viewBtn.style.background = "#b89b5e";
+viewBtn.style.color = "#121826";
+viewBtn.style.boxShadow = "0 0 12px rgba(184,155,94,0.6)";
+document.querySelector(".feedback").appendChild(viewBtn);
+
+// Load stored feedback
+const stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+
+// Show view button only if feedback exists
+if (stored.length) {
+  viewBtn.style.display = "inline-block";
+}
+
+// Show table only if admin enters key
+viewBtn.addEventListener("click", () => {
+  const enteredKey = prompt("Enter admin key to view feedback:");
+  if (enteredKey === adminKey) {
+    // Show table
+    table.style.display = "table";
+    tbody.innerHTML = ""; // Clear old entries
+    stored.forEach(e => {
+      const r = document.createElement("tr");
+      r.innerHTML = `<td>${e.name}</td><td>${e.comment}</td>`;
+      tbody.appendChild(r);
+    });
+  } else {
+    alert("Incorrect key! Access denied.");
+  }
+});
+
+// Handle feedback submission
+form.onsubmit = e => {
+  e.preventDefault();
+
+  const fbName = document.getElementById("fbName").value.trim();
+  const fbComment = document.getElementById("fbComment").value.trim();
+
+  // Stop submission if empty (required fields)
+  if (!fbName || !fbComment) return;
+
+  const entry = { name: fbName, comment: fbComment };
+  let stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
+  stored.push(entry);
+  localStorage.setItem("feedbackList", JSON.stringify(stored));
+  localStorage.setItem(feedbackKey, "true");
+
+  // Hide form, show thank you message
+  thank.style.display = "block";
+  form.style.display = "none";
+
+  // Show view button to admin if feedback exists
+  viewBtn.style.display = "inline-block";
+};
+
+</script>
+
+</body>
+</html>

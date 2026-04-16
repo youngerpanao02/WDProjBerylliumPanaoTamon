@@ -8,6 +8,11 @@
 <link rel="icon" type="image/x-icon" href="../assets/tab.png">
 
 <style>
+.nav-link img{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
 /* --- RESET --- */
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: 'Cormorant Garamond', serif; background:#0d111c; color:#f3ead7; overflow-x:hidden; }
@@ -67,6 +72,9 @@ nav a:hover::after, nav a.active::after { width:100%; }
 <header>
   <div class="logo">Shakespeare’s Quill</div>
   <nav>
+    <a href="profile.html" class="nav-link">
+        <img src="../assets/nopfp.png" alt="pfp">
+    </a>
     <a href="home.html">Home</a>
     <a href="biography.html">Biography</a>
     <a href="works.html">Works</a>

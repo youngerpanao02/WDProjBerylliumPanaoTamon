@@ -8,6 +8,11 @@
 </head>
 
 <style>
+.nav-link img{
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
   /* dark background */
 .modal {
   position: fixed;
@@ -27,7 +32,7 @@
 
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.9s ease;
   z-index: 5;
 }
 
@@ -94,6 +99,12 @@ fieldset {
   pointer-events: auto;
 }
 
+.modal.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -114,8 +125,13 @@ fieldset {
 
   opacity: 0;
   transform: translateY(-80px);
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition: transform 0.9s ease, opacity 0.9s ease;
   border: 1px solid rgb(104, 92, 26);
+}
+
+.modal.fade-out .modal-box {
+  opacity: 0;
+  transform: scale(0.9);
 }
 
 .modal-box h1{
@@ -244,6 +260,9 @@ label{
 <header>
   <div class="logo">Shakespeare’s Quill</div>
   <nav>
+    <a href="profile.html" class="nav-link">
+        <img src="../assets/nopfp.png" alt="pfp">
+    </a>
     <a href="home.html" class="nav-link active">Home</a>
     <a href="biography.html" class="nav-link">Biography</a>
     <a href="works.html" class="nav-link">Works</a>
@@ -349,9 +368,11 @@ document.getElementById("goSignup").onclick = () => {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  requestAnimationFrame(() => {
+  const isLoggedIn = localStorage.getItem("loggedIn");
+
+  if (!isLoggedIn) {
     loginModal.classList.add("show");
-  });
+  }
 });
 
 document.getElementById("closeLogin").onclick = () => {
@@ -415,18 +436,23 @@ const password = document.getElementById("si_password").value.trim();
   }
 
   alert("Login successful!");
+  loginModal.classList.add("fade-out");
 
-  // optional redirect
+// remove modal completely after animation
+setTimeout(() => {
+  loginModal.classList.remove("show");
+  loginModal.classList.remove("fade-out");
+}, 500);
+
+// save login state
+localStorage.setItem("loggedIn", "true");
+
 });
 
 
 /* ==========================
    MUSIC BUTTON
 ========================== */
-
-window.addEventListener("load", () => {
-  loginModal.classList.add("show");
-});
 
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("musicBtn");
@@ -449,15 +475,14 @@ const feedbackKey = "homeFeedbackDone";
 // Navigation blocking: user must submit feedback first
 document.querySelectorAll(".nav-link").forEach(link => {
   link.addEventListener("click", e => {
-    if (!localStorage.getItem(feedbackKey)) {
-      e.preventDefault();
-      alert("Pray, leave thy thoughts ere thou depart.");
-      return;
-    }
     e.preventDefault();
+
     clickSound.currentTime = 0;
     clickSound.play();
-    setTimeout(() => window.location.href = link.href, 1000);
+
+    setTimeout(() => {
+      window.location.href = link.href;
+    }, 300);
   });
 });
 
