@@ -7,7 +7,214 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 
+<style>
+  /* dark background */
+.modal {
+  position: fixed;
+  border-radius: 8px;
+  overflow:visible;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  border: 2px rgb(104, 92, 26);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+}
+
+.name{
+  display: flex;
+  gap: 50px;
+}
+
+.userpass{
+  display: flex;
+  gap: 50px;
+}
+
+.addinfo{
+  display: flex;
+  gap: 50px;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group button{
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 30px;
+  background-color: rgb(104, 92, 26);
+  border-radius: 2px;
+  gap: 10px;
+}
+
+.create-btn {
+  text-decoration: none;
+  background-color: rgb(104, 92, 26);
+  color: black;
+  border-radius: 2px;
+}
+
+.button-group a{
+  width: 120px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 30px;
+  background-color: rgb(104, 92, 26);
+  border-radius: 2px;
+  gap: 10px;
+}
+
+fieldset {
+  border: none;
+}
+
+/* show modal */
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-box {
+  background: rgb(4, 25, 55);
+  padding: 20px;
+  border-radius: 10px;
+  width: 800px;
+  position: relative;
+
+  opacity: 0;
+  transform: translateY(-80px);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  border: 1px solid rgb(104, 92, 26);
+}
+
+.modal-box h1{
+  color: rgb(104, 92, 26);
+}
+
+.modal.show .modal-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+label{
+  font-size: 18px;
+}
+
+</style>
 <body>
+
+  <section>
+    <div id="loginModal" class="modal">
+  <div class="modal-box">
+    <button type="button" class="close-btn" id="closeLogin">×</button>
+    <h1 class="title">Sign in to your account</h1>
+        <form id="logIn" method="get">
+        <fieldset>
+          <legend>Your Account Information</legend><br/>
+          <label> Username or Email Address : </br>
+            <input type="text" name="user" id="si_user" required onblur="checkEmpty(this)" style="width: 500px; height: 25px;" />
+          </label><br/><br/>
+          <label> Password : </br>
+            <input type="password" name="password" id="si_password" required onblur="checkEmpty(this)" style="width: 500px; height: 25px;"/>
+          </label><br/><br/>
+
+          <div class="button-group">
+            <button type="button" id="goSignup">Create Account</button>
+            <button type="submit">Submit</button>
+          </div>
+    </form>
+  </div>
+</div>
+  </section>
+
+  <section>
+    <div id="signupModal" class="modal">
+    <div class="modal-box">
+      <button type="button" class="close-btn" id="closeSignup">×</button>
+        <h1 class="title">Register an account</h1>
+        <form id="signUp" method="get">
+        <fieldset>
+          <legend>Your Account Information</legend><br/>
+          <label>Email Address : </br>
+            <input type="text" name="emailadd" id="su_emailadd" required onblur="checkEmpty(this)" style="width: 500px; height: 25px;" />
+          </label><br/><br/>
+
+          <div class="name">
+          <label> First Name : </br>
+            <input type="text" name="fname" id="su_fname" required onblur="checkEmpty(this)" style="width: 200px; height: 25px;" />
+          </label><br/><br/>
+          <label> Last Name : </br>
+            <input type="text" name="lname" id="su_lname" required onblur="checkEmpty(this)" style="width: 200px; height: 25px;"/>
+          </label><br/><br/></br>
+          </div>
+
+          <div class="userpass">
+          <label>Username : </br>
+            <input type="text"  name="user" id="su_user" required onblur="checkEmpty(this)" style="width: 200px; height: 25px;"/>
+          </label><br/><br/>
+
+          <label>Password : </br>
+            <input type="password"  name="password" id="su_password" required onblur="checkEmpty(this)" style="width: 200px; height: 25px;"/>
+          </label><br/><br/>
+          </div>
+        </br>
+
+          <div class="addinfo">
+          <label>Birthday : </br>
+            <input type="date" name="bday" id="su-bday" required onblur="checkEmpty(this)" style="width: 200px; height: 25px;" />
+          </label><br/><br/>
+
+          <label>What made you use Shakespeare's Quill? : </br>
+                <select name="purpose" id="purpose" required onblur="checkEmpty(this)">
+                    <option value="">--Reason?--</option>
+                    <option value="edu">Education</option>
+                    <option value="interest">Interest/Curiosity</option>
+                    <option value="res">Research</option>
+                    <option value="lit">Literature</option>
+                    <option value="other">Others</option>
+                </select>
+                </label></br></br>
+                </div>
+              </br>
+
+          <div class="button-group">
+            <button type="submit">Submit</button>
+          </div>
+      </form>
+      </div>
+      </div>
+    </section>
 
 <div class="aurora"></div>
 <div class="vignette"></div>
@@ -42,7 +249,7 @@
     <a href="works.html" class="nav-link">Works</a>
     <a href="quotes.html" class="nav-link">Quotes</a>
     <a href="gallery.html" class="nav-link">Gallery</a>
-    <a href="resources.html" class="nav-link">Recources</a>
+    <a href="resources.html" class="nav-link">Resources</a>
   </nav>
 </header>
 
@@ -127,9 +334,100 @@
 <footer>© 2025 Shakespeare’s Quill</footer>
 
 <script>
+
+const signupModal = document.getElementById("signupModal");
+const loginModal = document.getElementById("loginModal");
+
+function hideAllModals() {
+  loginModal.classList.remove("show");
+  signupModal.classList.remove("show");
+}
+
+document.getElementById("goSignup").onclick = () => {
+  loginModal.classList.remove("show");
+  signupModal.classList.add("show");
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+  requestAnimationFrame(() => {
+    loginModal.classList.add("show");
+  });
+});
+
+document.getElementById("closeLogin").onclick = () => {
+  loginModal.classList.remove("show");
+};
+
+document.getElementById("closeSignup").onclick = () => {
+  signupModal.classList.remove("show");
+};
+
+function getAccounts() {
+  return JSON.parse(localStorage.getItem("accounts")) || [];
+}
+
+function saveAccounts(accounts) {
+  localStorage.setItem("accounts", JSON.stringify(accounts));
+}
+
+document.getElementById("signUp").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const username = document.getElementById("su_user").value.trim();
+const password = document.getElementById("su_password").value.trim();
+
+  let accounts = getAccounts();
+
+  // check if username already exists
+  const exists = accounts.find(acc => acc.username === username);
+
+  if (exists) {
+    alert("Username already exists!");
+    return;
+  }
+
+  accounts.push({ username, password });
+  saveAccounts(accounts);
+
+  alert("Account created!");
+
+  // switch back to login
+  signupModal.classList.remove("show");
+  loginModal.classList.add("show");
+});
+
+document.getElementById("logIn").addEventListener("submit", function(e){
+  e.preventDefault();
+  
+
+  const username = document.getElementById("si_user").value.trim();
+const password = document.getElementById("si_password").value.trim();
+
+  let accounts = getAccounts();
+
+  const match = accounts.find(acc =>
+    acc.username === username && acc.password === password
+  );
+
+  if (!match) {
+    alert("Invalid username or password");
+    return;
+  }
+
+  alert("Login successful!");
+
+  // optional redirect
+});
+
+
 /* ==========================
    MUSIC BUTTON
 ========================== */
+
+window.addEventListener("load", () => {
+  loginModal.classList.add("show");
+});
+
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("musicBtn");
 btn.onclick = () => {
@@ -238,7 +536,7 @@ const tbody = table.querySelector("tbody");
 const thank = document.getElementById("thankYou");
 
 // Secret admin key
-const adminKey = "MySuperSecretKey123";
+const adminKey = "sixsevennnnn";
 
 // Create View Feedback button for admin, hidden by default
 const viewBtn = document.createElement("button");
@@ -291,6 +589,7 @@ form.onsubmit = e => {
   if (!fbName || !fbComment) return;
 
   const entry = { name: fbName, comment: fbComment };
+  let stored = JSON.parse(localStorage.getItem("feedbackList")) || [];
   stored.push(entry);
   localStorage.setItem("feedbackList", JSON.stringify(stored));
   localStorage.setItem(feedbackKey, "true");

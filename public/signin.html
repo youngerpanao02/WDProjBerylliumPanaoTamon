@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+<link rel="icon" type="image/x-icon" href="../assets/tab.png">
+</head>
+
+<body>
+    <section>
+        <h1 class="title">Sign in to your account</h1>
+        <form id="logIn" method="get">
+        <fieldset>
+          <legend>Your Account Information</legend><br/>
+          <label> Username or Email Address : </br>
+            <input type="text" name="user" id="user" required onblur="checkEmpty(this)" />
+          </label><br/><br/>
+          <label> Password : </br>
+            <input type="password" name="password" id="name" required onblur="checkEmpty(this)" />
+          </label><br/><br/>
+
+          <div class="button-group">
+            <a href="signup.html" class="create-btn">Create Account</a>
+            <button type="submit">Submit</button>
+          </div>
+      </form>
+    </section>
+
+    <script>
+    </script>
+</body>
+
+</html>
