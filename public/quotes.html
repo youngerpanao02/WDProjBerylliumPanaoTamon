@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shakespeare’s Quill | Quotes</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -14,149 +15,132 @@
 /* =======================
    QUOTES PAGE SPECIFIC
 ======================= */
-.quotes-hero{
-  position:relative;
-  min-height:60vh;
-  display:flex;
-  flex-direction:column;      /* stack big quote + buttons */
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-  padding:80px 6% 40px;
-  z-index:1;
+.quotes-hero {
+  position: relative;
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 100px 5% 40px;
+  z-index: 1;
 }
 
-.big-quote{
-  font-size:clamp(2rem,4vw,3rem);
-  font-weight:700;
-  text-shadow: 0 0 8px #ff9c00, 0 0 16px #ff4500, 0 0 24px #ff6347;
-  animation:fireGlow 1.2s infinite alternate;
-  opacity:0;
-  max-width:900px;
-  margin-bottom:20px;   /* space between quote and buttons */
+.big-quote {
+  font-size: clamp(1.5rem, 5vw, 3rem); /* Fluid scaling */
+  font-weight: 700;
+  text-shadow: 0 0 8px #ff9c00, 0 0 16px #ff4500;
+  animation: fireGlow 1.2s infinite alternate;
+  opacity: 0;
+  max-width: 900px;
+  margin-bottom: 30px;
+  min-height: 120px; /* Prevents layout jump during typing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.controls{
-  display:flex;
-  gap:14px;
-  justify-content:center;
-  margin-top:0;   /* remove extra spacing */
+@keyframes fireGlow {
+  0% { text-shadow: 0 0 6px #ff9c00, 0 0 12px #ff4500; }
+  100% { text-shadow: 0 0 12px #ffd700, 0 0 24px #ff4500; }
 }
 
-
-@keyframes fireGlow{
-  0%{text-shadow:0 0 6px #ff9c00,0 0 12px #ff4500,0 0 18px #ff6347;}
-  50%{text-shadow:0 0 12px #ffd700,0 0 24px #ff4500,0 0 32px #ff6347;}
-  100%{text-shadow:0 0 6px #ff9c00,0 0 12px #ff4500,0 0 18px #ff6347;}
+/* CONTROLS */
+.controls {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap; /* Allows buttons to stack on very small screens */
 }
 
-.quote-grid-section{
-  opacity:0;
-  transition:opacity 1s ease-in-out;
+.btn-quote {
+  background: #bfa760;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 28px;
+  font-family: 'Cinzel';
+  font-weight: 700;
+  cursor: pointer;
+  color: #152238;
+  transition: 0.3s;
 }
 
-.quote-grid-section.show{
-  opacity:1;
+.btn-light { background: white; color: #152238; }
+.btn-quote:hover { transform: scale(1.05); box-shadow: 0 0 15px #ff9c00; }
+
+/* GRID SECTION */
+.quote-grid-section {
+  padding: 60px 5% 100px;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
 }
 
-/* QUOTE GRID */
-.quotes-layout{
-  max-width:1350px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 2fr;
-  gap:50px;
+.quote-grid-section.show { opacity: 1; }
+
+.quotes-layout {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr; /* Sidebar look */
+  gap: 50px;
 }
 
-.intro-box{color:white}
-.intro-title{font-size:2rem;margin-bottom:18px}
+.intro-box { color: white; position: sticky; top: 120px; height: fit-content; }
+.intro-title { font-family: 'Cinzel'; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 18px; color: #ffdf9e; }
 
-/* RECTANGULAR GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:32px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
 
-.card{
-  background:rgba(255, 255, 255, 0.15); /* transparent cards */
-  border-radius:18px;
-  padding:34px 36px;
-  position:relative;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  backdrop-filter: blur(4px);
+.card {
+  background: rgba(255, 234, 215, 0.08);
+  border-radius: 18px;
+  padding: 30px;
+  position: relative;
+  transition: 0.4s;
+  border: 1px solid rgba(255, 156, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 20px #ff9c00;
+.card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 234, 215, 0.12);
+  border-color: #ff9c00;
 }
 
-.card::before{
-  content:"❝";
-  position:absolute;
-  top:-14px;
-  left:16px;
-  font-size:4rem;
-  color:#cbb57a;
-  opacity:.5;
+.card::before {
+  content: "❝";
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  font-size: 3rem;
+  color: #cbb57a;
+  opacity: .3;
 }
 
-.card-content{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+.q { font-size: 1.15rem; margin-bottom: 15px; font-weight: 600; line-height: 1.4; color: #ffdf9e; }
+.meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: #bfa760; margin-bottom: 15px; font-family: 'Cinzel'; }
+.context { font-size: 0.95rem; line-height: 1.6; border-top: 1px solid rgba(203, 181, 122, 0.4); padding-top: 15px; color: #ddd; }
+
+/* TYPEWRITER CURSOR */
+.typing { border-right: 3px solid #ffdf9e; animation: blink 1s infinite; }
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* RESPONSIVE QUERIES */
+@media (max-width: 1080px) {
+  .quotes-layout { grid-template-columns: 1fr; }
+  .intro-box { position: static; text-align: center; margin-bottom: 40px; }
 }
 
-.q{font-size:1.05rem;margin-bottom:14px}
-.meta{display:flex;justify-content:space-between;font-size:.9rem;color:#e6e6e6}
-
-.context{
-  font-size:.95rem;
-  line-height:1.6;
-  border-left:2px solid #d6c28a;
-  padding-left:14px;
-  color:white;
-}
-
-/* TYPEWRITER */
-.typing{
-  border-right:3px solid white;
-  padding-right:4px;
-  animation:blink 1s infinite;
-}
-@keyframes blink{50%{border-color:transparent}}
-
-/* BUTTONS */
-.controls{display:flex;gap:14px;justify-content:center;margin-top:20px}
-
-.btn-quote{
-  background:#bfa760;
-  border:none;
-  padding:12px 28px;
-  border-radius:28px;
-  font-weight:700;
-  cursor:pointer;
-  color:#152238;
-}
-
-.btn-light{background:white;color:#152238}
-
-/* RESPONSIVE */
-@media(max-width:1080px){
-  .quotes-layout{grid-template-columns:1fr}
-}
-@media(max-width:700px){
-  .grid{grid-template-columns:1fr}
-  .card-content{grid-template-columns:1fr}
-  .context{
-    border-left:none;
-    border-top:2px solid #d6c28a;
-    padding-left:0;
-    padding-top:12px;
-  }
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .quotes-hero { min-height: 50vh; }
 }
 </style>
 </head>
@@ -165,26 +149,13 @@
 <div class="aurora"></div>
 <div class="vignette"></div>
 
-<!-- EMBERS -->
 <div class="embers">
-  <span style="left:5%;animation-duration:12s;animation-delay:0s"></span>
-  <span style="left:15%;animation-duration:16s;animation-delay:4s"></span>
-  <span style="left:25%;animation-duration:14s;animation-delay:2s"></span>
-  <span style="left:35%;animation-duration:18s;animation-delay:6s"></span>
-  <span style="left:45%;animation-duration:15s;animation-delay:1s"></span>
-  <span style="left:55%;animation-duration:17s;animation-delay:5s"></span>
-  <span style="left:65%;animation-duration:13s;animation-delay:3s"></span>
-  <span style="left:75%;animation-duration:19s;animation-delay:7s"></span>
-  <span style="left:85%;animation-duration:14s;animation-delay:2s"></span>
+<script>
+  for(let i=0; i<15; i++){
+    document.write(`<span style="left:${Math.random()*100}%; animation-duration:${10+Math.random()*10}s; animation-delay:${Math.random()*5}s"></span>`);
+  }
+</script>
 </div>
-
-<!-- MUSIC -->
-<audio id="bg-music" loop>
-  <source src="../assets/music.mp3" type="audio/mpeg">
-</audio>
-<button class="music-btn" id="musicBtn">♪ Play Music</button>
-<!-- CLICK SOUND -->
-<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
 
 <header>
   <div class="logo">Shakespeare’s Quill</div>
@@ -212,16 +183,13 @@
 </section>
 
 <section class="quote-grid-section">
-<div class="quotes-layout">
+  <div class="quotes-layout">
+    <div class="intro-box">
+      <h2 class="intro-title">Shakespeare’s Timeless Words</h2>
+      <p>Explore the wisdom, philosophy, and beauty of Shakespeare’s writing through these memorable quotes.</p>
+    </div>
 
-<div class="intro-box">
-<h2 class="intro-title">Shakespeare’s Timeless Words</h2>
-<p>Explore the wisdom, philosophy, and beauty of Shakespeare’s writing through these memorable quotes.</p>
-</div>
-
-<div class="grid">
-
-<!-- FULL QUOTES GRID -->
+    <div class="grid">
 <div class="card"><div class="card-content"><div><div class="q">“To be, or not to be — that is the question.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Hamlet reflects on the nature of existence, questioning whether it is nobler to endure suffering or to end one’s life.</div></div></div>
 
 <div class="card"><div class="card-content"><div><div class="q">“All the world’s a stage.”</div><div class="meta"><span>As You Like It</span><span>1599</span></div></div><div class="context">Jacques compares human life to a theatrical performance in which individuals play different roles throughout their lives.</div></div></div>
@@ -253,67 +221,80 @@
 <div class="card"><div class="card-content"><div><div class="q">“The lady doth protest too much.”</div><div class="meta"><span>Hamlet</span><span>1603</span></div></div><div class="context">Queen Gertrude comments on exaggerated expressions of innocence.</div></div></div>
 
 </div>
-</div>
+  </div>
 </section>
 
-<footer>© 2025 Shakespeare’s Quill</footer>
+<audio id="bg-music" loop><source src="../assets/music.mp3" type="audio/mpeg"></audio>
+<button class="music-btn" id="musicBtn">♪ Play Music</button>
+<audio id="click-sound" src="../assets/click.mp3" preload="auto"></audio>
+
+<footer>© 2026 Shakespeare’s Quill</footer>
 
 <script>
-/* MUSIC */
+/* MUSIC BUTTON */
 const music = document.getElementById("bg-music");
-const btn = document.getElementById("musicBtn");
-btn.onclick = () => {
-  music.paused ? (music.play(), btn.textContent="♪ Pause Music")
-               : (music.pause(), btn.textContent="♪ Play Music");
+const musicBtn = document.getElementById("musicBtn");
+musicBtn.onclick = () => {
+  music.paused ? (music.play(), musicBtn.textContent="♪ Pause Music") : (music.pause(), musicBtn.textContent="♪ Play Music");
+};
+
+/* 1-SECOND CLICK TRIMMER */
+const clickSound = document.getElementById("click-sound");
+function playClick() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+  setTimeout(() => { clickSound.pause(); }, 1000);
 }
 
-/* NAVBAR CLICK SOUND */
-const clickSound=document.getElementById("click-sound");
-document.querySelectorAll(".nav-link").forEach(link=>{
-  link.addEventListener("click",e=>{
+document.querySelectorAll(".nav-link").forEach(link => {
+  link.addEventListener("click", e => {
     e.preventDefault();
-    clickSound.currentTime=0;
-    clickSound.play();
-    const url=link.getAttribute("href");
-    setTimeout(()=>window.location.href=url,1000);
+    playClick();
+    setTimeout(() => { window.location.href = link.href; }, 800);
   });
 });
 
-/* TYPEWRITER QUOTE + GENERATE */
-const QUOTES=[
-  {text:"To be, or not to be — that is the question.",source:"Hamlet, 1603"},
-  {text:"All the world's a stage, and all the men and women merely players.",source:"As You Like It, 1599"},
-  {text:"The course of true love never did run smooth.",source:"A Midsummer Night’s Dream"},
-  {text:"If music be the food of love, play on.",source:"Twelfth Night, 1601"},
-  {text:"We are such stuff as dreams are made on.",source:"The Tempest, 1611"}
+/* QUOTES ARRAY */
+const QUOTES = [
+  {text:"To be, or not to be — that is the question.", source:"Hamlet, 1603"},
+  {text:"All the world's a stage, and all the men and women merely players.", source:"As You Like It, 1599"},
+  {text:"The course of true love never did run smooth.", source:"Midsummer Night’s Dream"},
+  {text:"If music be the food of love, play on.", source:"Twelfth Night, 1601"},
+  {text:"We are such stuff as dreams are made on.", source:"The Tempest, 1611"}
 ];
 
-const typeEl=document.getElementById("typewriter");
+const typeEl = document.getElementById("typewriter");
+let typingEffect;
 
-function typeText(text){
-  typeEl.textContent="";
-  let i=0;
-  const interval=setInterval(()=>{
-    typeEl.textContent+=text[i++]||"";
-    if(i>text.length) clearInterval(interval);
-  },30);
+function typeText(text) {
+  clearInterval(typingEffect);
+  typeEl.textContent = "";
+  let i = 0;
+  typingEffect = setInterval(() => {
+    if (i < text.length) {
+      typeEl.textContent += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(typingEffect);
+    }
+  }, 40);
 }
 
-function showRandom(){
-  const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];
+function showRandom() {
+  playClick();
+  const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
   typeText(q.text);
 }
 
-document.getElementById("genBtn").onclick=showRandom;
-document.getElementById("copyBtn").onclick=()=>{
+document.getElementById("genBtn").onclick = showRandom;
+document.getElementById("copyBtn").onclick = () => {
+  playClick();
   navigator.clipboard.writeText(typeEl.textContent);
 };
 
-window.addEventListener("load",()=>{
-  // show big quote
-  setTimeout(()=>{document.getElementById("bigQuote").style.opacity=1;},300);
-  // show grid after 3 seconds
-  setTimeout(()=>{document.querySelector(".quote-grid-section").classList.add("show");},3300);
+window.addEventListener("load", () => {
+  setTimeout(() => { document.getElementById("bigQuote").style.opacity = 1; }, 300);
+  setTimeout(() => { document.querySelector(".quote-grid-section").classList.add("show"); }, 1500);
   showRandom();
 });
 </script>
