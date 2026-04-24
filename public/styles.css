@@ -104,8 +104,10 @@ nav a.active::after {
 }
 
 .hero h1 {
-  font-family:'Cinzel';
-  font-size:72px;
+  font-family: 'Cinzel';
+  font-size: clamp(2.5rem, 8vw, 4.5rem); /* Dynamically scales text between 2.5rem and 4.5rem */
+  padding: 0 20px;
+  line-height: 1.2;
   animation: ink 2s ease forwards;
 }
 
@@ -225,28 +227,58 @@ nav a.active::after {
 }
 
 /* mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  /* Move line to the left on tablets/phones */
   .timeline-track {
-    width: 2px;
+    margin-left: 30px;
   }
 
-  .timeline .event {
-    width: 90%;
-    left: 20px !important;
+  /* Force all events to the right side of the line */
+  .timeline .event[data-pos="top"],
+  .timeline .event[data-pos="bottom"] {
+    left: 40px !important; 
+    width: calc(100% - 80px); /* Fill the screen width */
+    max-width: 500px;
+    transform: translateX(20px);
   }
 
+  /* Fix the dots to align with the new line position */
   .timeline .event::before {
-    left: -30px !important;
-    right: auto;
+    left: -48px !important;
+    right: auto !important;
+  }
+}
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  nav a {
+    margin-left: 0;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .logo {
+    font-size: 1.2rem;
   }
 }
 
 /* MANUSCRIPT */
 .manuscript {
-  padding:140px 12%;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:60px;
+  padding: 80px 5%; /* Reduced padding for tablets */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Fluidly wraps cards */
+  gap: 30px;
 }
 
 .manuscript-card {
@@ -268,8 +300,8 @@ nav a.active::after {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px;
-  position: relative;
+ padding: 25px 30px; /* Slightly smaller to fit more on one row */
+  font-size: clamp(0.9rem, 2vw, 1.2rem); 
 }
 
 .star-btn {

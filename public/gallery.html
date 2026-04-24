@@ -446,11 +446,13 @@ document.querySelectorAll(".gallery img").forEach(img=>{
     playClick();
     const overlay=document.createElement("div");
     overlay.className="gallery-overlay";
-    overlay.innerHTML=`
-      <img src="${img.src}" class="gallery-photo">
-      <div class="gallery-text">${img.dataset.text}</div>
-      <button class="gallery-close">×</button>
-    `;
+   // Inside your gallery.html script, change the width logic:
+overlay.innerHTML = `
+  <div class="overlay-content" style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:40px; max-width:1200px; width:95%;">
+    <img src="${img.src}" class="gallery-photo" style="max-width:500px; width:100%; height:auto;">
+    <div class="gallery-text" style="max-width:500px; width:100%;">${img.dataset.text}</div>
+  </div>
+`;
     document.body.appendChild(overlay);
 
     setTimeout(()=>{
@@ -492,7 +494,121 @@ glitchLink.addEventListener("click", (e) => {
   }, 8000); // 3s overlay + 5s scary sound
 });
 
+/* GALLERY OVERLAY WITH CRUD COMMENTS */
+document.querySelectorAll(".gallery img").forEach(img => {
+  img.onclick = () => {
+    playClick();
+    
+    // Use the image filename as a unique key for localStorage
+    const imgId = img.src.split('/').pop(); 
+    
+    const overlay = document.createElement("div");
+    overlay.className = "gallery-overlay";
+    overlay.innerHTML = `
+      <img src="${img.src}" class="gallery-photo">
+      <div class="gallery-text">
+        <p>${img.dataset.text}</p>
+        <hr style="margin:20px 0; border:0; border-top:1px solid #b89b5e;">
+        
+        <div class="comment-section">
+          <h3>Society Reflections</h3>
+          <div id="comment-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
+          
+          <div class="comment-input-area">
+            <input type="text" id="user-name" placeholder="Your Name" style="width:100%; margin-bottom:5px; padding:5px;">
+            <textarea id="new-comment" placeholder="Leave a reflection..." style="width:100%; height:60px; padding:5px;"></textarea>
+            <button id="submit-comment" style="background:#b89b5e; color:#121826; border:none; padding:8px; cursor:pointer; width:100%;">Publish to Gallery</button>
+          </div>
+        </div>
+      </div>
+      <button class="gallery-close">×</button>
+    `;
+    document.body.appendChild(overlay);
 
+    // Initial load of comments
+    renderComments(imgId);
+
+    // Submit Logic
+    overlay.querySelector("#submit-comment").onclick = () => {
+      const name = document.getElementById("user-name").value;
+      const text = document.getElementById("new-comment").value;
+      if(name && text) {
+        addComment(imgId, name, text);
+        document.getElementById("new-comment").value = "";
+      }
+    };
+
+    // Show animations
+    setTimeout(() => {
+      overlay.querySelector(".gallery-photo").classList.add("show");
+      overlay.querySelector(".gallery-text").classList.add("show");
+    }, 60);
+
+    // Close logic
+    overlay.onclick = e => {
+      if (e.target === overlay || e.target.classList.contains("gallery-close")) {
+        playClick();
+        overlay.remove();
+      }
+    }
+  }
+});
+
+//comments na to mga beh
+function addComment(imgId, name, text) {
+  let allComments = JSON.parse(localStorage.getItem('gallery_comments')) || {};
+  if (!allComments[imgId]) allComments[imgId] = [];
+  
+  allComments[imgId].push({
+    id: Date.now(), // spesyal id for deleting sus comments joke
+    name: name,
+    text: text
+  });
+  
+  localStorage.setItem('gallery_comments', JSON.stringify(allComments));
+  renderComments(imgId);
+}
+
+// pang displauy ng edit tsaka delete buttons
+function renderComments(imgId) {
+  const list = document.getElementById("comment-list");
+  const allComments = JSON.parse(localStorage.getItem('gallery_comments')) || {};
+  const comments = allComments[imgId] || [];
+  
+  list.innerHTML = comments.map((c, index) => `
+    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:10px; font-size:16px;">
+      <strong style="color:#ffdf9e;">${c.name}</strong>
+      <p id="text-${c.id}">${c.text}</p>
+      <div style="margin-top:5px; display:flex; gap:10px;">
+        <button onclick="editComment('${imgId}', ${c.id})" style="background:none; border:none; color:#b89b5e; cursor:pointer; font-size:12px; text-decoration:underline;">Edit</button>
+        <button onclick="deleteComment('${imgId}', ${c.id})" style="background:none; border:none; color:#ff4444; cursor:pointer; font-size:12px; text-decoration:underline;">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// updatingggg
+window.editComment = (imgId, commentId) => {
+  const newText = prompt("Update your reflection:");
+  if (newText) {
+    let allComments = JSON.parse(localStorage.getItem('gallery_comments'));
+    const index = allComments[imgId].findIndex(c => c.id === commentId);
+    allComments[imgId][index].text = newText;
+    localStorage.setItem('gallery_comments', JSON.stringify(allComments));
+    renderComments(imgId);
+  }
+}
+
+// DELETE BASHER COMMENTSD !!!
+window.deleteComment = (imgId, commentId) => {
+  if (confirm("Are you sure you want to remove this reflection?")) {
+    let allComments = JSON.parse(localStorage.getItem('gallery_comments'));
+    // filtering outtt
+    allComments[imgId] = allComments[imgId].filter(c => c.id !== commentId);
+    localStorage.setItem('gallery_comments', JSON.stringify(allComments));
+    renderComments(imgId);
+  }
+}
 </script>
 
 </body>
